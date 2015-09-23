@@ -7,29 +7,39 @@ import java.lang.reflect.Method;
 public class TestBench {
 
 	public static final int SLEEP_TIME = 2;
-	public static final int START_N = 1; //Initial workload.
-	public static final int FINAL_N = 50; //Final workload.
-	public static long result = 0;
-	public static long mean = 0;
-	public static final int SAMPLES = 3 ; //Samples to measure.
+	public static final int SAMPLES = 3 ;
+	public static final int START_N = 1;
+	public static final int FINAL_N = 50;
 	public static final String[] FILE_NAMES =  {"linear_means.csv", "quadratic_means.csv", "cubic_means.csv", "logarithmic_means.csv"};
 	public static final String[] ALGORITHMS = {"linear", "quadratic", "cubic", "logarithmic"};
 	
+	public static long result = 0;
+	public static long mean = 0;
+	
 	public static void main(String[] args) throws IOException {
-		for(int i = 0; i < FILE_NAMES.length; i++)
-			TestBench.test(FILE_NAMES[i], ALGORITHMS[i], START_N, FINAL_N, SAMPLES);
+		for(int i = 0; i < FILE_NAMES.length; i++) {
+			System.out.println("Algorithm..." + ALGORITHMS[i]);
+			if(i==2) {
+				TestBench.test(FILE_NAMES[i], ALGORITHMS[i], START_N, 20, SAMPLES); //Override for cubic.
+			} else {
+				TestBench.test(FILE_NAMES[i], ALGORITHMS[i], START_N, FINAL_N, SAMPLES);
+			}
+		}
 	}
 	
+	/**
+	 * Old and deprecated test method.
+	 * @param n long, represents the workload.
+	 */
 	public static void test (long n) {
 		long i = System.currentTimeMillis();
 		Algorithms.linear(n);
 		long f = System.currentTimeMillis();
-		result = f - i;
-		System.out.println("Time to execute = " + result +"ms.");
+		result = (f-i);
+		System.out.println("Time to execute = "+result+"ms.");
 	}
 	
 	/**
-	 * 
 	 * @param o String, output file name, example: quadratic.txt
 	 * @param a String, the name of the algorithm to test.
 	 * @param s Integer(int), the iteration where the algorithm will start.
@@ -44,7 +54,6 @@ public class TestBench {
 		while(i <= e) {
 			while(j > 0 ) {
 				long before = System.currentTimeMillis();
-				//Executes an algorithm for a given workload 'n'.
 				testAlgorithm ("Algorithms", a, i);
 				long after = System.currentTimeMillis();
 				result = (after-before);
@@ -66,7 +75,6 @@ public class TestBench {
 	 * @param i the current iteration, just to print.
 	 */
 	public static void doNothing(long i) {
-		System.out.println("Soing nothing at iteration... ("+i+")");
 		long endTime = System.currentTimeMillis() + SLEEP_TIME;
 		while(System.currentTimeMillis() < endTime) {
 			//do nothing.
@@ -83,7 +91,6 @@ public class TestBench {
 	public static void testAlgorithm (String cn, String mn, long n)	{    
 		Class<?> myClass = null;
 		Object myObject = null;
-
 		try {
 			myClass = Class.forName("src." + cn);
 			myObject = myClass.newInstance();
@@ -91,9 +98,7 @@ public class TestBench {
 			System.err.println("Error loading the class 1");
 			System.out.println(ex.toString());
 
-		}
-
-		try {
+		} try {
 			Class<?>[] params = new Class[1];
 			params[0] = Long.TYPE;
 			Method m = myClass.getMethod(mn, params);
