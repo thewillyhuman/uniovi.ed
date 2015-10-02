@@ -77,9 +77,10 @@ public class Algorithms {
 	 */
 	public static long pow(long n) {
 		long result = 1;
-		for(long i = 1; i<=n; i++)
+		for(long i = 1; i<=n; i++) {
 			result *= 2;
-		return result;
+			TestBench.doNothing(n);
+		} return result;
 	}
 	
 	/**
@@ -90,6 +91,7 @@ public class Algorithms {
 	 */
 	public static long powRec1(long n)
 	{
+		TestBench.doNothing(n);
 		if(n==0)
 			return 1;
 		else
@@ -103,6 +105,7 @@ public class Algorithms {
 	 */
 	public static long powRec2(long n)
 	{
+		TestBench.doNothing(n);
 		if(n==0)
 			return 1;
 		else
@@ -116,6 +119,7 @@ public class Algorithms {
 	 */
 	public static long powRec3(long n)
 	{
+		TestBench.doNothing(n);
 		if(n==0) {
 			return 1;
 		} else {
@@ -133,6 +137,7 @@ public class Algorithms {
 	 */
 	public static long powRec4(long n)
 	{
+		TestBench.doNothing(n);
 		if(n==0) {
 			return 1;
 		} else {
