@@ -79,7 +79,9 @@ public class SuperContainer <T, K> {
 	 * @return an String with all the values of the Container<T>
 	 */
 	public String toString() {
-		return (container.toString()+", "+info.toString()+", "+key);
+		StringBuilder toReturn = new StringBuilder();
+		toReturn.append(container.toString()).append(", ").append(info.toString()).append(", ").append(key);
+		return toReturn.toString();
 	}
 	
 

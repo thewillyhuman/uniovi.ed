@@ -47,7 +47,9 @@ public class GraphNode<T extends Comparable<T>> {
 	 * @return as an String formatted as GN(N:"element"/V:"visited").
 	 */
 	public String toString() {
-		return ("GN(N:"+this.getElement().toString()+"/V:"+this.isVisited()+")");
+		StringBuilder toReturn = new StringBuilder();
+		toReturn.append("GN(N:").append(this.getElement().toString()).append("/V:").append(this.isVisited()).append(")");
+		return toReturn.toString();
 	}
 	
 	/**
