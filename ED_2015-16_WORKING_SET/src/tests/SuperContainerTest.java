@@ -6,9 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import main.Container;
+//import main.GenericDataStructure;
 import main.SuperContainer;
 
-public class SuperContainerTest<T> {
+public class SuperContainerTest<T, U> {
 
 	private SuperContainer<Container<String>, String> StringStringSuperContainer;
 	private SuperContainer<Container<String>, Integer> StringIntegerSuperContainer;
@@ -21,6 +22,8 @@ public class SuperContainerTest<T> {
 	private SuperContainer<Container<Character>, String> CharStringSuperContainer;
 	private SuperContainer<Container<Character>, Integer> CharIntegerSuperContainer;
 	private SuperContainer<Container<Character>, Character> CharCharSuperContainer;
+	
+	//private SuperContainer<GenericDataStructure<U>, String> whatEver;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Before
@@ -42,6 +45,10 @@ public class SuperContainerTest<T> {
 		CharStringSuperContainer = new SuperContainer<Container<Character>, String>(CharContainer, "B", 1);
 		CharIntegerSuperContainer = new SuperContainer<Container<Character>, Integer>(CharContainer, 1, 1);
 		CharCharSuperContainer = new SuperContainer<Container<Character>, Character>(CharContainer, 'B', 1);
+		
+		//Development...
+		//Container<T> TContainer = new Container("pepe");
+		//whatEver = new SuperContainer<GenericDataStructure<U>, String>(TContainer, "B", 1);
 	}
 
 	@Test
