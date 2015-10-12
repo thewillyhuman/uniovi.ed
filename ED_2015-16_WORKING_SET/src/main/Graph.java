@@ -278,8 +278,9 @@ public class Graph<T extends Comparable<T>> {
 	 * @return string describing the minimum cost path.
 	 */
 	public String printFloydPath(T departure, T destination) {
-		if (departure.equals(destination))
+		if (departure.equals(destination)) {
 			return departure.toString();
+		}
 		int start = getNode(departure);
 		int end = getNode(destination);
 		int step = P[start][end];

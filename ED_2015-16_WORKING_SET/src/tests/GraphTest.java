@@ -354,7 +354,7 @@ public class GraphTest {
 			stringGraph.addNode("N4");
 			stringGraph.addNode("N5");
 		} catch (Exception e) {
-			System.out.println("No repeated nodes are allowed" + e);
+			System.out.println(e);
 		}
 		assertEquals(5, stringGraph.getSize());
 		assertEquals(0, stringGraph.getNode("N1"));
@@ -363,11 +363,15 @@ public class GraphTest {
 		assertEquals(3, stringGraph.getNode("N4"));
 		assertEquals(4, stringGraph.getNode("N5"));
 		assertArrayEquals(new boolean[][] { { false, false, false, false, false },
-				{ false, false, false, false, false }, { false, false, false, false, false },
-				{ false, false, false, false, false }, { false, false, false, false, false } }, stringGraph.getEdges());
-		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 },
-				{ 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 } },
-				stringGraph.getWeight());
+											{ false, false, false, false, false },
+											{ false, false, false, false, false },
+											{ false, false, false, false, false },
+											{ false, false, false, false, false } }, stringGraph.getEdges());
+		assertArrayEquals(new double[][] { 	{ 0.0, 0.0, 0.0, 0.0, 0.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 0.0 } }, stringGraph.getWeight());
 		try {
 			stringGraph.print();
 		} catch (Exception e3) {
@@ -382,13 +386,18 @@ public class GraphTest {
 			stringGraph.addEdge("N5", "N4", 7.0);
 
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println(e);
 		}
-		assertArrayEquals(new boolean[][] { { false, true, true, false, true }, { false, false, false, false, true },
-				{ false, false, false, false, true }, { false, false, false, false, false },
-				{ false, false, false, true, false } }, stringGraph.getEdges());
-		assertArrayEquals(new double[][] { { 0.0, 3.0, 4.0, 0.0, 8.0 }, { 0.0, 0.0, 0.0, 0.0, 5.0 },
-				{ 0.0, 0.0, 0.0, 0.0, 3.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 7.0, 0.0 } },
+		assertArrayEquals(new boolean[][] { { false, true, true, false, true },
+											{ false, false, false, false, true },
+											{ false, false, false, false, true },
+											{ false, false, false, false, false },
+											{ false, false, false, true, false } }, stringGraph.getEdges());
+		assertArrayEquals(new double[][] { 	{ 0.0, 3.0, 4.0, 0.0, 8.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 5.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 3.0 },
+											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
+											{ 0.0, 0.0, 0.0, 7.0, 0.0 } },
 				stringGraph.getWeight());
 		try {
 			assertEquals("N1-N2-N5-N4-N3-", stringGraph.traverseGraph("N1"));
@@ -401,18 +410,47 @@ public class GraphTest {
 			e1.printStackTrace();
 		}
 		stringGraph.floyd(stringGraph.getSize());
-		assertArrayEquals(new int[][] { { -1, -1, -1, 4, 2 }, { -1, -1, -1, 4, -1 }, { -1, -1, -1, 4, -1 },
-				{ -1, -1, -1, -1, -1 }, { -1, -1, -1, -1, -1 } }, stringGraph.getP());
-		assertArrayEquals(new double[][] { { 00.0, 03.0, 04.0, 14.0, 07.0 },
-				{ Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 12.0, 05.0 },
-				{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, 10.0, 03.0 },
-				{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER },
-				{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 07.0, 00.0 } }, stringGraph.getA());
+		assertArrayEquals(new int[][] { { -1, -1, -1, 4, 2 },
+										{ -1, -1, -1, 4, -1 },
+										{ -1, -1, -1, 4, -1 },
+										{ -1, -1, -1, -1, -1 },
+										{ -1, -1, -1, -1, -1 } }, stringGraph.getP());
+		assertArrayEquals(new double[][] { 	{ 00.0, 03.0, 04.0, 14.0, 07.0 },
+											{ Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 12.0, 05.0 },
+											{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, 10.0, 03.0 },
+											{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER },
+											{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 07.0, 00.0 } }, stringGraph.getA());
 		try {
-			assertEquals("N1N3N5", stringGraph.printFloydPath("N1", "N5"));
+			stringGraph.floyd(stringGraph.getSize());
+			assertEquals("N1N5", stringGraph.printFloydPath("N1", "N5"));
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println(e);
 		}
+		
+		//Easy integer test.
+		try {
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addNode(4);
+			integerGraph.addNode(5);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(3, 4, 1);
+			integerGraph.addEdge(4, 5, 4);
+			integerGraph.addEdge(3, 5, 1);
+		} catch (Exception e) {
+			System.out.println("No repeated nodes are allowed" + e);
+		}
+		integerGraph.floyd(integerGraph.getSize());
+		assertEquals("1235", integerGraph.printFloydPath(1, 5));
+		try {
+			integerGraph.addEdge(1, 5, 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		integerGraph.floyd(integerGraph.getSize());
+		assertEquals("15", integerGraph.printFloydPath(1, 5));
 	}
 
 }
