@@ -66,7 +66,7 @@ public class Graph<T extends Comparable<T>> {
 	 *             full.
 	 */
 	public void addNode(T element) throws Exception {
-		if(element==null) {
+		if (element == null) {
 			throw new Exception("You cannot add null elements to the graph.");
 		} else if (getSize() == weight.length) {
 			throw new Exception("The node cannot be added because there's no space.");
@@ -158,7 +158,7 @@ public class Graph<T extends Comparable<T>> {
 		}
 		return aux.toString();
 	}
-	
+
 	public void print() throws Exception {
 		System.out.println(traverseGraph(nodes.get(0).getElement()));
 	}
@@ -207,9 +207,8 @@ public class Graph<T extends Comparable<T>> {
 		weight[getNode(origin)][getNode(dest)] = 0.0;
 	}
 
-	
 	/* ---------- FLOYD ALGORITHM ---------- */
-	
+
 	/**
 	 * Returns matrix A from Floyd's algorithm. Contains the minimum cost of
 	 * going to any node from any other node.
@@ -229,7 +228,7 @@ public class Graph<T extends Comparable<T>> {
 	public int[][] getP() {
 		return P;
 	}
-	
+
 	/**
 	 * Initializes the A matrix giving it the weight of the edges of going
 	 * directly from each node to all the others, with infinite
@@ -246,7 +245,7 @@ public class Graph<T extends Comparable<T>> {
 			}
 		}
 	}
-	
+
 	/**
 	 * Executes the algorithm. Calculates the weight of going from each node to
 	 * all the others making a stop through a different node each time. If it's
@@ -268,13 +267,15 @@ public class Graph<T extends Comparable<T>> {
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns a string containing the path with the minimum cost to get from
 	 * one node to a different one using Floyd's algorithm
 	 * 
-	 * @param departure node to start floyd
-	 * @param destination node to end floyd
+	 * @param departure
+	 *            node to start floyd
+	 * @param destination
+	 *            node to end floyd
 	 * @return string describing the minimum cost path.
 	 */
 	public String printFloydPath(T departure, T destination) {

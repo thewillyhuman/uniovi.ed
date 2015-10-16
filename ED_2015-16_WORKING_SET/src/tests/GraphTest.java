@@ -26,7 +26,8 @@ public class GraphTest {
 		// Strings...
 		assertArrayEquals(new boolean[][] { { false, false, false, false, false },
 				{ false, false, false, false, false }, { false, false, false, false, false },
-				{ false, false, false, false, false }, { false, false, false, false, false } }, stringGraph.getEdges());
+				{ false, false, false, false, false }, { false, false, false, false, false } },
+				stringGraph.getEdges());
 		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 } },
 				stringGraph.getWeight());
@@ -43,7 +44,8 @@ public class GraphTest {
 		// Characters...
 		assertArrayEquals(new boolean[][] { { false, false, false, false, false },
 				{ false, false, false, false, false }, { false, false, false, false, false },
-				{ false, false, false, false, false }, { false, false, false, false, false } }, charGraph.getEdges());
+				{ false, false, false, false, false }, { false, false, false, false, false } },
+				charGraph.getEdges());
 		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 } },
 				charGraph.getWeight());
@@ -283,6 +285,73 @@ public class GraphTest {
 	}
 
 	@Test
+	public void removeEdgeTest() throws Exception {
+		// Strings...
+		stringGraph.addNode("AA");
+		stringGraph.addNode("AB");
+		stringGraph.addNode("AC");
+		stringGraph.addNode("BA");
+		stringGraph.addNode("BB");
+		stringGraph.addEdge("AA", "AB", 0.5);
+		stringGraph.addEdge("AA", "AC", 0.5);
+		assertEquals(true, stringGraph.existsEdge("AA", "AB"));
+		assertEquals(true, stringGraph.existsEdge("AA", "AC"));
+		stringGraph.removeEdge("AA", "AB");
+		assertEquals(false, stringGraph.existsEdge("AA", "AB"));
+		stringGraph.removeEdge("AA", "AC");
+		assertEquals(false, stringGraph.existsEdge("AA", "AC"));
+		try {
+			stringGraph.removeEdge("AA", "AC");
+			fail("This edge has already been removed and then it must throw an exception.");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		// Integers...
+		integerGraph.addNode(1);
+		integerGraph.addNode(2);
+		integerGraph.addNode(3);
+		integerGraph.addNode(4);
+		integerGraph.addNode(5);
+		integerGraph.addEdge(1, 2, 0.5);
+		integerGraph.addEdge(1, 3, 0.5);
+		assertEquals(true, integerGraph.existsEdge(1, 2));
+		assertEquals(true, integerGraph.existsEdge(1, 3));
+		integerGraph.removeEdge(1, 2);
+		assertEquals(false, integerGraph.existsEdge(1, 2));
+		integerGraph.removeEdge(1, 3);
+		assertEquals(false, integerGraph.existsEdge(1, 3));
+		try {
+			integerGraph.removeEdge(1, 3);
+			fail("This edge has already been removed and then it must throw an exception.");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		// Characters...
+		charGraph.addNode('a');
+		charGraph.addNode('b');
+		charGraph.addNode('c');
+		charGraph.addNode('d');
+		charGraph.addNode('e');
+		charGraph.addEdge('a', 'b', 0.5);
+		charGraph.addEdge('a', 'c', 0.5);
+		assertEquals(true, charGraph.existsEdge('a', 'b'));
+		assertEquals(true, charGraph.existsEdge('a', 'c'));
+		charGraph.removeEdge('a', 'b');
+		assertEquals(false, charGraph.existsEdge('a', 'b'));
+		charGraph.removeEdge('a', 'c');
+		assertEquals(false, charGraph.existsEdge('a', 'c'));
+		try {
+			charGraph.removeEdge('a', 'c');
+			fail("This edge has already been removed and then it must throw an exception.");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+
+	@Test
 	public void traverseGraphTest() throws Exception {
 		// Strings...
 		stringGraph.addNode("AA");
@@ -363,15 +432,11 @@ public class GraphTest {
 		assertEquals(3, stringGraph.getNode("N4"));
 		assertEquals(4, stringGraph.getNode("N5"));
 		assertArrayEquals(new boolean[][] { { false, false, false, false, false },
-											{ false, false, false, false, false },
-											{ false, false, false, false, false },
-											{ false, false, false, false, false },
-											{ false, false, false, false, false } }, stringGraph.getEdges());
-		assertArrayEquals(new double[][] { 	{ 0.0, 0.0, 0.0, 0.0, 0.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 0.0 } }, stringGraph.getWeight());
+				{ false, false, false, false, false }, { false, false, false, false, false },
+				{ false, false, false, false, false }, { false, false, false, false, false } }, stringGraph.getEdges());
+		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 },
+				{ 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 } },
+				stringGraph.getWeight());
 		try {
 			stringGraph.print();
 		} catch (Exception e3) {
@@ -388,16 +453,11 @@ public class GraphTest {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		assertArrayEquals(new boolean[][] { { false, true, true, false, true },
-											{ false, false, false, false, true },
-											{ false, false, false, false, true },
-											{ false, false, false, false, false },
-											{ false, false, false, true, false } }, stringGraph.getEdges());
-		assertArrayEquals(new double[][] { 	{ 0.0, 3.0, 4.0, 0.0, 8.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 5.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 3.0 },
-											{ 0.0, 0.0, 0.0, 0.0, 0.0 },
-											{ 0.0, 0.0, 0.0, 7.0, 0.0 } },
+		assertArrayEquals(new boolean[][] { { false, true, true, false, true }, { false, false, false, false, true },
+				{ false, false, false, false, true }, { false, false, false, false, false },
+				{ false, false, false, true, false } }, stringGraph.getEdges());
+		assertArrayEquals(new double[][] { { 0.0, 3.0, 4.0, 0.0, 8.0 }, { 0.0, 0.0, 0.0, 0.0, 5.0 },
+				{ 0.0, 0.0, 0.0, 0.0, 3.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 7.0, 0.0 } },
 				stringGraph.getWeight());
 		try {
 			assertEquals("N1-N2-N5-N4-N3-", stringGraph.traverseGraph("N1"));
@@ -410,24 +470,21 @@ public class GraphTest {
 			e1.printStackTrace();
 		}
 		stringGraph.floyd(stringGraph.getSize());
-		assertArrayEquals(new int[][] { { -1, -1, -1, 4, 2 },
-										{ -1, -1, -1, 4, -1 },
-										{ -1, -1, -1, 4, -1 },
-										{ -1, -1, -1, -1, -1 },
-										{ -1, -1, -1, -1, -1 } }, stringGraph.getP());
-		assertArrayEquals(new double[][] { 	{ 00.0, 03.0, 04.0, 14.0, 07.0 },
-											{ Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 12.0, 05.0 },
-											{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, 10.0, 03.0 },
-											{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER },
-											{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 07.0, 00.0 } }, stringGraph.getA());
+		assertArrayEquals(new int[][] { { -1, -1, -1, 4, 2 }, { -1, -1, -1, 4, -1 }, { -1, -1, -1, 4, -1 },
+				{ -1, -1, -1, -1, -1 }, { -1, -1, -1, -1, -1 } }, stringGraph.getP());
+		assertArrayEquals(new double[][] { { 00.0, 03.0, 04.0, 14.0, 07.0 },
+				{ Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 12.0, 05.0 },
+				{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, 10.0, 03.0 },
+				{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER },
+				{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 07.0, 00.0 } }, stringGraph.getA());
 		try {
 			stringGraph.floyd(stringGraph.getSize());
 			assertEquals("N1N5", stringGraph.printFloydPath("N1", "N5"));
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		//Easy integer test.
+
+		// Easy integer test.
 		try {
 			integerGraph.addNode(1);
 			integerGraph.addNode(2);
