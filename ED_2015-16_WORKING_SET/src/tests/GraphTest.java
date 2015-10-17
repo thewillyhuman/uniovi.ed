@@ -519,6 +519,33 @@ public class GraphTest {
 	public void getPDTest() {
 		//Falta implementaci�n
 	}
+	
+	@Test
+	public void isStronglyConnectedTest() {
+		try {
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addNode(4);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 1, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 4, 1);
+			integerGraph.addEdge(4, 3, 1);
+			integerGraph.addEdge(4, 2, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		//Up to this moment the node 2 is almost strongly connected one but it's not yet.
+		assertEquals(false, integerGraph.isStronglyConnected(2));
+		try {
+			//Now, with the new edge 2 is a full strongly connected node.
+			integerGraph.addEdge(3, 2, 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertEquals(true, integerGraph.isStronglyConnected(2));
+	}
 
 
 }

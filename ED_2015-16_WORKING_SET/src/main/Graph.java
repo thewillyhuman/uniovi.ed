@@ -243,8 +243,8 @@ public class Graph<T extends Comparable<T>> {
 	private void initFloyd() {
 		A = getWeight();
 		P = new int[getSize()][getSize()];
-		for (int i = 0; i < A.length; i++) {
-			for (int j = 0; j < A[0].length; j++) {
+		for (int i = 0; i < getSize(); i++) {
+			for (int j = 0; j < getSize(); j++) {
 				P[i][j] = -1;
 				if (A[i][j] == 0.0 && i != j)
 					A[i][j] = MAX_NUMBER;
@@ -388,5 +388,30 @@ public class Graph<T extends Comparable<T>> {
 			}
 		}
 		
+	}
+	
+	// EXAM
+	/**
+	 * Checks whether a node is strongly connected, i.e. there is a path from
+	 * the node to every other node in the graph and at the same time from every
+	 * other node to it.
+	 * 
+	 * @param node
+	 *            Node to check
+	 * @return whether the node is strongly connected
+	 */
+	public boolean isStronglyConnected(T node) {
+		int index = getNode(node);
+		floyd(getSize());
+		boolean result = true;
+
+		for (int i = 0; i < getSize(); i++) {
+			if (A[index][i] == MAX_NUMBER && index != i)
+				result = false;
+			if (A[i][index] == MAX_NUMBER && index != i)
+				result = false;
+		}
+
+		return result;
 	}
 }
