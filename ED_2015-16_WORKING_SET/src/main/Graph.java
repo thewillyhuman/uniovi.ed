@@ -60,6 +60,7 @@ public class Graph<T extends Comparable<T>> {
 		return nodes.size();
 	}
 
+
 	/**
 	 * Given a T element we create a node in the graph.
 	 * 
@@ -258,6 +259,9 @@ public class Graph<T extends Comparable<T>> {
 	 * node is written in the P matrix.
 	 */
 	public void floyd(int An) {
+		if(An > getSize()) {
+			An = getSize();
+		}
 		initFloyd();
 		for (int i = 0; i < An; i++) {
 			for (int j = 0; j < getSize(); j++) {
@@ -274,8 +278,10 @@ public class Graph<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Returns a string containing the path with the minimum cost to get from
-	 * one node to a different one using Floyd's algorithm
+	 * Returns an String containing the path with the minimum cost to get from
+	 * one node to a different one using Floyd's algorithm. Notice that my algorithm return the hole path
+	 * from the departure to the destination both of them included. If not, then for a direct connection
+	 * would return an empty String
 	 * 
 	 * @param departure
 	 *            node to start floyd
@@ -287,13 +293,12 @@ public class Graph<T extends Comparable<T>> {
 		if (departure.equals(destination)) {
 			return departure.toString();
 		}
-		int start = getNode(departure) ;
-		int end = getNode(destination) ;
+		int start = getNode(departure);
+		int end = getNode(destination);
 		int step = P[start][end];
 		if (step == -1 && edges[start][end])
 			step = start;
-		return printFloydPath(departure, getElement(step))
-				+ getElement(end).toString();
+		return printFloydPath(departure, getElement(step)) + getElement(end).toString();
 	}
 
 	/* ---------- DIJKSTRA ALGORITHM ---------- */
