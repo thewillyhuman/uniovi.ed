@@ -509,5 +509,16 @@ public class GraphTest {
 		integerGraph.floyd(integerGraph.getSize());
 		assertEquals("15", integerGraph.printFloydPath(1, 5));
 	}
+	
+	@Test
+	public void getDTest() {
+		//Falta implementación
+	}
+	
+	@Test
+	public void getPDTest() {
+		//Falta implementación
+	}
+
 
 }

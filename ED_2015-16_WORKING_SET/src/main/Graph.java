@@ -14,9 +14,13 @@ public class Graph<T extends Comparable<T>> {
 	private double[][] A;
 	private int[][] P;
 
+	// Dijkstra attributes
+	private double[] D;
+	private int[] PD;
+	
 	// Constants.
 	public static final int INDEX_NOT_FOUND = -1;
-	public final static Double MAX_NUMBER = Double.MAX_VALUE;
+	public final static Double MAX_NUMBER = 99.0;// Double.MAX_VALUE;
 
 	public Graph(int n) {
 		if (n > 0) {
@@ -69,7 +73,8 @@ public class Graph<T extends Comparable<T>> {
 		if (element == null) {
 			throw new Exception("You cannot add null elements to the graph.");
 		} else if (getSize() == weight.length) {
-			throw new Exception("The node cannot be added because there's no space.");
+			throw new Exception(
+					"The node cannot be added because there's no space.");
 		}
 		for (GraphNode<T> node : nodes) {
 			if (node.getElement().equals(element))
@@ -255,8 +260,8 @@ public class Graph<T extends Comparable<T>> {
 	public void floyd(int An) {
 		initFloyd();
 		for (int i = 0; i < An; i++) {
-			for (int j = 0; j < An; j++) {
-				for (int k = 0; k < An; k++) {
+			for (int j = 0; j < getSize(); j++) {
+				for (int k = 0; k < getSize(); k++) {
 					if ((A[i][k] + A[k][j]) < A[i][j]) {
 						A[i][j] = (A[i][k] + A[k][j]);
 						P[i][j] = k;
@@ -282,11 +287,101 @@ public class Graph<T extends Comparable<T>> {
 		if (departure.equals(destination)) {
 			return departure.toString();
 		}
-		int start = getNode(departure);
-		int end = getNode(destination);
+		int start = getNode(departure) ;
+		int end = getNode(destination) ;
 		int step = P[start][end];
 		if (step == -1 && edges[start][end])
 			step = start;
-		return printFloydPath(departure, getElement(step)) + getElement(end).toString();
+		return printFloydPath(departure, getElement(step))
+				+ getElement(end).toString();
+	}
+
+	/* ---------- DIJKSTRA ALGORITHM ---------- */
+	
+	/**
+	 * Returns matrix D from Dijkstra's algorithm. Contains the minimum cost of
+	 * going to any node from the node the algorithm has been executed over.
+	 * We're doing it in that way because the assertArrayEqualsTo has a bug for double[].
+	 * 
+	 * @return Dijkstra's D matrix.
+	 */
+	public double[][] getD() {
+		double[][] aux = new double[1][D.length];
+		aux[0] = D;
+		return aux;
+	}
+
+	/**
+	 * Returns matrix P from Dijkstra's algorithm. Contains the previous node
+	 * that must be visited to get to any node from the node the algorithm has
+	 * been executed over.
+	 * 
+	 * @return Dijkstra's P matrix
+	 */
+	public int[] getPD() {
+		return PD;
+	}
+	
+	/**
+	 * Initializes Dijkstra's algorithm creating matrices D and P and giving
+	 * them the initial values. If there's an edge between two node, D will
+	 * contain its weight and P the index of the starting node, otherwise D will
+	 * contain infinite and P -1.
+	 * 
+	 * @param departureNode
+	 *            node the execute Dijkstra's algorithm over.
+	 */
+	private void initDijkstra(T departureNode) {
+		D = new double[getSize()];
+		PD = new int[getSize()];
+		int departureIndex = getNode(departureNode);
+
+		for (int i = 0; i < getSize(); i++) {
+			nodes.get(i).setVisited(false);
+			if(departureIndex == i) {
+				D[i] = 0.0;
+				PD[i] = -1;
+			} else if (edges[departureIndex][i]) {
+				D[i] = weight[departureIndex][i];
+				PD[i] = departureIndex;
+			} else {
+				D[i] = MAX_NUMBER;
+				PD[i] = -1;
+			}
+		}
+	}
+	
+	/**
+	 * Complexity --> O(n2)
+	 * Quadratic implementation for the Dijkstra algorithm. This algorithm calculates
+	 * the shortest path from a source node to every other nodes in the graph.
+	 */
+	public void Dijkstra(T departureNode) {
+		initDijkstra(departureNode);
+		int dn = this.getNode(departureNode);
+		nodes.get(dn).setVisited(true);
+		
+		for(int i = 1; i < this.getSize(); i++) {
+			double min = MAX_NUMBER;
+			int w = -1;
+			for(int j = 0; j < this.getSize(); j++) {
+				if(!nodes.get(j).isVisited() && D[j] < min) {
+					min = D[j];
+					w = j;
+				}
+			}
+			
+			if(w != -1) {
+				nodes.get(w).setVisited(true);
+				
+				for(int k = 0; k < getSize(); k++) { //Change this loop to every node in the domain exceppt the current
+					if(edges[w][k] && D[w] + weight[w][k] < D[k]) {
+						D[k] = D[w] + weight[w][k];
+						PD[k] = w;
+					}
+				}
+			}
+		}
+		
 	}
 }
