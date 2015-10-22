@@ -392,6 +392,7 @@ public class Graph<T extends Comparable<T>> {
 	
 	/* ---------- SOME OWN EXAMPLES OF WORKING WITH GRAPHS ---------- */
 	/**
+	 * IMPLEMENTING FLOYD
 	 * Checks whether a node is strongly connected, i.e. there is a path from
 	 * the node to every other node in the graph and at the same time from every
 	 * other node to it.
@@ -414,6 +415,7 @@ public class Graph<T extends Comparable<T>> {
 
 		return result;
 	}
+	
 	
 	/**
 	 * IMPLEMENTING FLOYD
@@ -503,7 +505,6 @@ public class Graph<T extends Comparable<T>> {
 	public int gradoNodo(T node) {
 		int index = getNode(node);
 		int result = 0;
-		
 		for(int i = 0; i < getSize(); i++) {
 			if(edges[i][index])
 				result++;
@@ -524,7 +525,6 @@ public class Graph<T extends Comparable<T>> {
 			if(gn < result)
 				result = gn;
 		}
-		
 		return result;
 	}
 	
@@ -541,7 +541,6 @@ public class Graph<T extends Comparable<T>> {
 			if(gn > result)
 				result = gn;
 		}
-		
 		return result;
 	}
 }
