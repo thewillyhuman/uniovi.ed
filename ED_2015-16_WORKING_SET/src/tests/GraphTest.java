@@ -546,6 +546,90 @@ public class GraphTest {
 		}
 		assertEquals(true, integerGraph.isStronglyConnected(2));
 	}
+	
+	@Test
+	public void diametroTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 5);
+			integerGraph.addEdge(1, 2, 2);
+			integerGraph.addEdge(2, 3, 3);
+			integerGraph.addEdge(1, 3, 2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(7, (int)integerGraph.diametro());
+	}
+	
+	@Test
+	public void diametroDijkstraTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 5);
+			integerGraph.addEdge(1, 2, 2);
+			integerGraph.addEdge(2, 3, 3);
+			integerGraph.addEdge(1, 3, 2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(7, (int)integerGraph.diametroDijkstra());
+	}
 
+	@Test
+	public void gradoNodoTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 1);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 3, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(2, integerGraph.gradoNodo(3));
+	}
+	
+	@Test
+	public void minGradoNodoTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 1);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 3, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(0, integerGraph.minGradoNodo());
+	}
+	
+	@Test
+	public void maxGradoNodoTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 1);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 3, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(2, integerGraph.maxGradoNodo());
+	}
 
 }
