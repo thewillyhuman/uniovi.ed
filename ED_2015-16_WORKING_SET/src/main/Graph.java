@@ -1,7 +1,6 @@
 package main;
 
 import main.GraphNode;
-
 import java.util.ArrayList;
 
 public class Graph<T extends Comparable<T>> {
@@ -388,5 +387,181 @@ public class Graph<T extends Comparable<T>> {
 			}
 		}
 		
+	}
+	
+	/**
+	 * It return the number of nodes n such that is possible to go from the
+	 * source to them and return to the source with no more cost than the one provided.
+	 * 
+	 * @param source the node where we start the algorithm and therefore the path
+	 * @param cost. The maximum possible cost to reach and return any nodes from the source.
+	 * @return the number of reachable nodes within the range of cost.
+	 * @throws Exception if the cost provided is negative. Cost must be always positive.
+	 */
+	public int getNumberOfReturnNodesWithinCost(T source, double cost) throws Exception {
+		if(cost < 0)
+			throw new Exception("Costs cannot be negative.");
+		int index = getNode(source);
+		floyd(getSize());
+		int result = 1;
+		for(int i = 0; i < getSize(); i++) {
+			if((A[index][i]+A[i][index]) <= cost && index != i)
+				result++;
+		}
+		return result;
+	}
+	
+	/* ---------- SOME OWN EXAMPLES OF WORKING WITH GRAPHS ---------- */
+	/**
+	 * IMPLEMENTING FLOYD
+	 * Checks whether a node is strongly connected, i.e. there is a path from
+	 * the node to every other node in the graph and at the same time from every
+	 * other node to it.
+	 * 
+	 * @param node
+	 *            Node to check
+	 * @return whether the node is strongly connected
+	 */
+	public boolean isStronglyConnected(T node) {
+		int index = getNode(node);
+		floyd(getSize());
+		boolean result = true;
+
+		for (int i = 0; i < getSize(); i++) {
+			if (A[index][i] == MAX_NUMBER && index != i)
+				result = false;
+			if (A[i][index] == MAX_NUMBER && index != i)
+				result = false;
+		}
+
+		return result;
+	}
+	
+	
+	/**
+	 * IMPLEMENTING FLOYD
+	 * Given a T node check all the minimum paths to the other nodes and returns
+	 * the one with maximum distance.
+	 * 
+	 * @param the node where we're going to calculate the excentricidad 
+	 * @return the maximum distance from this node to every other node as a double.
+	 */
+	public double excentricidad(T node) {
+		int index = getNode(node);
+		floyd(getSize());
+		double result = 0.0;
+		
+		for (int i = 0; i < getSize(); i++) {
+			if (A[index][i] > result && index != i && A[index][i] != MAX_NUMBER)
+				result = A[index][i];
+			if (A[i][index] > result && index != i && A[i][index] != MAX_NUMBER)
+				result = A[i][index];
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * IMPLEMENTING DIJKSTRA
+	 * Given a T node check all the minimum paths to the other nodes and returns
+	 * the one with maximum distance.
+	 * 
+	 * @param the node where we're going to calculate the excentricidad 
+	 * @return the maximum distance from this node to every other node as a double.
+	 */
+	public double excentricidadDijkstra(T node){
+		Dijkstra(node);
+		double distances[][] = getD();
+		double result = 0.0;
+
+		for(int i = 0; i < distances[0].length; i++) {
+			if(distances[0][i] > result && distances[0][i] < MAX_NUMBER)
+				result = distances[0][i];
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * IMPLEMENTING FLOYD
+	 * Return the diameter of the graph, that is the longest path of the minimum ones.
+	 * 
+	 * @return double diameter.
+	 */
+	public double diametro() {
+		double result = 0.0;
+		for(GraphNode<T> node : nodes) {
+			double ex = excentricidad(node.getElement());
+			if(ex > result){
+				result = ex;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * IMPLEMENTING DIJKSTRA
+	 * Same as diameter but this time implementing Dijkstra.
+	 * @return
+	 */
+	public double diametroDijkstra(){
+		double result = 0.0;
+		for(GraphNode<T> node : nodes) {
+			double ex = excentricidadDijkstra(node.getElement());
+			if(ex > result){
+				result = ex;
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Número de aristas incidentes en el vértice. If edges[i][index] incoming, if edges[index][i] outcomming.
+	 * 
+	 * @param node
+	 * @return integer value with the number of aristas.
+	 */
+	public int gradoNodo(T node) {
+		int index = getNode(node);
+		int result = 0;
+		for(int i = 0; i < getSize(); i++) {
+			if(edges[i][index])
+				result++;
+		}
+		return result;
+	}
+	
+	/**
+	 * Número mínimo de aristas incidentes en un vértice
+	 * de entre todos los vértices existentes en el grafo
+	 * 
+	 * @return integer. Número mínimo de aristas incidentes
+	 */
+	public int minGradoNodo() {
+		int result = Integer.MAX_VALUE;
+		for(GraphNode<T> node : nodes) {
+			int gn = gradoNodo(node.getElement());
+			if(gn < result)
+				result = gn;
+		}
+		return result;
+	}
+	
+	/**
+	 * Número máximo de aristas que inciden en un vértice de
+	 * entre todos los vértices del grafo.
+	 * 
+	 * @return integer. Número máximo de aristas que incide
+	 */
+	public int maxGradoNodo() {
+		int result = 0;
+		for(GraphNode<T> node : nodes) {
+			int gn = gradoNodo(node.getElement());
+			if(gn > result)
+				result = gn;
+		}
+		return result;
 	}
 }

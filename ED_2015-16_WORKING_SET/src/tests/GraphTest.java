@@ -519,5 +519,196 @@ public class GraphTest {
 	public void getPDTest() {
 		//Falta implementaci�n
 	}
+	
+	@Test
+	public void getNumberOfReturnNodesWithinCostTest() {
+		// Strings...
+		try {
+			stringGraph.addNode("A");
+			stringGraph.addNode("B");
+			stringGraph.addNode("C");
+			stringGraph.addEdge("A", "B", 1.0);
+			stringGraph.addEdge("B", "A", 1.0);
+			stringGraph.addEdge("B", "C", 2.0);
+			stringGraph.addEdge("C", "A", 1.0);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			assertEquals(1, stringGraph.getNumberOfReturnNodesWithinCost("A", 1));
+			assertEquals(2, stringGraph.getNumberOfReturnNodesWithinCost("A", 2));
+			assertEquals(3, stringGraph.getNumberOfReturnNodesWithinCost("A", 4));
+			assertEquals(2, stringGraph.getNumberOfReturnNodesWithinCost("B", 2));
+			assertEquals(3, stringGraph.getNumberOfReturnNodesWithinCost("B", 6));
+		} catch (Exception e) {
+			fail("Something fail... at the testing Strings");
+			System.out.println(e);
+		}
+
+		try {
+			assertEquals(1, stringGraph.getNumberOfReturnNodesWithinCost("A", -1));
+			fail("An Exception should be thrown as not your're getting this error.");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		// Integers...
+		try {
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(1, 2, 1.0);
+			integerGraph.addEdge(2, 1, 1.0);
+			integerGraph.addEdge(2, 3, 2.0);
+			integerGraph.addEdge(3, 1, 1.0);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			assertEquals(1, integerGraph.getNumberOfReturnNodesWithinCost(1, 1));
+			assertEquals(2, integerGraph.getNumberOfReturnNodesWithinCost(1, 2));
+			assertEquals(3, integerGraph.getNumberOfReturnNodesWithinCost(1, 4));
+		} catch (Exception e) {
+			fail("Something fail... at the testing Integers");
+			System.out.println(e);
+		}
+
+		// Chars...
+		try {
+			charGraph.addNode('A');
+			charGraph.addNode('B');
+			charGraph.addNode('C');
+			charGraph.addEdge('A', 'B', 1.0);
+			charGraph.addEdge('B', 'A', 1.0);
+			charGraph.addEdge('B', 'C', 2.0);
+			charGraph.addEdge('C', 'A', 1.0);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			assertEquals(1, charGraph.getNumberOfReturnNodesWithinCost('A', 1));
+			assertEquals(2, charGraph.getNumberOfReturnNodesWithinCost('A', 2));
+			assertEquals(3, charGraph.getNumberOfReturnNodesWithinCost('A', 4));
+		} catch (Exception e) {
+			fail("Something fail... at the testing Chars");
+			System.out.println(e);
+		}
+	}
+
+	
+	@Test
+	public void isStronglyConnectedTest() {
+		try {
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addNode(4);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 1, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 4, 1);
+			integerGraph.addEdge(4, 3, 1);
+			integerGraph.addEdge(4, 2, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		//Up to this moment the node 2 is almost strongly connected one but it's not yet.
+		assertEquals(false, integerGraph.isStronglyConnected(2));
+		try {
+			//Now, with the new edge 2 is a full strongly connected node.
+			integerGraph.addEdge(3, 2, 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertEquals(true, integerGraph.isStronglyConnected(2));
+	}
+	
+	@Test
+	public void diametroTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 5);
+			integerGraph.addEdge(1, 2, 2);
+			integerGraph.addEdge(2, 3, 3);
+			integerGraph.addEdge(1, 3, 2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(7, (int)integerGraph.diametro());
+	}
+	
+	@Test
+	public void diametroDijkstraTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 5);
+			integerGraph.addEdge(1, 2, 2);
+			integerGraph.addEdge(2, 3, 3);
+			integerGraph.addEdge(1, 3, 2);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(7, (int)integerGraph.diametroDijkstra());
+	}
+
+	@Test
+	public void gradoNodoTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 1);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 3, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(2, integerGraph.gradoNodo(3));
+	}
+	
+	@Test
+	public void minGradoNodoTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 1);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 3, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(0, integerGraph.minGradoNodo());
+	}
+	
+	@Test
+	public void maxGradoNodoTest() {
+		try {
+			integerGraph.addNode(0);
+			integerGraph.addNode(1);
+			integerGraph.addNode(2);
+			integerGraph.addNode(3);
+			integerGraph.addEdge(0, 1, 1);
+			integerGraph.addEdge(1, 2, 1);
+			integerGraph.addEdge(2, 3, 1);
+			integerGraph.addEdge(1, 3, 1);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		assertEquals(2, integerGraph.maxGradoNodo());
+	}
 
 }
