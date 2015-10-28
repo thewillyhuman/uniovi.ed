@@ -1,4 +1,4 @@
-package main;
+package graphs;
 
 public class GraphNode<T extends Comparable<T>> {
 	

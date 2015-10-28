@@ -1,4 +1,4 @@
-package main;
+package graphs;
 import java.util.Collections;
 import java.util.LinkedList;
 

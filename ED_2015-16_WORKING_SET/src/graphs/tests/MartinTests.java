@@ -1,10 +1,11 @@
-package tests;
+package graphs.tests;
 
 import static org.junit.Assert.*;
-import main.Graph;
-import main.GraphNode;
 
 import org.junit.Test;
+
+import graphs.Graph;
+import graphs.GraphNode;
 
 public class MartinTests {
 

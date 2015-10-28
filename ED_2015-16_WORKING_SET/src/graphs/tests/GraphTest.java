@@ -1,12 +1,11 @@
-package tests;
+package graphs.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-
-import main.Graph;
-
 import org.junit.Test;
+
+import graphs.Graph;
 
 public class GraphTest {
 

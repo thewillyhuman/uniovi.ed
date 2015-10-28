@@ -1,13 +1,12 @@
-package tests;
+package graphs.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Container;
-//import main.GenericDataStructure;
-import main.SuperContainer;
+import graphs.Container;
+import graphs.SuperContainer;
 
 public class SuperContainerTest<T, U> {
 

@@ -1,11 +1,11 @@
-package tests;
+package graphs.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import main.GraphNode;
+import graphs.GraphNode;
 
 public class GraphNodeTest {
 	

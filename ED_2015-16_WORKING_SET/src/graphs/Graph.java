@@ -1,7 +1,8 @@
-package main;
+package graphs;
 
-import main.GraphNode;
 import java.util.ArrayList;
+
+import graphs.GraphNode;
 
 public class Graph<T extends Comparable<T>> {
 
