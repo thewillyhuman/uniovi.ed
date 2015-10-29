@@ -1,5 +1,11 @@
 package avl;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version 2015.10.29.1
+ * @param <T> Type of data that the structure will contain.
+ */
 public class AVL<T extends Comparable<T>> {
 
     AVLNode<T> root;

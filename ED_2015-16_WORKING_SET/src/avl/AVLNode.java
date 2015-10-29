@@ -1,5 +1,11 @@
 package avl;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version 2015.10.29.1
+ * @param <T> Type of data the node will store.
+ */
 public class AVLNode<T extends Comparable<T>> {
 
     private T element;
