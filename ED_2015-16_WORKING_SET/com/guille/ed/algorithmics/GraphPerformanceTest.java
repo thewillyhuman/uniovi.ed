@@ -2,6 +2,12 @@ package com.guille.ed.algorithmics;
 
 import com.guille.ed.graphs.Graph;
 
+/**
+ * This class measures the performance of some graph algorithms.
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.2
+ */
 public class GraphPerformanceTest {
 
 	private static final double MAX_WEIGHT = Graph.MAX_NUMBER;
