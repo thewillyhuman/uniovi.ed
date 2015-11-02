@@ -1,4 +1,4 @@
-package graphs;
+package src.graphs;
 
 public class SuperContainer <T, K> {
 

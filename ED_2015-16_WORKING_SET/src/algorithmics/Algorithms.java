@@ -1,4 +1,4 @@
-package algorithmics;
+package src.algorithmics;
 
 /**
  * The Algorithms class contains sample algorithms whose  temporal complexities will be evaluated. 

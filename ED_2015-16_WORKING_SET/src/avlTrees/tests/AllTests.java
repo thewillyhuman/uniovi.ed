@@ -1,4 +1,4 @@
-package avlTrees.tests;
+package src.avlTrees.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

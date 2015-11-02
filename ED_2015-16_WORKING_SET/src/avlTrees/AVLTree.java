@@ -1,4 +1,4 @@
-package avlTrees;
+package src.avlTrees;
 
 /**
  * 
