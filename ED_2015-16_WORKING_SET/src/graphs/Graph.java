@@ -1,8 +1,8 @@
-package src.graphs;
+package graphs;
 
 import java.util.ArrayList;
 
-import src.graphs.GraphNode;
+import graphs.GraphNode;
 
 public class Graph<T extends Comparable<T>> {
 

@@ -1,4 +1,4 @@
-package src.algorithmics;
+package algorithmics;
 
 import java.io.FileWriter;
 import java.io.IOException;

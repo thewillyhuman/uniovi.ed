@@ -1,10 +1,10 @@
-package src.algorithmics.test;
+package algorithmics.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import src.algorithmics.Algorithms;
+import algorithmics.Algorithms;
 
 public class AlgorithmicsTest {
 
