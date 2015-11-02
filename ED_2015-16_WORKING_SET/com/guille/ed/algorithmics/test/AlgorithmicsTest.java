@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import com.guille.ed.algorithmics.Algorithms;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version martin.2
+ */
 public class AlgorithmicsTest {
 
 	@Test

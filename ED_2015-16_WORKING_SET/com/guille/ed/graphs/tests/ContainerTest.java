@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.guille.ed.graphs.Container;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class ContainerTest {
 
 	Container<String> StringContainer = null;

@@ -6,7 +6,16 @@ import org.junit.Test;
 
 import com.guille.ed.graphs.Graph;
 import com.guille.ed.graphs.GraphNode;
+import com.guille.util.annotations.MartinTest;
+import com.guille.util.annotations.MartinTest.Priority;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
+@SuppressWarnings("deprecation")
+@MartinTest(Priority.HIGH)
 public class MartinTests {
 
 	@Test

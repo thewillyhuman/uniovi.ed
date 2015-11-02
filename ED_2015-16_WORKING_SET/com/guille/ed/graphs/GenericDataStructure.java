@@ -3,6 +3,13 @@ package com.guille.ed.graphs;
 import java.util.Collections;
 import java.util.LinkedList;
 
+/**
+ * Creates a data structure of a given T type of data.
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version martin.2
+ * @param <T> Type of data the data structure will contain.
+ */
 public class GenericDataStructure<T extends Comparable<T>> {
 
 	private LinkedList<T> collection;

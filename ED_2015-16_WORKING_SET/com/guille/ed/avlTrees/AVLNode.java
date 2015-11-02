@@ -1,5 +1,11 @@
 package com.guille.ed.avlTrees;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ * @param <T> Type of data that the AVLNode will contain.
+ */
 public class AVLNode<T extends Comparable<T>> {
 
 	private T element;

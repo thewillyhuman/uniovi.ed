@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.guille.ed.avlTrees.AVLTree;
 
+/**
+ * 
+ * @author Guillermo facundo Colunga
+ * @version carlos.2
+ */
 public class AVLTreeTest {
 
 	AVLTree<String> stringTree;

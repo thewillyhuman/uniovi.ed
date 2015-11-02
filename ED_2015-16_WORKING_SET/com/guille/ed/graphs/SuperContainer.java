@@ -1,5 +1,12 @@
 package com.guille.ed.graphs;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version martin.2
+ * @param <T>
+ * @param <K>
+ */
 public class SuperContainer<T, K> {
 
 	private Container<T> container;

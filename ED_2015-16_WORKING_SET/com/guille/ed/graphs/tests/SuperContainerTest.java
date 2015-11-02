@@ -8,6 +8,11 @@ import org.junit.Test;
 import com.guille.ed.graphs.Container;
 import com.guille.ed.graphs.SuperContainer;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class SuperContainerTest<T, U> {
 
 	private SuperContainer<Container<String>, String> StringStringSuperContainer;

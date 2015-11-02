@@ -1,5 +1,12 @@
 package com.guille.ed.graphs;
 
+/**
+ * Creates a container that can store any kind of data.
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version martin.2
+ * @param <T> Type of data the container will store.
+ */
 public class Container<T> {
 
 	private T element;

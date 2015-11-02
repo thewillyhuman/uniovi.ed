@@ -8,7 +8,13 @@ import com.guille.ed.avlTrees.AVLTree;
 import com.guille.util.annotations.MartinTest;
 import com.guille.util.annotations.MartinTest.Priority;
 
+@SuppressWarnings("deprecation")
 @MartinTest(Priority.HIGH)
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class AVLTreeMartinTest {
 
 	@Test

@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.guille.ed.graphs.GraphNode;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class GraphNodeTest {
 
 	private GraphNode<String> StringGraphNode;

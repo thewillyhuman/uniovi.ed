@@ -1,5 +1,12 @@
 package com.guille.ed.graphs;
 
+/**
+ * Creates a Node for a graph. Represented as the element and a boolean value indicating if it has been visited.
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ * @param <T> Type of data stored in the node.
+ */
 public class GraphNode<T extends Comparable<T>> {
 
 	private T element;

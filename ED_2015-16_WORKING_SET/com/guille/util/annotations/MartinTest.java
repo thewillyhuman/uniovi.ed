@@ -5,6 +5,8 @@ package com.guille.util.annotations;
  * at execution time.
  * 
  * @author Guillermo Facundo Colunga
+ * @version carlos.2
+ * @deprecated This annotation may not be included in future versions.
  */
 public @interface MartinTest {
 

@@ -4,6 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+/**
+ * Class used to test algorithms. It includes a test method that given an output file name, and the method
+ * to test as the initial, and final workload computes several times the measure of its execution.
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class TestBench {
 
 	private static final int SLEEP_TIME = 2;

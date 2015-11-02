@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.guille.ed.graphs.Graph;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class GraphTest {
 
 	private Graph<String> stringGraph;

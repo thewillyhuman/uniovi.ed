@@ -6,6 +6,12 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AVLTreeMartinTest.class, AVLTreeTest.class })
+
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.2
+ */
 public class AllAVLTests {
 
 }

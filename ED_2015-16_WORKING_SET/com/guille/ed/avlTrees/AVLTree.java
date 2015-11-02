@@ -3,7 +3,7 @@ package com.guille.ed.avlTrees;
 /**
  * 
  * @author Guillermo Facundo Colunga
- * @version 2015.10.29.1
+ * @version carlos.2
  * @param <T> Type of data that the structure will contain.
  */
 public class AVLTree<T extends Comparable<T>> {

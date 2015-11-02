@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import com.guille.ed.graphs.GenericDataStructure;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ */
 public class GenericDataStructureTest {
 
 	private GenericDataStructure<String> StringGds = null;

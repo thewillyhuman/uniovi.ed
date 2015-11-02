@@ -4,6 +4,12 @@ import java.util.ArrayList;
 
 import com.guille.ed.graphs.GraphNode;
 
+/**
+ * Simulates a graph by creating nodes, edges and some methods like Floyd and Dijkstra.
+ * @author Guillermo Facundo Colunga
+ * @version carlos.1
+ * @param <T> Type of data stored in the graph.
+ */
 public class Graph<T extends Comparable<T>> {
 
 	ArrayList<GraphNode<T>> nodes;
