@@ -3,9 +3,11 @@ package avlTrees.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.guille.annotations.MartinTest;
+import com.guille.annotations.MartinTest.Priority;
+
 import avlTrees.AVLTree;
-import com.guille.anotations.MartinTest;
-import com.guille.anotations.MartinTest.Priority;
 
 @MartinTest(Priority.HIGH)
 public class AVLTreeMartinTest {
