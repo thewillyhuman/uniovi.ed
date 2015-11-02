@@ -6,6 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AVLTreeMartinTest.class, AVLTreeTest.class })
-public class AllTests {
+public class AllAVLTests {
 
 }
