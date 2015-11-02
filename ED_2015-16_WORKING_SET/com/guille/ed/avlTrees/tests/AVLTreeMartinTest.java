@@ -3,13 +3,11 @@ package com.guille.ed.avlTrees.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
 import com.guille.ed.avlTrees.AVLTree;
 import com.guille.util.annotations.MartinTest;
-import com.guille.util.annotations.MartinTest.Priority;
 
 @SuppressWarnings("deprecation")
-@MartinTest(Priority.HIGH)
+@MartinTest()
 /**
  * 
  * @author Guillermo Facundo Colunga

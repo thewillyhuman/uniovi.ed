@@ -14,7 +14,7 @@ public class HijoPutaException extends Exception {
 	}
 
 	public HijoPutaException(String message) {
-		super(message);
+		super("JUST JOKING --> " + message);
 	}
 
 	public HijoPutaException(Throwable cause) {

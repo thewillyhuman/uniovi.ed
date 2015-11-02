@@ -3,11 +3,9 @@ package com.guille.ed.graphs.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
 import com.guille.ed.graphs.Graph;
 import com.guille.ed.graphs.GraphNode;
 import com.guille.util.annotations.MartinTest;
-import com.guille.util.annotations.MartinTest.Priority;
 
 /**
  * 
@@ -15,7 +13,7 @@ import com.guille.util.annotations.MartinTest.Priority;
  * @version carlos.1
  */
 @SuppressWarnings("deprecation")
-@MartinTest(Priority.HIGH)
+@MartinTest()
 public class GraphMartinTest {
 
 	@Test

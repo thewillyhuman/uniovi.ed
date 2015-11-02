@@ -17,6 +17,4 @@ public @interface MartinTest {
 	Priority priority() default Priority.HIGH;
 
 	String author() default "Martin Gonzalez";
-
-	Priority value();
 }
