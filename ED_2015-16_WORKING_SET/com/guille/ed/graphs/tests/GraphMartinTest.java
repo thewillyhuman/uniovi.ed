@@ -16,7 +16,7 @@ import com.guille.util.annotations.MartinTest.Priority;
  */
 @SuppressWarnings("deprecation")
 @MartinTest(Priority.HIGH)
-public class MartinTests {
+public class GraphMartinTest {
 
 	@Test
 	public void GraphNodeTest() {

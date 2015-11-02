@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ ContainerTest.class, GenericDataStructureTest.class, GraphNodeTest.class, SuperContainerTest.class,
-		MartinTests.class, GraphTest.class })
+		GraphMartinTest.class, GraphTest.class })
 /**
  * 
  * @author Guillermo Facundo Colunga
