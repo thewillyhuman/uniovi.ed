@@ -1,6 +1,6 @@
-package algorithmics;
+package src.algorithmics;
 
-import graphs.Graph;
+import src.graphs.Graph;
 
 public class GraphPerformanceTest {
 

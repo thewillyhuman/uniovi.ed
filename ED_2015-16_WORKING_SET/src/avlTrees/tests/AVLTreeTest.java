@@ -1,11 +1,11 @@
-package avlTrees.tests;
+package src.avlTrees.tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import avlTrees.AVLTree;
+import src.avlTrees.AVLTree;
 
 public class AVLTreeTest {
 
