@@ -23,19 +23,15 @@ public class GraphPerformanceTest {
 	 */
 	public static Graph<Integer> initGraph(int n) throws Exception {
 		Graph<Integer> graph = new Graph<Integer>(n);
-
 		for (int i = 0; i < n; i++) {
 			graph.addNode(i);
 		}
-
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				graph.addEdge(i, j, (int) Math.random() * MAX_WEIGHT);
 			}
 		}
-
 		return graph;
-
 	}
 
 	/**
@@ -57,7 +53,7 @@ public class GraphPerformanceTest {
 	 * the resulting graph.
 	 * 
 	 * @param n Number of nodes
-	 * @throws Exception given from init graph if there's any error while adding
+	 * @throws Exception given from initGraph if there's any error while adding
 	 *             nodes or edges.
 	 */
 	public static void runFloyd(int n) throws Exception {

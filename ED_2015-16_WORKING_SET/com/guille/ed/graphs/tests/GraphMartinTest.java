@@ -169,9 +169,9 @@ public class GraphMartinTest {
 		assertArrayEquals(new int[][] { { -1, -1, -1, 5, 2, 4 }, { -1, -1, -1, 5, -1, 4 }, { -1, -1, -1, 5, -1, 4 },
 				{ -1, -1, -1, -1, -1, -1 }, { -1, -1, -1, 5, -1, -1 }, { -1, -1, -1, -1, -1, -1 } }, g.getP());
 		assertArrayEquals(
-				new double[][] { { 00.0, 03.0, 04.0, 12.0, 07.0, 10.0 }, { 99.0, 00.0, 99.0, 10.0, 05.0, 08.0 },
-						{ 99.0, 99.0, 00.0, 08.0, 03.0, 06.0 }, { 99.0, 99.0, 99.0, 00.0, 99.0, 99.0 },
-						{ 99.0, 99.0, 99.0, 05.0, 00.0, 03.0 }, { 99.0, 99.0, 99.0, 02.0, 99.0, 00.0 } },
+				new double[][] { { 00.0, 03.0, 04.0, 12.0, 07.0, 10.0 }, { Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 10.0, 05.0, 08.0 },
+						{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, 08.0, 03.0, 06.0 }, { Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, Graph.MAX_NUMBER },
+						{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 05.0, 00.0, 03.0 }, { Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 02.0, Graph.MAX_NUMBER, 00.0 } },
 				g.getA());
 
 		try {
@@ -245,7 +245,7 @@ public class GraphMartinTest {
 		assertArrayEquals(new int[] { -1, 0, 0, 5, 2, 4 }, g.getPD());
 
 		g.Dijkstra("V2");
-		assertArrayEquals(new double[][] { { 99.0, 0.0, 99.0, 10.0, 5.0, 8.0 } }, g.getD());
+		assertArrayEquals(new double[][] { { Graph.MAX_NUMBER, 0.0, Graph.MAX_NUMBER, 10.0, 5.0, 8.0 } }, g.getD());
 		assertArrayEquals(new int[] { -1, -1, -1, 5, 1, 4 }, g.getPD());
 	}
 

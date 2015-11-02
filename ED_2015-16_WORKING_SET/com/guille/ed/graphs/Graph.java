@@ -26,7 +26,7 @@ public class Graph<T extends Comparable<T>> {
 
 	// Constants.
 	public static final int INDEX_NOT_FOUND = -1;
-	public final static Double MAX_NUMBER = 99.0;// Double.MAX_VALUE;
+	public final static Double MAX_NUMBER = Double.MAX_VALUE;
 
 	public Graph(int n) {
 		if (n > 0) {
@@ -360,7 +360,6 @@ public class Graph<T extends Comparable<T>> {
 		initDijkstra(departureNode);
 		int dn = this.getNode(departureNode);
 		nodes.get(dn).setVisited(true);
-
 		for (int i = 1; i < this.getSize(); i++) {
 			double min = MAX_NUMBER;
 			int w = -1;
@@ -370,14 +369,9 @@ public class Graph<T extends Comparable<T>> {
 					w = j;
 				}
 			}
-
 			if (w != -1) {
 				nodes.get(w).setVisited(true);
-
-				for (int k = 0; k < getSize(); k++) { // Change this loop to
-														// every node in the
-														// domain exceppt the
-														// current
+				for (int k = 0; k < getSize(); k++) {
 					if (edges[w][k] && D[w] + weight[w][k] < D[k]) {
 						D[k] = D[w] + weight[w][k];
 						PD[k] = w;
@@ -388,6 +382,7 @@ public class Graph<T extends Comparable<T>> {
 
 	}
 
+	/* ---------- 2015-16 EXAM METHOD ---------- */
 	/**
 	 * It return the number of nodes n such that is possible to go from the
 	 * source to them and return to the source with no more cost than the one
@@ -403,7 +398,7 @@ public class Graph<T extends Comparable<T>> {
 	 */
 	public int getNumberOfReturnNodesWithinCost(T source, double cost) throws Exception {
 		if (cost < 0)
-			throw new Exception("Costs cannot be negative.");
+			throw new RuntimeException("Costs cannot be negative.");
 		int index = getNode(source);
 		floyd(getSize());
 		int result = 1;
@@ -457,7 +452,7 @@ public class Graph<T extends Comparable<T>> {
 			if (A[i][index] > result && index != i && A[i][index] != MAX_NUMBER)
 				result = A[i][index];
 		}
-
+		
 		return result;
 	}
 

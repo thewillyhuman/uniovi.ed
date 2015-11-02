@@ -212,7 +212,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 
 	 * @param T element, the element you want to look for in the tree.
 	 * @param root, where you are looking for the element.
-	 * @return The element you are loking for.
+	 * @return The element you are looking for.
 	 */
 	private T searchReturn(T element, AVLNode<T> root) {
 		if (root.getElement().equals(element)) {
@@ -255,7 +255,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * Travels the Tree in order, that is: leftSubTtree + root + rightSubTree.
 	 * Null leaves will be represented as "-"
 	 * 
-	 * @return the result of travelling all the tree in order from the top root.
+	 * @return the result of traveling all the tree in order from the top root.
 	 */
 	public String inOrderTraversal() {
 		return inOrderTraversal(this.getRoot());
@@ -284,7 +284,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * Travels the Tree in post-order, that is: leftSubTtree + rightSubTree +
 	 * root. Null leaves will be represented as "-"
 	 * 
-	 * @return the result of travelling all the tree in post-order from the top
+	 * @return the result of traveling all the tree in post-order from the top
 	 *         root.
 	 */
 	public String postOrderTraversal() {
