@@ -86,7 +86,7 @@ public class TestBench {
 		Class<?> myClass = null;
 		Object myObject = null;
 		try {
-			myClass = Class.forName("algorithmics." + className);
+			myClass = Class.forName("com.guille.ed.algorithmics." + className);
 			myObject = myClass.newInstance();
 		} catch (Exception e) {
 			System.err.println("Error loading the class 1");
