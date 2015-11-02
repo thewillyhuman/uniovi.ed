@@ -1,11 +1,15 @@
 package com.guille.exceptions;
 
+/**
+ * 
+ * @author Guillermo Facundo Colunga
+ *
+ */
 public class HijoPutaException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
 	public HijoPutaException() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public HijoPutaException(String message) {
