@@ -7,24 +7,22 @@ import org.junit.Test;
 
 import graphs.GenericDataStructure;
 
-
 public class GenericDataStructureTest {
-	
-	private GenericDataStructure<String>  StringGds= null;
-	private GenericDataStructure<Integer>  IntegerGds= null;
-	private GenericDataStructure<Character>  CharGds= null;
-	
+
+	private GenericDataStructure<String> StringGds = null;
+	private GenericDataStructure<Integer> IntegerGds = null;
+	private GenericDataStructure<Character> CharGds = null;
+
 	@Before
 	public void setUp() {
 		StringGds = new GenericDataStructure<String>();
 		IntegerGds = new GenericDataStructure<Integer>();
 		CharGds = new GenericDataStructure<Character>();
 	}
-	
 
 	@Test
 	public void addTest() {
-		//Strings...
+		// Strings...
 		StringGds.add("a");
 		assertEquals("a.", StringGds.toString());
 		StringGds.add("b");
@@ -33,8 +31,8 @@ public class GenericDataStructureTest {
 		assertEquals("a.b.c.", StringGds.toString());
 		StringGds.add("d");
 		assertEquals("a.b.c.d.", StringGds.toString());
-		
-		//Integers...
+
+		// Integers...
 		IntegerGds.add(1);
 		assertEquals("1.", IntegerGds.toString());
 		IntegerGds.add(2);
@@ -43,8 +41,8 @@ public class GenericDataStructureTest {
 		assertEquals("1.2.3.", IntegerGds.toString());
 		IntegerGds.add(4);
 		assertEquals("1.2.3.4.", IntegerGds.toString());
-		
-		//Characters...
+
+		// Characters...
 		CharGds.add('A');
 		assertEquals("A.", CharGds.toString());
 		CharGds.add('B');
@@ -54,34 +52,34 @@ public class GenericDataStructureTest {
 		CharGds.add('D');
 		assertEquals("A.B.C.D.", CharGds.toString());
 	}
-	
+
 	@Test
 	public void sortTest() {
-		//Strings...
+		// Strings...
 		StringGds.add("d");
 		StringGds.add("c");
 		StringGds.add("b");
 		StringGds.add("a");
 		assertEquals("a.b.c.d.", StringGds.toString());
-		
-		//Integers...
+
+		// Integers...
 		IntegerGds.add(4);
 		IntegerGds.add(3);
 		IntegerGds.add(2);
 		IntegerGds.add(1);
 		assertEquals("1.2.3.4.", IntegerGds.toString());
-		
-		//Characters...
+
+		// Characters...
 		CharGds.add('D');
 		CharGds.add('C');
 		CharGds.add('B');
 		CharGds.add('A');
 		assertEquals("A.B.C.D.", CharGds.toString());
 	}
-	
+
 	@Test
 	public void compareToTest() {
-		//Strings...
+		// Strings...
 		StringGds.add("a");
 		StringGds.add("b");
 		StringGds.add("c");
@@ -89,8 +87,8 @@ public class GenericDataStructureTest {
 		assertEquals(-1, StringGds.CompateTwoElements(1, 2));
 		assertEquals(1, StringGds.CompateTwoElements(2, 1));
 		assertEquals(0, StringGds.CompateTwoElements(0, 0));
-		
-		//Integers...
+
+		// Integers...
 		IntegerGds.add(1);
 		IntegerGds.add(2);
 		IntegerGds.add(3);
@@ -98,8 +96,8 @@ public class GenericDataStructureTest {
 		assertEquals(-1, IntegerGds.CompateTwoElements(1, 2));
 		assertEquals(1, IntegerGds.CompateTwoElements(2, 1));
 		assertEquals(0, IntegerGds.CompateTwoElements(0, 0));
-		
-		//Characters...
+
+		// Characters...
 		CharGds.add('A');
 		CharGds.add('B');
 		CharGds.add('C');
@@ -108,24 +106,24 @@ public class GenericDataStructureTest {
 		assertEquals(1, CharGds.CompateTwoElements(2, 1));
 		assertEquals(0, CharGds.CompateTwoElements(0, 0));
 	}
-	
+
 	@Test
 	public void toStringTest() {
-		//Strings...
+		// Strings...
 		StringGds.add("a");
 		StringGds.add("b");
 		StringGds.add("c");
 		StringGds.add("d");
 		assertEquals("a.b.c.d.", StringGds.toString());
-		
-		//Integers...
+
+		// Integers...
 		IntegerGds.add(1);
 		IntegerGds.add(2);
 		IntegerGds.add(3);
 		IntegerGds.add(4);
 		assertEquals("1.2.3.4.", IntegerGds.toString());
-		
-		//Characters...
+
+		// Characters...
 		CharGds.add('A');
 		CharGds.add('B');
 		CharGds.add('C');

@@ -25,8 +25,7 @@ public class GraphTest {
 		// Strings...
 		assertArrayEquals(new boolean[][] { { false, false, false, false, false },
 				{ false, false, false, false, false }, { false, false, false, false, false },
-				{ false, false, false, false, false }, { false, false, false, false, false } },
-				stringGraph.getEdges());
+				{ false, false, false, false, false }, { false, false, false, false, false } }, stringGraph.getEdges());
 		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 } },
 				stringGraph.getWeight());
@@ -43,8 +42,7 @@ public class GraphTest {
 		// Characters...
 		assertArrayEquals(new boolean[][] { { false, false, false, false, false },
 				{ false, false, false, false, false }, { false, false, false, false, false },
-				{ false, false, false, false, false }, { false, false, false, false, false } },
-				charGraph.getEdges());
+				{ false, false, false, false, false }, { false, false, false, false, false } }, charGraph.getEdges());
 		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0 } },
 				charGraph.getWeight());
@@ -508,17 +506,17 @@ public class GraphTest {
 		integerGraph.floyd(integerGraph.getSize());
 		assertEquals("15", integerGraph.printFloydPath(1, 5));
 	}
-	
+
 	@Test
 	public void getDTest() {
-		//Falta implementaci�n
+		// Falta implementaci�n
 	}
-	
+
 	@Test
 	public void getPDTest() {
-		//Falta implementaci�n
+		// Falta implementaci�n
 	}
-	
+
 	@Test
 	public void getNumberOfReturnNodesWithinCostTest() {
 		// Strings...
@@ -597,7 +595,6 @@ public class GraphTest {
 		}
 	}
 
-	
 	@Test
 	public void isStronglyConnectedTest() {
 		try {
@@ -614,17 +611,18 @@ public class GraphTest {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		//Up to this moment the node 2 is almost strongly connected one but it's not yet.
+		// Up to this moment the node 2 is almost strongly connected one but
+		// it's not yet.
 		assertEquals(false, integerGraph.isStronglyConnected(2));
 		try {
-			//Now, with the new edge 2 is a full strongly connected node.
+			// Now, with the new edge 2 is a full strongly connected node.
 			integerGraph.addEdge(3, 2, 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertEquals(true, integerGraph.isStronglyConnected(2));
 	}
-	
+
 	@Test
 	public void diametroTest() {
 		try {
@@ -639,9 +637,9 @@ public class GraphTest {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		assertEquals(7, (int)integerGraph.diametro());
+		assertEquals(7, (int) integerGraph.diametro());
 	}
-	
+
 	@Test
 	public void diametroDijkstraTest() {
 		try {
@@ -656,7 +654,7 @@ public class GraphTest {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		assertEquals(7, (int)integerGraph.diametroDijkstra());
+		assertEquals(7, (int) integerGraph.diametroDijkstra());
 	}
 
 	@Test
@@ -675,7 +673,7 @@ public class GraphTest {
 		}
 		assertEquals(2, integerGraph.gradoNodo(3));
 	}
-	
+
 	@Test
 	public void minGradoNodoTest() {
 		try {
@@ -692,7 +690,7 @@ public class GraphTest {
 		}
 		assertEquals(0, integerGraph.minGradoNodo());
 	}
-	
+
 	@Test
 	public void maxGradoNodoTest() {
 		try {

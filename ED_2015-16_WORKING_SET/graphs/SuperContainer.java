@@ -1,41 +1,41 @@
 package graphs;
 
-public class SuperContainer <T, K> {
+public class SuperContainer<T, K> {
 
 	private Container<T> container;
 	private K info;
 	private int key;
-	
+
 	/**
 	 * Main constructor.
 	 * 
 	 * @param Container of T type. K info and and integer with the key.
 	 */
-	public SuperContainer(Container<T> container, K info, int key){
+	public SuperContainer(Container<T> container, K info, int key) {
 		setContainer(container);
 		setInfo(info);
 		setKey(key);
 	}
-	
+
 	/**
 	 * Getter. Returns the value of the Container
 	 *
-	 *@return The object stored in the container property.
+	 * @return The object stored in the container property.
 	 */
 	public Container<T> getContainer() {
 		return container;
 	}
-	
+
 	/**
 	 * Setter. Sets the value of the container.
 	 * 
 	 * @param Container<T> object.
 	 */
 	public void setContainer(Container<T> container) {
-		if(container!=null)
+		if (container != null)
 			this.container = container;
 	}
-	
+
 	/**
 	 * Getter. Returns the value of the info property.
 	 * 
@@ -44,17 +44,18 @@ public class SuperContainer <T, K> {
 	public K getInfo() {
 		return info;
 	}
-	
+
 	/**
 	 * Setter. Sets the value of the info. It's a k type.
 	 * 
-	 * @param infor k type. The information that will be stored in the info property.
+	 * @param infor k type. The information that will be stored in the info
+	 *            property.
 	 */
 	public void setInfo(K info) {
-		if(info!=null)
+		if (info != null)
 			this.info = info;
 	}
-	
+
 	/**
 	 * Getter. Returns the value of the key as an integer.
 	 * 
@@ -63,7 +64,7 @@ public class SuperContainer <T, K> {
 	public int getKey() {
 		return key;
 	}
-	
+
 	/**
 	 * Setter. Sets the value for the key property.
 	 * 
@@ -72,7 +73,7 @@ public class SuperContainer <T, K> {
 	public void setKey(int key) {
 		this.key = key;
 	}
-	
+
 	/**
 	 * toString method. Passes all the values to a String
 	 * 
@@ -83,6 +84,5 @@ public class SuperContainer <T, K> {
 		toReturn.append(container.toString()).append(", ").append(info.toString()).append(", ").append(key);
 		return toReturn.toString();
 	}
-	
 
 }

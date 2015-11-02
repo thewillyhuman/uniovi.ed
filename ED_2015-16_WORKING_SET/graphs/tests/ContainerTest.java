@@ -7,20 +7,19 @@ import org.junit.Test;
 
 import graphs.Container;
 
-
 public class ContainerTest {
 
 	Container<String> StringContainer = null;
 	Container<Integer> IntegerContainer = null;
 	Container<Character> CharContainer = null;
-	
+
 	@Before
 	public void setUp() {
 		StringContainer = new Container<String>("");
 		IntegerContainer = new Container<Integer>(2);
 		CharContainer = new Container<Character>('A');
 	}
-	
+
 	@Test
 	public void setStringElementTest() {
 		StringContainer.setElement("Hola caracola");
@@ -30,7 +29,7 @@ public class ContainerTest {
 		StringContainer.setElement("");
 		assertEquals("", StringContainer.getElement());
 	}
-	
+
 	@Test
 	public void setIntegerElementTest() {
 		IntegerContainer.setElement(5);
@@ -40,6 +39,7 @@ public class ContainerTest {
 		IntegerContainer.setElement(4);
 		assertEquals(4, (int) IntegerContainer.getElement());
 	}
+
 	@Test
 	public void setCharElementTest() {
 		CharContainer.setElement('B');
@@ -55,19 +55,19 @@ public class ContainerTest {
 		StringContainer.setElement("Hola caracola");
 		assertEquals("Hola caracola", StringContainer.getElement());
 	}
-	
+
 	@Test
 	public void getIntegerElementTest() {
 		IntegerContainer.setElement(5);
 		assertEquals(5, (int) IntegerContainer.getElement());
 	}
-	
+
 	@Test
 	public void getCharElementTest() {
 		CharContainer.setElement('D');
 		assertEquals('D', (char) CharContainer.getElement());
 	}
-	
+
 	@Test
 	public void toStringTest() {
 		StringContainer.setElement("Hola caracola");

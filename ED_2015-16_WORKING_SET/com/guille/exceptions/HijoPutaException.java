@@ -1,9 +1,9 @@
 package com.guille.exceptions;
 
 /**
+ * Just joking...
  * 
  * @author Guillermo Facundo Colunga
- *
  */
 public class HijoPutaException extends Exception {
 

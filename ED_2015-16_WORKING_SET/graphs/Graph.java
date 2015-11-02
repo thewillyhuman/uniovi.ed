@@ -17,7 +17,7 @@ public class Graph<T extends Comparable<T>> {
 	// Dijkstra attributes
 	private double[] D;
 	private int[] PD;
-	
+
 	// Constants.
 	public static final int INDEX_NOT_FOUND = -1;
 	public final static Double MAX_NUMBER = 99.0;// Double.MAX_VALUE;
@@ -33,8 +33,7 @@ public class Graph<T extends Comparable<T>> {
 	/**
 	 * Return the actual position of the given T element.
 	 * 
-	 * @param node
-	 *            to be searched inside the graph.
+	 * @param node to be searched inside the graph.
 	 * @return the position of the node if it's inside the graph, -1 otherwise.
 	 */
 	public int getNode(T node) {
@@ -60,22 +59,18 @@ public class Graph<T extends Comparable<T>> {
 		return nodes.size();
 	}
 
-
 	/**
 	 * Given a T element we create a node in the graph.
 	 * 
-	 * @param element
-	 *            to be added to the graph
-	 * @throws Exception
-	 *             if the node already exits on the graph. Or if the graph is
-	 *             full.
+	 * @param element to be added to the graph
+	 * @throws Exception if the node already exits on the graph. Or if the graph
+	 *             is full.
 	 */
 	public void addNode(T element) throws Exception {
 		if (element == null) {
 			throw new Exception("You cannot add null elements to the graph.");
 		} else if (getSize() == weight.length) {
-			throw new Exception(
-					"The node cannot be added because there's no space.");
+			throw new Exception("The node cannot be added because there's no space.");
 		}
 		for (GraphNode<T> node : nodes) {
 			if (node.getElement().equals(element))
@@ -172,10 +167,8 @@ public class Graph<T extends Comparable<T>> {
 	/**
 	 * Removes a node from the graph.
 	 * 
-	 * @param element
-	 *            stored in the graph to be removed.
-	 * @throws Exception
-	 *             if the node doesn't exist in the graph.
+	 * @param element stored in the graph to be removed.
+	 * @throws Exception if the node doesn't exist in the graph.
 	 */
 	public void removeNode(T element) throws Exception {
 		int index = getNode(element);
@@ -197,14 +190,11 @@ public class Graph<T extends Comparable<T>> {
 	/**
 	 * Removes an edge between two nodes.
 	 * 
-	 * @param origin
-	 *            the element contained in the node that's the starting point of
-	 *            the edge.
-	 * @param dest
-	 *            the element contained in the node that's the end point of the
+	 * @param origin the element contained in the node that's the starting point
+	 *            of the edge.
+	 * @param dest the element contained in the node that's the end point of the
 	 *            edge.
-	 * @throws Exception
-	 *             if the edge does not exist.
+	 * @throws Exception if the edge does not exist.
 	 */
 	public void removeEdge(T origin, T dest) throws Exception {
 		if (!existsEdge(origin, dest))
@@ -259,7 +249,7 @@ public class Graph<T extends Comparable<T>> {
 	 * node is written in the P matrix.
 	 */
 	public void floyd(int An) {
-		if(An > getSize()) {
+		if (An > getSize()) {
 			An = getSize();
 		}
 		initFloyd();
@@ -279,14 +269,13 @@ public class Graph<T extends Comparable<T>> {
 
 	/**
 	 * Returns an String containing the path with the minimum cost to get from
-	 * one node to a different one using Floyd's algorithm. Notice that my algorithm return the hole path
-	 * from the departure to the destination both of them included. If not, then for a direct connection
-	 * would return an empty String
+	 * one node to a different one using Floyd's algorithm. Notice that my
+	 * algorithm return the hole path from the departure to the destination both
+	 * of them included. If not, then for a direct connection would return an
+	 * empty String
 	 * 
-	 * @param departure
-	 *            node to start floyd
-	 * @param destination
-	 *            node to end floyd
+	 * @param departure node to start floyd
+	 * @param destination node to end floyd
 	 * @return string describing the minimum cost path.
 	 */
 	public String printFloydPath(T departure, T destination) {
@@ -302,11 +291,12 @@ public class Graph<T extends Comparable<T>> {
 	}
 
 	/* ---------- DIJKSTRA ALGORITHM ---------- */
-	
+
 	/**
 	 * Returns matrix D from Dijkstra's algorithm. Contains the minimum cost of
 	 * going to any node from the node the algorithm has been executed over.
-	 * We're doing it in that way because the assertArrayEqualsTo has a bug for double[].
+	 * We're doing it in that way because the assertArrayEqualsTo has a bug for
+	 * double[].
 	 * 
 	 * @return Dijkstra's D matrix.
 	 */
@@ -326,15 +316,14 @@ public class Graph<T extends Comparable<T>> {
 	public int[] getPD() {
 		return PD;
 	}
-	
+
 	/**
 	 * Initializes Dijkstra's algorithm creating matrices D and P and giving
 	 * them the initial values. If there's an edge between two node, D will
 	 * contain its weight and P the index of the starting node, otherwise D will
 	 * contain infinite and P -1.
 	 * 
-	 * @param departureNode
-	 *            node the execute Dijkstra's algorithm over.
+	 * @param departureNode node the execute Dijkstra's algorithm over.
 	 */
 	private void initDijkstra(T departureNode) {
 		D = new double[getSize()];
@@ -343,7 +332,7 @@ public class Graph<T extends Comparable<T>> {
 
 		for (int i = 0; i < getSize(); i++) {
 			nodes.get(i).setVisited(false);
-			if(departureIndex == i) {
+			if (departureIndex == i) {
 				D[i] = 0.0;
 				PD[i] = -1;
 			} else if (edges[departureIndex][i]) {
@@ -355,72 +344,77 @@ public class Graph<T extends Comparable<T>> {
 			}
 		}
 	}
-	
+
 	/**
-	 * Complexity --> O(n2)
-	 * Quadratic implementation for the Dijkstra algorithm. This algorithm calculates
-	 * the shortest path from a source node to every other nodes in the graph.
+	 * Complexity --> O(n2) Quadratic implementation for the Dijkstra algorithm.
+	 * This algorithm calculates the shortest path from a source node to every
+	 * other nodes in the graph.
 	 */
 	public void Dijkstra(T departureNode) {
 		initDijkstra(departureNode);
 		int dn = this.getNode(departureNode);
 		nodes.get(dn).setVisited(true);
-		
-		for(int i = 1; i < this.getSize(); i++) {
+
+		for (int i = 1; i < this.getSize(); i++) {
 			double min = MAX_NUMBER;
 			int w = -1;
-			for(int j = 0; j < this.getSize(); j++) {
-				if(!nodes.get(j).isVisited() && D[j] < min) {
+			for (int j = 0; j < this.getSize(); j++) {
+				if (!nodes.get(j).isVisited() && D[j] < min) {
 					min = D[j];
 					w = j;
 				}
 			}
-			
-			if(w != -1) {
+
+			if (w != -1) {
 				nodes.get(w).setVisited(true);
-				
-				for(int k = 0; k < getSize(); k++) { //Change this loop to every node in the domain exceppt the current
-					if(edges[w][k] && D[w] + weight[w][k] < D[k]) {
+
+				for (int k = 0; k < getSize(); k++) { // Change this loop to
+														// every node in the
+														// domain exceppt the
+														// current
+					if (edges[w][k] && D[w] + weight[w][k] < D[k]) {
 						D[k] = D[w] + weight[w][k];
 						PD[k] = w;
 					}
 				}
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * It return the number of nodes n such that is possible to go from the
-	 * source to them and return to the source with no more cost than the one provided.
+	 * source to them and return to the source with no more cost than the one
+	 * provided.
 	 * 
-	 * @param source the node where we start the algorithm and therefore the path
-	 * @param cost. The maximum possible cost to reach and return any nodes from the source.
+	 * @param source the node where we start the algorithm and therefore the
+	 *            path
+	 * @param cost. The maximum possible cost to reach and return any nodes from
+	 *            the source.
 	 * @return the number of reachable nodes within the range of cost.
-	 * @throws Exception if the cost provided is negative. Cost must be always positive.
+	 * @throws Exception if the cost provided is negative. Cost must be always
+	 *             positive.
 	 */
 	public int getNumberOfReturnNodesWithinCost(T source, double cost) throws Exception {
-		if(cost < 0)
+		if (cost < 0)
 			throw new Exception("Costs cannot be negative.");
 		int index = getNode(source);
 		floyd(getSize());
 		int result = 1;
-		for(int i = 0; i < getSize(); i++) {
-			if((A[index][i]+A[i][index]) <= cost && index != i)
+		for (int i = 0; i < getSize(); i++) {
+			if ((A[index][i] + A[i][index]) <= cost && index != i)
 				result++;
 		}
 		return result;
 	}
-	
+
 	/* ---------- SOME OWN EXAMPLES OF WORKING WITH GRAPHS ---------- */
 	/**
-	 * IMPLEMENTING FLOYD
-	 * Checks whether a node is strongly connected, i.e. there is a path from
-	 * the node to every other node in the graph and at the same time from every
-	 * other node to it.
+	 * IMPLEMENTING FLOYD Checks whether a node is strongly connected, i.e.
+	 * there is a path from the node to every other node in the graph and at the
+	 * same time from every other node to it.
 	 * 
-	 * @param node
-	 *            Node to check
+	 * @param node Node to check
 	 * @return whether the node is strongly connected
 	 */
 	public boolean isStronglyConnected(T node) {
@@ -437,89 +431,90 @@ public class Graph<T extends Comparable<T>> {
 
 		return result;
 	}
-	
-	
+
 	/**
-	 * IMPLEMENTING FLOYD
-	 * Given a T node check all the minimum paths to the other nodes and returns
-	 * the one with maximum distance.
+	 * IMPLEMENTING FLOYD Given a T node check all the minimum paths to the
+	 * other nodes and returns the one with maximum distance.
 	 * 
-	 * @param the node where we're going to calculate the excentricidad 
-	 * @return the maximum distance from this node to every other node as a double.
+	 * @param the node where we're going to calculate the excentricidad
+	 * @return the maximum distance from this node to every other node as a
+	 *         double.
 	 */
 	public double excentricidad(T node) {
 		int index = getNode(node);
 		floyd(getSize());
 		double result = 0.0;
-		
+
 		for (int i = 0; i < getSize(); i++) {
 			if (A[index][i] > result && index != i && A[index][i] != MAX_NUMBER)
 				result = A[index][i];
 			if (A[i][index] > result && index != i && A[i][index] != MAX_NUMBER)
 				result = A[i][index];
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * IMPLEMENTING DIJKSTRA
-	 * Given a T node check all the minimum paths to the other nodes and returns
-	 * the one with maximum distance.
+	 * IMPLEMENTING DIJKSTRA Given a T node check all the minimum paths to the
+	 * other nodes and returns the one with maximum distance.
 	 * 
-	 * @param the node where we're going to calculate the excentricidad 
-	 * @return the maximum distance from this node to every other node as a double.
+	 * @param the node where we're going to calculate the excentricidad
+	 * @return the maximum distance from this node to every other node as a
+	 *         double.
 	 */
-	public double excentricidadDijkstra(T node){
+	public double excentricidadDijkstra(T node) {
 		Dijkstra(node);
 		double distances[][] = getD();
 		double result = 0.0;
 
-		for(int i = 0; i < distances[0].length; i++) {
-			if(distances[0][i] > result && distances[0][i] < MAX_NUMBER)
+		for (int i = 0; i < distances[0].length; i++) {
+			if (distances[0][i] > result && distances[0][i] < MAX_NUMBER)
 				result = distances[0][i];
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * IMPLEMENTING FLOYD
-	 * Return the diameter of the graph, that is the longest path of the minimum ones.
+	 * IMPLEMENTING FLOYD Return the diameter of the graph, that is the longest
+	 * path of the minimum ones.
 	 * 
 	 * @return double diameter.
 	 */
 	public double diametro() {
 		double result = 0.0;
-		for(GraphNode<T> node : nodes) {
+		for (GraphNode<T> node : nodes) {
 			double ex = excentricidad(node.getElement());
-			if(ex > result){
+			if (ex > result) {
 				result = ex;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * IMPLEMENTING DIJKSTRA
-	 * Same as diameter but this time implementing Dijkstra.
+	 * IMPLEMENTING DIJKSTRA Same as diameter but this time implementing
+	 * Dijkstra.
+	 * 
 	 * @return
 	 */
-	public double diametroDijkstra(){
+	public double diametroDijkstra() {
 		double result = 0.0;
-		for(GraphNode<T> node : nodes) {
+		for (GraphNode<T> node : nodes) {
 			double ex = excentricidadDijkstra(node.getElement());
-			if(ex > result){
+			if (ex > result) {
 				result = ex;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
-	 * Número de aristas incidentes en el vértice. If edges[i][index] incoming, if edges[index][i] outcomming.
+	 * Número de aristas incidentes en el vértice. If edges[i][index]
+	 * incoming, if edges[index][i] outcomming.
 	 * 
 	 * @param node
 	 * @return integer value with the number of aristas.
@@ -527,40 +522,40 @@ public class Graph<T extends Comparable<T>> {
 	public int gradoNodo(T node) {
 		int index = getNode(node);
 		int result = 0;
-		for(int i = 0; i < getSize(); i++) {
-			if(edges[i][index])
+		for (int i = 0; i < getSize(); i++) {
+			if (edges[i][index])
 				result++;
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Número mínimo de aristas incidentes en un vértice
-	 * de entre todos los vértices existentes en el grafo
+	 * Número mínimo de aristas incidentes en un vértice de entre todos los
+	 * vértices existentes en el grafo
 	 * 
 	 * @return integer. Número mínimo de aristas incidentes
 	 */
 	public int minGradoNodo() {
 		int result = Integer.MAX_VALUE;
-		for(GraphNode<T> node : nodes) {
+		for (GraphNode<T> node : nodes) {
 			int gn = gradoNodo(node.getElement());
-			if(gn < result)
+			if (gn < result)
 				result = gn;
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Número máximo de aristas que inciden en un vértice de
-	 * entre todos los vértices del grafo.
+	 * Número máximo de aristas que inciden en un vértice de entre todos los
+	 * vértices del grafo.
 	 * 
 	 * @return integer. Número máximo de aristas que incide
 	 */
 	public int maxGradoNodo() {
 		int result = 0;
-		for(GraphNode<T> node : nodes) {
+		for (GraphNode<T> node : nodes) {
 			int gn = gradoNodo(node.getElement());
-			if(gn > result)
+			if (gn > result)
 				result = gn;
 		}
 		return result;
