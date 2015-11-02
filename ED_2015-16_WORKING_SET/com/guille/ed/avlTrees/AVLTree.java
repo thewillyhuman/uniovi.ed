@@ -1,5 +1,6 @@
 package com.guille.ed.avlTrees;
 
+
 /**
  * 
  * @author Guillermo Facundo Colunga
@@ -32,6 +33,8 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param root AVLNode to be the root of the tree.
 	 */
 	public void setRoot(AVLNode<T> root) {
+		if(root == null)
+			System.err.println("Warning: Setting the root as null.");
 		this.root = root;
 	}
 

@@ -230,5 +230,130 @@ public class AVLTreeTest {
 		charTree.add('a');
 		assertEquals("--a", charTree.postOrderTraversal());
 	}
+	
+	/**
+	 * Test for the search method. Creates a new AVL tree, adds some nodes and runs the method for some of them that exists
+	 * and also for some of them that does not exists and for some exceptions.
+	 * @throws Exception
+	 */
+	@Test
+	public void searchSecondTest() throws Exception {
+		System.out.println("------------- Inicializing the searchTest() method -------------\n");
+		//Creating a tree.
+		AVLTree<Character> b = new AVLTree<Character>();
+		
+		//Some nodes to the AVL tree b.
+		b.add('b');
+		b.add('a');
+		b.add('c');
+		b.add('f');
+		System.out.println("Current working tree: "+b.toString()+"\n");
+		assertEquals ("ba--c-f--", b.toString());
+		
+		//Possitive testing
+		System.out.println("Positive testing starting... ");
+		assertEquals(true, b.search('c'));
+		System.out.println("The result of searching 'c' is.... "+b.search('c')+" | assertEquals : true");
+		assertEquals(true, b.search('b'));
+		System.out.println("The result of searching 'b' is.... "+b.search('b')+" | assertEquals : true");
+		assertEquals(true, b.search('a'));
+		System.out.println("The result of searching 'a' is.... "+b.search('a')+" | assertEquals : true");
+		assertEquals(true, b.search('f'));
+		System.out.println("The result of searching 'f' is.... "+b.search('f')+" | assertEquals : true"+"\n");
+		
+		//Negative testing
+			//1srt - Part with assertNotEquals.
+		System.out.println("Negative testing starting... ");
+		System.out.println("1srt - Part ");
+		assertNotSame(false, b.search('c'));
+		System.out.println("The result of searching 'c' is.... "+b.search('c')+" | assertNotSame : false");
+		assertNotSame(false, b.search('b'));
+		System.out.println("The result of searching 'b' is.... "+b.search('b')+" | assertNotSame : false");
+		assertNotSame(false, b.search('a'));
+		System.out.println("The result of searching 'a' is.... "+b.search('a')+" | assertNotSame : false");
+		assertNotSame(false, b.search('f'));
+		System.out.println("The result of searching 'f' is.... "+b.search('f')+" | assertNotSame : false"+"\n");
+		
+		//2nd - Part with assertEquals and trying exceptions.
+		System.out.println("2nd - Part ");
+		assertEquals(false, b.search('g'));
+		System.out.println("The result of searching 'g' is....  "+b.search('g')+" | assertEquals : false");
+		assertEquals(false, b.search(null));
+		System.out.println("The result of searching 'null' is.... "+b.search(null)+" | assertEquals : false");
+		assertEquals(false, b.search(' '));
+		System.out.println("The result of searching ' ' is.... "+b.search(' ')+" | assertEquals : false");
+		assertEquals(false, b.search('0'));
+		System.out.println("The result of searching '0' is.... "+b.search('0')+" | assertEquals : false");
+		assertEquals(false, b.search('/'));
+		System.out.println("The result of searching '/' is.... "+b.search('/')+" | assertEquals : false");
+		assertEquals(false, b.search('@'));
+		System.out.println("The result of searching '@' is.... "+b.search('@')+" | assertEquals : false"+"\n");
+		
+		System.out.println("------------- Ending OK the searchTest() method -------------\n");
+	}
+	
+	@Test
+	public void searchReturnTest() throws Exception {
+		System.out.println("------------- Inicializing the searchReturnTest() method -------------\n");
+		//Creating a tree.
+		AVLTree<Character> c = new AVLTree<Character>();
+		
+		//Some nodes to the AVL tree c.
+		c.add('b');
+		c.add('a');
+		c.add('c');
+		c.add('f');
+		System.out.println("Current working tree: "+c.toString()+"\n");
+		assertEquals ("ba--c-f--", c.toString());
+		
+		//Positive testing
+		System.out.print("Positive testing starting... ");
+		assertEquals(c.getRoot().getElement(), c.searchReturn('b'));
+		assertEquals(c.getRoot().getLeft().getElement(), c.searchReturn('a'));
+		assertEquals(c.getRoot().getRight().getElement(), c.searchReturn('c'));
+		assertEquals(c.getRoot().getRight().getRight().getElement(), c.searchReturn('f'));
+		System.out.println("PASSED");
+		
+		//Negative testing
+		System.out.print("Negative testing starting... ");
+		assertNotSame(c.getRoot().getElement(), c.searchReturn('c'));
+		assertNotSame(c.getRoot().getElement(), c.searchReturn('a'));
+		assertNotSame(c.getRoot().getRight().getRight().getElement(), c.searchReturn('b'));
+		System.out.println("PASSED");
+		
+		//All test OK
+		System.out.println("Possitive and negative tests... PASSED\n");
+		
+		System.out.println("------------- Ending OK the searchReturnTest() method -------------\n");
+	}
+	
+	@Test
+	public void getMaxSecondTest()
+	{
+		System.out.println("------------- Inicializing the getMaxTest() method -------------\n");
+		//Creating a tree.
+		AVLTree<Character> d = new AVLTree<Character>();
+	
+		//Some nodes to the AVL tree c.
+		d.add('b');
+		d.add('a');
+		d.add('d');
+		d.add('c');
+		System.out.println("Current working tree: "+d.toString()+"\n");
+		
+		//Positive testing
+		System.out.print("Positive testing starting... ");
+		assertEquals('d', (char) d.getMax());
+		System.out.println("PASSED");
+		
+		//Negative Testing
+		System.out.print("Negative testing starting... ");
+		assertNotSame('a', (char) d.getMax());
+		assertNotSame('b', (char) d.getMax());
+		assertNotSame('c', (char) d.getMax());
+		System.out.println("PASSED\n");
+		
+		System.out.println("------------- Ending OK the getMaxTest() method -------------\n");
+	}
 
 }
