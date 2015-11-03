@@ -15,11 +15,10 @@ import com.guille.util.annotations.MartinTest;
 @SuppressWarnings("deprecation")
 @MartinTest()
 public class GraphMartinTest {
-
+	
 	@Test
 	public void GraphNodeTest() {
 		GraphNode<Integer> numbers = new GraphNode<Integer>(4);
-		System.out.println(numbers.getElement());
 		assertEquals(4, (int) numbers.getElement());
 		assertEquals(false, numbers.isVisited());
 		numbers.setVisited(true);
@@ -35,7 +34,6 @@ public class GraphMartinTest {
 		assertEquals('a', (char) myChar.getElement());
 		assertEquals("GN(N:a/V:false)", myChar.toString());
 		myChar.setElement('b');
-		myChar.print();
 		assertEquals("GN(N:b/V:false)", myChar.toString());
 		myChar.setVisited(true);
 		assertEquals("GN(N:b/V:true)", myChar.toString());
@@ -44,12 +42,11 @@ public class GraphMartinTest {
 	@Test
 	public void GraphEdittingTest() {
 		Graph<Character> g1 = new Graph<Character>(3);
-		System.out.println("TEST 1 (EDITING) BEGINS ***");
 		assertEquals(0, g1.getSize());
 		try {
 			g1.addNode('a');
 		} catch (Exception e) {
-			System.out.println("No repeated nodes are allowed" + e);
+			System.out.println("No repeated nodes are allowed " + e);
 		}
 		assertEquals(1, g1.getSize());
 		assertEquals(0, g1.getNode('a'));
@@ -62,13 +59,13 @@ public class GraphMartinTest {
 		try {
 			g1.addNode('a');
 		} catch (Exception e) {
-			System.out.println("No repeated nodes are allowed" + e);
+			System.out.println("No repeated nodes are allowed " + e);
 		}
 		try {
 			g1.addNode('b');
 			g1.addNode('c');
 		} catch (Exception e) {
-			System.out.println("No repeated nodes are allowed" + e);
+			System.out.println("No repeated nodes are allowed " + e);
 		}
 		assertEquals(3, g1.getSize());
 		assertEquals(0, g1.getNode('a'));
@@ -81,12 +78,12 @@ public class GraphMartinTest {
 		try {
 			g1.existsEdge('b', 'd');
 		} catch (Exception e) {
-			System.out.println("Starting|arrival node does not exists" + e);
+			System.out.println("Starting|arrival node does not exists " + e);
 		}
 		try {
 			assertEquals(false, g1.existsEdge('b', 'c'));
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println("Starting or arrival node does not exists " + e);
 		}
 		assertArrayEquals(new boolean[][] { { false, false, false }, { false, false, false }, { false, false, false } },
 				g1.getEdges());
@@ -95,7 +92,7 @@ public class GraphMartinTest {
 			g1.addEdge('b', 'c', 5.0);
 			assertEquals(true, g1.existsEdge('b', 'c'));
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println("Starting or arrival node does not exists " + e);
 		}
 		assertArrayEquals(new boolean[][] { { false, false, false }, { false, false, true }, { false, false, false } },
 				g1.getEdges());
@@ -106,8 +103,6 @@ public class GraphMartinTest {
 
 	public void TestFloyd() throws Exception {
 		Graph<String> g = new Graph<String>(6);
-
-		System.out.println("TEST (FLOYD EXERCISE) BEGINS ***");
 		assertEquals(0, g.getSize());
 
 		try {
@@ -118,7 +113,7 @@ public class GraphMartinTest {
 			g.addNode("V5");
 			g.addNode("V6");
 		} catch (Exception e) {
-			System.out.println("No repeated nodes are allowed" + e);
+			System.out.println("No repeated nodes are allowed " + e);
 		}
 
 		assertEquals(6, g.getSize());
@@ -135,7 +130,6 @@ public class GraphMartinTest {
 		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } }, g.getWeight());
-		g.print();
 
 		try {
 			g.addEdge("V1", "V2", 3.0);
@@ -151,7 +145,7 @@ public class GraphMartinTest {
 
 			g.addEdge("V6", "V4", 2.0);
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println("Starting or arrival node does not exists " + e);
 		}
 
 		assertArrayEquals(new boolean[][] { { false, true, true, false, true, false },
@@ -162,14 +156,11 @@ public class GraphMartinTest {
 				{ 0.0, 0.0, 0.0, 0.0, 3.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 7.0, 0.0, 3.0 },
 				{ 0.0, 0.0, 0.0, 2.0, 0.0, 0.0 } }, g.getWeight());
 		assertEquals("V1-V2-V5-V4-V6-V3-", g.traverseGraph("V1"));
-		g.print();
 
 		g.floyd(g.getSize());
-
 		assertArrayEquals(new int[][] { { -1, -1, -1, 5, 2, 4 }, { -1, -1, -1, 5, -1, 4 }, { -1, -1, -1, 5, -1, 4 },
 				{ -1, -1, -1, -1, -1, -1 }, { -1, -1, -1, 5, -1, -1 }, { -1, -1, -1, -1, -1, -1 } }, g.getP());
-		assertArrayEquals(
-				new double[][] { { 00.0, 03.0, 04.0, 12.0, 07.0, 10.0 }, { Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 10.0, 05.0, 08.0 },
+		assertArrayEquals(new double[][] { { 00.0, 03.0, 04.0, 12.0, 07.0, 10.0 }, { Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, 10.0, 05.0, 08.0 },
 						{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, 08.0, 03.0, 06.0 }, { Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 00.0, Graph.MAX_NUMBER, Graph.MAX_NUMBER },
 						{ Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 05.0, 00.0, 03.0 }, { Graph.MAX_NUMBER, Graph.MAX_NUMBER, Graph.MAX_NUMBER, 02.0, Graph.MAX_NUMBER, 00.0 } },
 				g.getA());
@@ -177,15 +168,13 @@ public class GraphMartinTest {
 		try {
 			assertEquals("V1V3V5V6", g.printFloydPath("V1", "V6"));
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println("Starting or arrival node does not exists " + e);
 		}
 	}
 
 	@Test
 	public void TestDijkstra() throws Exception {
 		Graph<String> g = new Graph<String>(6);
-
-		System.out.println("TEST (FLOYD EXERCISE) BEGINS ***");
 		assertEquals(0, g.getSize());
 
 		try {
@@ -213,7 +202,6 @@ public class GraphMartinTest {
 		assertArrayEquals(new double[][] { { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 				{ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 } }, g.getWeight());
-		g.print();
 
 		try {
 			g.addEdge("V1", "V2", 3.0);
@@ -229,7 +217,7 @@ public class GraphMartinTest {
 
 			g.addEdge("V6", "V4", 2.0);
 		} catch (Exception e) {
-			System.out.println("Starting or arrival node does not exists" + e);
+			System.out.println("Starting or arrival node does not exists " + e);
 		}
 
 		assertArrayEquals(new boolean[][] { { false, true, true, false, true, false },

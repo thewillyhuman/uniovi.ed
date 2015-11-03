@@ -1,6 +1,7 @@
 package com.guille.ed.avlTrees;
 
 /**
+ * Represents an AVL leave a an AVLTree.
  * 
  * @author Guillermo Facundo Colunga
  * @version carlos.1
@@ -14,6 +15,7 @@ public class AVLNode<T extends Comparable<T>> {
 
 	/**
 	 * AVLNode Constructor. Only requires an element for the current AVLNode.
+	 * The left child and the right child will be set to null.
 	 * 
 	 * @param element to be set in the current AVLNode.
 	 * @throws Exception if element is null.
@@ -40,7 +42,8 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Returns the actual value of the node.
+	 * Returns the actual value of the node. Notice that if the current value is null
+	 * will return null.
 	 * 
 	 * @return the value of the node. In other words the element that the node
 	 *         contains.
@@ -50,7 +53,7 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Sets the value of the node.
+	 * Sets the value of the node. Because of the implementation this method will accept null values.
 	 * 
 	 * @param element to be set.
 	 */
@@ -60,18 +63,18 @@ public class AVLNode<T extends Comparable<T>> {
 
 	/**
 	 * Returns the AVLNode that is placed at the left. So its value is less than
-	 * the actual node.
+	 * the actual node. If there is no left child will return null.
 	 * 
-	 * @return the AVLNode that is placed at the left.
+	 * @return the AVLNode that is placed at the left. Null if there isn't.
 	 */
 	public AVLNode<T> getLeft() {
 		return this.left;
 	}
 
 	/**
-	 * Sets the AVLNode that is placed at the left.
+	 * Sets the AVLNode that is placed at the left. Because of the implementation this method will accept null values.
 	 * 
-	 * @param left the node to be setted.
+	 * @param left the node to be set.
 	 */
 	public void setLeft(AVLNode<T> left) {
 		this.left = left;
@@ -79,18 +82,18 @@ public class AVLNode<T extends Comparable<T>> {
 
 	/**
 	 * Returns the AVLNode that is placed at the right. So its value is grater
-	 * than the actual node.
+	 * than the actual node. If there is no left child will return null.
 	 * 
-	 * @return the AVLNode that is placed at the right.
+	 * @return the AVLNode that is placed at the right. Null if there isn't.
 	 */
 	public AVLNode<T> getRight() {
 		return this.right;
 	}
 
 	/**
-	 * Sets the AVLNode that is placed at the left.
+	 * Sets the AVLNode that is placed at the left. Because of the implementation this method will accept null values.
 	 * 
-	 * @param right the node to be setted.
+	 * @param right the node to be set.
 	 */
 	public void setRight(AVLNode<T> right) {
 		this.right = right;
@@ -101,6 +104,7 @@ public class AVLNode<T extends Comparable<T>> {
 	 * 
 	 * @return the value of the node.
 	 */
+	@Override
 	public String toString() {
 		return this.getElement().toString();
 	}

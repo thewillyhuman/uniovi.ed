@@ -1,7 +1,15 @@
 package com.guille.ed.avlTrees;
 
-
 /**
+ * In computer science, an AVL tree (Georgy Adelson-Velsky and Evgenii Landis'
+ * tree, named after the inventors) is a self-balancing binary search tree. It
+ * was the first such data structure to be invented.[2] In an AVL tree, the
+ * heights of the two child subtrees of any node differ by at most one; if at
+ * any time they differ by more than one, rebalancing is done to restore this
+ * property. Lookup, insertion, and deletion all take O(log n) time in both the
+ * average and worst cases, where n is the number of nodes in the tree prior to
+ * the operation. Insertions and deletions may require the tree to be rebalanced
+ * by one or more tree rotations.
  * 
  * @author Guillermo Facundo Colunga
  * @version carlos.2
@@ -12,28 +20,31 @@ public class AVLTree<T extends Comparable<T>> {
 	AVLNode<T> root;
 
 	/**
-	 * Main Constructor.
+	 * Main Constructor. It doesn't need any parameter. will create an AVL Tree
+	 * with a null root.
 	 */
 	public AVLTree() {
 		setRoot(null);
 	}
 
 	/**
-	 * Returns the root of the tree, if there is...
+	 * Returns the root of the tree, if there is. Otherwise null.
 	 * 
-	 * @return the AVLNode that represents the root of the tree.
+	 * @return the AVLNode that represents the root of the tree if there is.
+	 *         Otherwise null.
 	 */
 	public AVLNode<T> getRoot() {
 		return this.root;
 	}
 
 	/**
-	 * Sets the root of the tree.
+	 * Sets the root of the tree. As null is a dangerous value if the root is
+	 * set to null will print a warning message.
 	 * 
 	 * @param root AVLNode to be the root of the tree.
 	 */
 	public void setRoot(AVLNode<T> root) {
-		if(root == null)
+		if (root == null)
 			System.err.println("Warning: Setting the root as null.");
 		this.root = root;
 	}
@@ -77,7 +88,12 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Iterative method to add nodes. Please, use the recursive version.
+	 * Deprecated. Iterative method to add nodes. If the root given is null it
+	 * will create a new AVLNode assigning the value of the node we want to add
+	 * there. If not will allocate the element in its place and then will return
+	 * again the root.
+	 * 
+	 * Please, use the recursive version.
 	 * 
 	 * @param element to add to the tree.
 	 */
@@ -110,7 +126,12 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Public toString method.
+	 * Public toString method. Returns a string representation of the object. In
+	 * general, the toString method returns a string that "textually represents"
+	 * this object. The result should be a concise but informative
+	 * representation that is easy for a person to read. It is recommended that
+	 * all subclasses override this method. In this case the default format is:
+	 * root+left+right and null pointers as "-" (dash). (Pre-Order)
 	 * 
 	 * @return toString private and recursive method
 	 */
@@ -126,7 +147,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * because as it is a recursive method we improve the performance.
 	 * 
 	 * @param root
-	 * @return null if root = null. Otherwise: "root+left+right".
+	 * @return null if root = null. Otherwise: "root+left+right". Pre-Order.
 	 */
 	private String toString(AVLNode<T> root) {
 		StringBuilder str = new StringBuilder();
@@ -141,7 +162,7 @@ public class AVLTree<T extends Comparable<T>> {
 
 	/**
 	 * Search method. Given a T element it returns true if the element is in the
-	 * tree.
+	 * tree. False otherwise.
 	 * 
 	 * @param T element, the element you want to look for in the tree.
 	 * @return true if the element is in the tree, false otherwise.
@@ -172,7 +193,9 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Iterative version of search method. Please, use the recursive method.
+	 * Deprecated. Iterative version of search method. Please, use the recursive
+	 * method. Given a T element and a root it checks if the T element is in the
+	 * tree.
 	 * 
 	 * @param element to be searched.
 	 * @return true if the element exists in the tree. False otherwise.
@@ -202,11 +225,10 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return
 	 */
 	public T searchReturn(T element) {
-		if (search(element)) {
+		if (search(element))
 			return searchReturn(element, getRoot());
-		} else {
+		else
 			return null;
-		}
 	}
 
 	/**
@@ -256,7 +278,12 @@ public class AVLTree<T extends Comparable<T>> {
 
 	/**
 	 * Travels the Tree in order, that is: leftSubTtree + root + rightSubTree.
-	 * Null leaves will be represented as "-"
+	 * Null leaves will be represented as "-".
+	 * 
+	 * Procedure:
+	 * Traverse the left subtree by recursively calling the in-order
+	 * function. Display the data part of root element (or current element).
+	 * Traverse the right subtree by recursively calling the in-order function
 	 * 
 	 * @return the result of traveling all the tree in order from the top root.
 	 */
@@ -286,6 +313,11 @@ public class AVLTree<T extends Comparable<T>> {
 	/**
 	 * Travels the Tree in post-order, that is: leftSubTtree + rightSubTree +
 	 * root. Null leaves will be represented as "-"
+	 * 
+	 * Procedure:
+	 * Traverse the left subtree by recursively calling the post-order function.
+	 * Traverse the right subtree by recursively calling the post-order function.
+	 * Display the data part of root element (or current element).
 	 * 
 	 * @return the result of traveling all the tree in post-order from the top
 	 *         root.
