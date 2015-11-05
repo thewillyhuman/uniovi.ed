@@ -62,7 +62,7 @@ public class TestBench {
 	private static void test(String fileName,String algorithmName, int startN, int endN, int repetitions) throws IOException {
 		int i=startN;
 		int j=repetitions;
-		FileWriter file = new FileWriter(".files/"+fileName);
+		FileWriter file = new FileWriter("files/"+fileName);
 		while(i <= endN) {
 			while(j > 0 ) {
 				long before = System.currentTimeMillis();

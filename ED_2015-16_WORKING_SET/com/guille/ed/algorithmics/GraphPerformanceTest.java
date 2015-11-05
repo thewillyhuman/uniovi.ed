@@ -3,7 +3,8 @@ package com.guille.ed.algorithmics;
 import com.guille.ed.graphs.Graph;
 
 /**
- * This class measures the performance of some graph algorithms.
+ * This class measures the performance of some graph algorithms, such are
+ * initGraph, Floyd and Dijkstra.
  * 
  * @author Guillermo Facundo Colunga
  * @version carlos.2
@@ -17,9 +18,11 @@ public class GraphPerformanceTest {
 	 * connected with each other by an edge of weight calculated as a random
 	 * value.
 	 * 
-	 * @param int n Number of nodes
+	 * @param int
+	 *            n Number of nodes
 	 * @return Graph of integer element containing n nodes
-	 * @throws Exception if there's an error adding an edge or a node
+	 * @throws Exception
+	 *             if there's an error adding an edge or a node
 	 */
 	public static Graph<Integer> initGraph(int n) throws Exception {
 		Graph<Integer> graph = new Graph<Integer>(n);
@@ -38,9 +41,11 @@ public class GraphPerformanceTest {
 	 * Calls to the initGraph(n) method and applies Dijkstra's algorithm on the
 	 * resulting graph.
 	 * 
-	 * @param n Number of nodes
-	 * @throws Exception given from initGraph if there's any error while adding
-	 *             nodes or edges.
+	 * @param n
+	 *            Number of nodes
+	 * @throws Exception
+	 *             given from initGraph if there's any error while adding nodes
+	 *             or edges.
 	 */
 	public static void runDijkstra(int n) throws Exception {
 		Graph<Integer> graph = initGraph(n);
@@ -52,9 +57,11 @@ public class GraphPerformanceTest {
 	 * Calls to the initGraph(n) method and applies the Dijkstra algorithm on
 	 * the resulting graph.
 	 * 
-	 * @param n Number of nodes
-	 * @throws Exception given from initGraph if there's any error while adding
-	 *             nodes or edges.
+	 * @param n
+	 *            Number of nodes
+	 * @throws Exception
+	 *             given from initGraph if there's any error while adding nodes
+	 *             or edges.
 	 */
 	public static void runFloyd(int n) throws Exception {
 		Graph<Integer> graph = initGraph(n);
