@@ -12,6 +12,7 @@ public class AVLNode<T extends Comparable<T>> {
 	private T element;
 	private AVLNode<T> left;
 	private AVLNode<T> right;
+	private int height;
 
 	/**
 	 * AVLNode Constructor. Only requires an element for the current AVLNode.
@@ -42,8 +43,8 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Returns the actual value of the node. Notice that if the current value is null
-	 * will return null.
+	 * Returns the actual value of the node. Notice that if the current value is
+	 * null will return null.
 	 * 
 	 * @return the value of the node. In other words the element that the node
 	 *         contains.
@@ -53,12 +54,33 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Sets the value of the node. Because of the implementation this method will accept null values.
+	 * Sets the value of the node. Because of the implementation this method
+	 * will accept null values.
 	 * 
 	 * @param element to be set.
 	 */
 	public void setElement(T element) {
 		this.element = element;
+	}
+
+	/**
+	 * Return the height of the subtree starting at the node.
+	 * 
+	 * @return the height as an Integer.
+	 */
+	public int getHeight() {
+		return this.height;
+	}
+
+	/**
+	 * Setter for the height property.
+	 * 
+	 * @param height to be set as new in the node.
+	 */
+	public void setHeight(int height) {
+		if (height < 0)
+			throw new IllegalArgumentException("The height cannot be negative");
+		this.height = height;
 	}
 
 	/**
@@ -72,7 +94,8 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Sets the AVLNode that is placed at the left. Because of the implementation this method will accept null values.
+	 * Sets the AVLNode that is placed at the left. Because of the
+	 * implementation this method will accept null values.
 	 * 
 	 * @param left the node to be set.
 	 */
@@ -91,7 +114,8 @@ public class AVLNode<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Sets the AVLNode that is placed at the left. Because of the implementation this method will accept null values.
+	 * Sets the AVLNode that is placed at the left. Because of the
+	 * implementation this method will accept null values.
 	 * 
 	 * @param right the node to be set.
 	 */
@@ -106,7 +130,7 @@ public class AVLNode<T extends Comparable<T>> {
 	 */
 	@Override
 	public String toString() {
-		return this.getElement().toString();
+		return this.getElement().toString() + "(" + getHeight() + ")";
 	}
 
 	/**
@@ -114,5 +138,30 @@ public class AVLNode<T extends Comparable<T>> {
 	 */
 	public void print() {
 		System.out.println(this.toString());
+	}
+
+	/**
+	 * Updates the height of the tree from a given root or node.
+	 */
+	public void updateHeight() {
+		// If the node doesn't have children, its height is just 0
+		if (getLeft() == null && getRight() == null)
+			setHeight(0);
+
+		// If it has a child on one side, its height is its child's height plus
+		// one
+		else if (getLeft() != null && getRight() == null)
+			setHeight(1 + getLeft().getHeight());
+		
+		else if (getLeft() == null && getRight() != null)
+			setHeight(1 + getRight().getHeight());
+
+		// If it has one child on each side, its height will be the greatest of
+		// its childrens's height plus one
+		else if (getLeft().getHeight() > getRight().getHeight())
+			setHeight(1 + getLeft().getHeight());
+		else
+			setHeight(1 + getRight().getHeight());
+
 	}
 }

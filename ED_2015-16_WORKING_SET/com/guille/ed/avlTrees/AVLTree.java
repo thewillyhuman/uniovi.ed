@@ -87,6 +87,7 @@ public class AVLTree<T extends Comparable<T>> {
 		} else {
 			root.setRight(add(root.getRight(), element));
 		}
+		root.updateHeight();
 		return root;
 	}
 
@@ -117,7 +118,7 @@ public class AVLTree<T extends Comparable<T>> {
 					added = true;
 				}
 				root = root.getLeft();
-			} else if (element.equals(root.getElement())) {
+			} else if (element.compareTo(root.getElement()) == 0) {
 				throw new IllegalArgumentException(
 						"No repeated elements are allowed inside a tree.");
 			} else {
@@ -352,19 +353,17 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Public and not reflexive remove method. Given an element as a parameter it removes it from the tree.
+	 * Public and not reflexive remove method. Given an element as a paramenter
+	 * it removes it from the tree.
+	 * 
 	 * @param element, the element to be deleted
-	 * @throws Exception if you try to delete a null, empty or non existent node.
+	 * @throws Exception if you try to delete a null, empty or non existent
+	 *             node.
 	 */
-	public void remove(T element) throws Exception {
-		if(search(element)) {
-			root = remove(element, getRoot());
-		} else {
-			throw new IllegalArgumentException("The element you want to remove is not in the tree.");
-		}
+	public void remove(T element) {
+		setRoot(remove(root, element));
 	}
-	
-	
+
 	/**
 	 * Private and reflexive remove method. Given an element as a paramenter and
 	 * a root it removes the element from the tree.
@@ -374,26 +373,78 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return the deleted node.
 	 * @throws Exception if you try to delete a null, empty or non existent node
 	 */
-	private AVLNode<T> remove(T element, AVLNode<T> root) throws Exception {
-		if (root == null) {
-			throw new IllegalArgumentException( "The element you want to remove is null. Or the tree is null");
-		} else if (element.compareTo(root.getElement()) < 0) {
-			root.setLeft(remove(element, root.getLeft()));
-		} else if (element.compareTo(root.getElement()) > 0) {
-			root.setRight(remove(element, root.getRight()));
-		} else {
+	public AVLNode<T> remove(AVLNode<T> root, T element) {
+		if (!search(element)) {
+			throw new IllegalArgumentException(
+					"The provided element is not in the tree.");
+		} else if (root == null) {
+			throw new IllegalArgumentException("The provided root is null.");
+		} else if (root.getElement().equals(element)) {
 			if (root.getLeft() == null) {
 				return root.getRight();
 			} else if (root.getRight() == null) {
 				return root.getLeft();
 			} else {
-				System.out.println("The element we want to delete has two children.");
 				root.setElement(getMax(root.getLeft()));
-				remove(element, root.getLeft());
+				root.setLeft(remove(root.getLeft(), root.getElement()));
 			}
+		} else if (element.compareTo(root.getElement()) < 0) {
+			root.setLeft(remove(root.getLeft(), element));
+		} else {
+			root.setRight(remove(root.getRight(), element));
 		}
+		root.updateHeight();
 		return root;
+	}
 
+	/**
+	 * Given the actual tree and a tree as a parameter will return another tree
+	 * that will be the composition of both trees.
+	 * 
+	 * @param tree. Second tree of the composition.
+	 * @return a tree containing all the nodes in the first and the second tree.
+	 */
+	public AVLTree<T> join(AVLTree<T> tree) {
+		AVLTree<T> jointTree = this;
+		join(jointTree, tree);
+		return jointTree;
+	}
+
+	/**
+	 * Private and recursive method for join two trees. Given the first tree and
+	 * the second tree will look first; If the second tree contains a root. If
+	 * yes will continue looking if the root of the second tree is contained in
+	 * the first one. If not, will add to the first tree the root of the second
+	 * one. Then we can start to work with the left and right trees. For left.
+	 * we set the root of an auxiliary tree as the root of the very first left
+	 * element of our second tree. and then we will call recursively to our join
+	 * method with the first tree and the left tree of our second tree. And
+	 * finally the same for the right as for the left.
+	 * 
+	 * @param tree1 first tree to join.
+	 * @param tree2 second tree to join.
+	 * @return a tree containing all the nodes from tree1 and tree2. Following
+	 *         the rules of the AVL trees, that is: No repeated elements,
+	 *         ordered as BST...
+	 */
+	private AVLTree<T> join(AVLTree<T> tree1, AVLTree<T> tree2) {
+		AVLNode<T> joinRoot = tree2.getRoot();
+		if (joinRoot != null) {
+			if (!tree1.search(joinRoot.getElement())) {
+				// Add tree's root
+				tree1.add(joinRoot.getElement());
+			}
+			// Add tree from the left of the root
+			AVLTree<T> treeL = new AVLTree<T>();
+			treeL.setRoot(joinRoot.getLeft());
+			tree1.join(tree1, treeL);
+
+			// Add tree from the right of the root
+			AVLTree<T> treeR = new AVLTree<T>();
+			treeR.setRoot(joinRoot.getRight());
+			tree1.join(tree1, treeR);
+		}
+		return tree1;
 	}
 
 }

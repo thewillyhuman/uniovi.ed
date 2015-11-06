@@ -2,7 +2,6 @@ package com.guille.ed.avlTrees.tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.guille.ed.avlTrees.AVLTree;
@@ -10,7 +9,7 @@ import com.guille.ed.avlTrees.AVLTree;
 
 public class L7_AVLTreeTestBasicOpsWithHeight {
 
-	@Test @Ignore
+	@Test
 	public void testAddRemove() throws Exception {
 		AVLTree<String> t = new AVLTree<String>();
 		t.add("b");
