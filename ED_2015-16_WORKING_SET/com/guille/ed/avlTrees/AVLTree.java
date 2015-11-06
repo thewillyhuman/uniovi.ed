@@ -72,13 +72,16 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return the root of the tree.
 	 * @throws Exception if the element already exists or if it's null.
 	 */
-	private AVLNode<T> add(AVLNode<T> root, T element) throws IllegalArgumentException {
+	private AVLNode<T> add(AVLNode<T> root, T element)
+			throws IllegalArgumentException {
 		if (element == null) {
-			throw new IllegalArgumentException("The element you want to add was null.");
+			throw new IllegalArgumentException(
+					"The element you want to add was null.");
 		} else if (root == null) {
 			return new AVLNode<T>(element);
 		} else if (root.getElement().equals(element)) {
-			throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
+			throw new IllegalArgumentException(
+					"No repeated elements are allowed inside a tree.");
 		} else if (element.compareTo(root.getElement()) < 0) {
 			root.setLeft(add(root.getLeft(), element));
 		} else {
@@ -100,7 +103,8 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public void addIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException("The element you want to add was null.");
+			throw new IllegalArgumentException(
+					"The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		boolean added = false;
 		while (!added) {
@@ -114,7 +118,8 @@ public class AVLTree<T extends Comparable<T>> {
 				}
 				root = root.getLeft();
 			} else if (element.equals(root.getElement())) {
-				throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
+				throw new IllegalArgumentException(
+						"No repeated elements are allowed inside a tree.");
 			} else {
 				if (root.getRight() == null) {
 					root.setRight(new AVLNode<T>(element));
@@ -155,7 +160,8 @@ public class AVLTree<T extends Comparable<T>> {
 			str.append("-");
 		} else {
 			str.append(root.toString());
-			str.append(toString(root.getLeft())).append(toString(root.getRight()));
+			str.append(toString(root.getLeft())).append(
+					toString(root.getRight()));
 		}
 		return str.toString();
 	}
@@ -203,7 +209,8 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public boolean searchIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException("The element you want to add was null.");
+			throw new IllegalArgumentException(
+					"The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		while (root != null) {
 			if (element.equals(root.getElement())) {
@@ -267,7 +274,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param root of the tree.
 	 * @return the maximum value of the tree
 	 */
-	private T getMax(AVLNode<T> root) {
+	public T getMax(AVLNode<T> root) {
 		if (root == null) {
 			return null;
 		} else if (root.getRight() != null) {
@@ -280,8 +287,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * Travels the Tree in order, that is: leftSubTtree + root + rightSubTree.
 	 * Null leaves will be represented as "-".
 	 * 
-	 * Procedure:
-	 * Traverse the left subtree by recursively calling the in-order
+	 * Procedure: Traverse the left subtree by recursively calling the in-order
 	 * function. Display the data part of root element (or current element).
 	 * Traverse the right subtree by recursively calling the in-order function
 	 * 
@@ -314,10 +320,10 @@ public class AVLTree<T extends Comparable<T>> {
 	 * Travels the Tree in post-order, that is: leftSubTtree + rightSubTree +
 	 * root. Null leaves will be represented as "-"
 	 * 
-	 * Procedure:
-	 * Traverse the left subtree by recursively calling the post-order function.
-	 * Traverse the right subtree by recursively calling the post-order function.
-	 * Display the data part of root element (or current element).
+	 * Procedure: Traverse the left subtree by recursively calling the
+	 * post-order function. Traverse the right subtree by recursively calling
+	 * the post-order function. Display the data part of root element (or
+	 * current element).
 	 * 
 	 * @return the result of traveling all the tree in post-order from the top
 	 *         root.
@@ -343,6 +349,51 @@ public class AVLTree<T extends Comparable<T>> {
 		aux.append(root.getElement());
 
 		return aux.toString();
+	}
+
+	/**
+	 * Public and not reflexive remove method. Given an element as a parameter it removes it from the tree.
+	 * @param element, the element to be deleted
+	 * @throws Exception if you try to delete a null, empty or non existent node.
+	 */
+	public void remove(T element) throws Exception {
+		if(search(element)) {
+			root = remove(element, getRoot());
+		} else {
+			throw new IllegalArgumentException("The element you want to remove is not in the tree.");
+		}
+	}
+	
+	
+	/**
+	 * Private and reflexive remove method. Given an element as a paramenter and
+	 * a root it removes the element from the tree.
+	 * 
+	 * @param element, the element to be deleted
+	 * @param root where you start to look for the node
+	 * @return the deleted node.
+	 * @throws Exception if you try to delete a null, empty or non existent node
+	 */
+	private AVLNode<T> remove(T element, AVLNode<T> root) throws Exception {
+		if (root == null) {
+			throw new IllegalArgumentException( "The element you want to remove is null. Or the tree is null");
+		} else if (element.compareTo(root.getElement()) < 0) {
+			root.setLeft(remove(element, root.getLeft()));
+		} else if (element.compareTo(root.getElement()) > 0) {
+			root.setRight(remove(element, root.getRight()));
+		} else {
+			if (root.getLeft() == null) {
+				return root.getRight();
+			} else if (root.getRight() == null) {
+				return root.getLeft();
+			} else {
+				System.out.println("The element we want to delete has two children.");
+				root.setElement(getMax(root.getLeft()));
+				remove(element, root.getLeft());
+			}
+		}
+		return root;
+
 	}
 
 }
