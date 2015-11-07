@@ -14,25 +14,25 @@ public class L6_ALVTreeTestOptionalHomework {
 	public void testAddIterative() {
 		AVLTree<String> t = new AVLTree<String>();
 		t.addIterative("b");
-		assertEquals("b--", t.toString());
+		assertEquals("b(0)--", t.toString());
 	
 		t.addIterative("a");
-		assertEquals("ba---", t.toString());
+		assertEquals("b(0)a(0)---", t.toString());
 		
 		t.addIterative("d");
-		assertEquals("ba--d--", t.toString());
+		assertEquals("b(0)a(0)--d(0)--", t.toString());
 		
 		t.addIterative("c");
-		assertEquals("ba--dc---", t.toString());
+		assertEquals("b(0)a(0)--d(0)c(0)---", t.toString());
 		
 		t.addIterative("g");
-		assertEquals("ba--dc--g--", t.toString());
+		assertEquals("b(0)a(0)--d(0)c(0)--g(0)--", t.toString());
 		
 		t.addIterative("i");
-		assertEquals("ba--dc--g-i--", t.toString());
+		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)--", t.toString());
 		
 		t.addIterative("h");
-		assertEquals("ba--dc--g-ih---", t.toString());
+		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)h(0)---", t.toString());
 
 		
 		try{
@@ -184,25 +184,25 @@ public class L6_ALVTreeTestOptionalHomework {
 	public void testTraversals() {
 		AVLTree<String> t = new AVLTree<String>();
 		t.add("b");
-		assertEquals("b--", t.toString());
+		assertEquals("b(0)--", t.toString());
 	
 		t.add("a");
-		assertEquals("ba---", t.toString());
+		assertEquals("b(1)a(0)---", t.toString());
 		
 		t.add("d");
-		assertEquals("ba--d--", t.toString());
+		assertEquals("b(1)a(0)--d(0)--", t.toString());
 		
 		t.add("c");
-		assertEquals("ba--dc---", t.toString());
+		assertEquals("b(2)a(0)--d(1)c(0)---", t.toString());
 		
 		t.add("g");
-		assertEquals("ba--dc--g--", t.toString());
+		assertEquals("b(2)a(0)--d(1)c(0)--g(0)--", t.toString());
 		
 		t.add("i");
-		assertEquals("ba--dc--g-i--", t.toString());
+		assertEquals("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", t.toString());
 		
 		t.add("h");
-		assertEquals("ba--dc--g-ih---", t.toString());
+		assertEquals("b(4)a(0)--d(3)c(0)--g(2)-i(1)h(0)---", t.toString());
 
 		assertEquals("-a-b-c-d-g-h-i-", t.inOrderTraversal());
 		assertEquals("--a--c---h-igdb", t.postOrderTraversal());

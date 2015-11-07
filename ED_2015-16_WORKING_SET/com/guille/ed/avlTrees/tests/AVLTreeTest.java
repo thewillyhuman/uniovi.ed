@@ -438,6 +438,7 @@ public class AVLTreeTest {
 		b.add('i');
 		b.add('d');
 		assertEquals ("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", a.join(b).toString());
+		System.out.println(a.join(b).toString());
 		
 		//Testing with an empty tree.
 		AVLTree<Character> c = new AVLTree<Character>();
@@ -450,6 +451,7 @@ public class AVLTreeTest {
 		charTree.add('c');
 		assertEquals("a(2)-b(1)-c(0)--", charTree.join(c).toString());
 		assertEquals("a(2)-b(1)-c(0)--", c.join(charTree).toString());
+		System.out.println(c.join(charTree).toString());
 
 	}
 

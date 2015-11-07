@@ -13,25 +13,25 @@ public class L6_ALVTreeTestBasicOperations {
 	public void testAdd() {
 		AVLTree<String> t = new AVLTree<String>();
 		t.add("b");
-		assertEquals("b--", t.toString());
+		assertEquals("b(0)--", t.toString());
 	
 		t.add("a");
-		assertEquals("ba---", t.toString());
+		assertEquals("b(1)a(0)---", t.toString());
 		
 		t.add("d");
-		assertEquals("ba--d--", t.toString());
+		assertEquals("b(1)a(0)--d(0)--", t.toString());
 		
 		t.add("c");
-		assertEquals("ba--dc---", t.toString());
+		assertEquals("b(2)a(0)--d(1)c(0)---", t.toString());
 		
 		t.add("g");
-		assertEquals("ba--dc--g--", t.toString());
+		assertEquals("b(2)a(0)--d(1)c(0)--g(0)--", t.toString());
 		
 		t.add("i");
-		assertEquals("ba--dc--g-i--", t.toString());
+		assertEquals("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", t.toString());
 		
 		t.add("h");
-		assertEquals("ba--dc--g-ih---", t.toString());
+		assertEquals("b(4)a(0)--d(3)c(0)--g(2)-i(1)h(0)---", t.toString());
 		
 		//t.remove("b");
 		//assertEquals ("a-dc--g-ih---", t.toString());
