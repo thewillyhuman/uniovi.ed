@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ AVLTreeMartinTest.class, AVLTreeTest.class,
 		L6_ALVTreeTestBasicOperations.class,
 		L6_ALVTreeTestOptionalHomework.class,
-		L7_AVLTreeTestBasicOpsWithHeight.class })
+		L7_AVLTreeTestBasicOpsWithHeight.class,
+		L7_BST_EvalTest.class })
 /**
  * 
  * @author Guillermo Facundo Colunga

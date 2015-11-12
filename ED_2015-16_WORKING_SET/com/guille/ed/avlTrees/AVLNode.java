@@ -152,7 +152,7 @@ public class AVLNode<T extends Comparable<T>> {
 		// one
 		else if (getLeft() != null && getRight() == null)
 			setHeight(1 + getLeft().getHeight());
-		
+
 		else if (getLeft() == null && getRight() != null)
 			setHeight(1 + getRight().getHeight());
 

@@ -72,16 +72,13 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return the root of the tree.
 	 * @throws Exception if the element already exists or if it's null.
 	 */
-	private AVLNode<T> add(AVLNode<T> root, T element)
-			throws IllegalArgumentException {
+	private AVLNode<T> add(AVLNode<T> root, T element) throws IllegalArgumentException {
 		if (element == null) {
-			throw new IllegalArgumentException(
-					"The element you want to add was null.");
+			throw new IllegalArgumentException("The element you want to add was null.");
 		} else if (root == null) {
 			return new AVLNode<T>(element);
 		} else if (root.getElement().equals(element)) {
-			throw new IllegalArgumentException(
-					"No repeated elements are allowed inside a tree.");
+			throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
 		} else if (element.compareTo(root.getElement()) < 0) {
 			root.setLeft(add(root.getLeft(), element));
 		} else {
@@ -104,8 +101,7 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public void addIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException(
-					"The element you want to add was null.");
+			throw new IllegalArgumentException("The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		boolean added = false;
 		while (!added) {
@@ -119,8 +115,7 @@ public class AVLTree<T extends Comparable<T>> {
 				}
 				root = root.getLeft();
 			} else if (element.compareTo(root.getElement()) == 0) {
-				throw new IllegalArgumentException(
-						"No repeated elements are allowed inside a tree.");
+				throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
 			} else {
 				if (root.getRight() == null) {
 					root.setRight(new AVLNode<T>(element));
@@ -161,8 +156,7 @@ public class AVLTree<T extends Comparable<T>> {
 			str.append("-");
 		} else {
 			str.append(root.toString());
-			str.append(toString(root.getLeft())).append(
-					toString(root.getRight()));
+			str.append(toString(root.getLeft())).append(toString(root.getRight()));
 		}
 		return str.toString();
 	}
@@ -210,8 +204,7 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public boolean searchIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException(
-					"The element you want to add was null.");
+			throw new IllegalArgumentException("The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		while (root != null) {
 			if (element.equals(root.getElement())) {
@@ -375,8 +368,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 */
 	public AVLNode<T> remove(AVLNode<T> root, T element) {
 		if (!search(element)) {
-			throw new IllegalArgumentException(
-					"The provided element is not in the tree.");
+			throw new IllegalArgumentException("The provided element is not in the tree.");
 		} else if (root == null) {
 			throw new IllegalArgumentException("The provided root is null.");
 		} else if (root.getElement().equals(element)) {
