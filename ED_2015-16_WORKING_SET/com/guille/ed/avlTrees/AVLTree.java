@@ -12,7 +12,7 @@ package com.guille.ed.avlTrees;
  * by one or more tree rotations.
  * 
  * @author Guillermo Facundo Colunga
- * @version carlos.2
+ * @version carlos.3
  * @param <T> Type of data that the structure will contain.
  */
 public class AVLTree<T extends Comparable<T>> {
@@ -396,10 +396,10 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param tree. Second tree of the composition.
 	 * @return a tree containing all the nodes in the first and the second tree.
 	 */
-	public AVLTree<T> join(AVLTree<T> tree) {
-		AVLTree<T> jointTree = this;
-		join(jointTree, tree);
-		return jointTree;
+	public AVLTree<T> joins(AVLTree<T> tree) {
+		AVLTree<T> joinTree = this;
+		joins(joinTree, tree);
+		return joinTree;
 	}
 
 	/**
@@ -419,22 +419,19 @@ public class AVLTree<T extends Comparable<T>> {
 	 *         the rules of the AVL trees, that is: No repeated elements,
 	 *         ordered as BST...
 	 */
-	private AVLTree<T> join(AVLTree<T> tree1, AVLTree<T> tree2) {
+	private AVLTree<T> joins(AVLTree<T> tree1, AVLTree<T> tree2) {
 		AVLNode<T> joinRoot = tree2.getRoot();
 		if (joinRoot != null) {
-			if (!tree1.search(joinRoot.getElement())) {
-				// Add tree's root
+			if (!tree1.search(joinRoot.getElement()))
 				tree1.add(joinRoot.getElement());
-			}
-			// Add tree from the left of the root
+			
 			AVLTree<T> treeL = new AVLTree<T>();
 			treeL.setRoot(joinRoot.getLeft());
-			tree1.join(tree1, treeL);
-
-			// Add tree from the right of the root
+			tree1.joins(tree1, treeL);
+			
 			AVLTree<T> treeR = new AVLTree<T>();
 			treeR.setRoot(joinRoot.getRight());
-			tree1.join(tree1, treeR);
+			tree1.joins(tree1, treeR);
 		}
 		return tree1;
 	}
