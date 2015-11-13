@@ -130,7 +130,7 @@ public class AVLNode<T extends Comparable<T>> {
 	 */
 	@Override
 	public String toString() {
-		return this.getElement().toString() + "(" + getHeight() + ")";
+		return this.getElement().toString() + "(" + getBF() + ")";
 	}
 
 	/**
@@ -162,6 +162,26 @@ public class AVLNode<T extends Comparable<T>> {
 			setHeight(1 + getLeft().getHeight());
 		else
 			setHeight(1 + getRight().getHeight());
+	}
 
+	/**
+	 * Using the calculate calculateBF method we will get the BF for each node.
+	 * 
+	 * @return the balance factor of the node.
+	 */
+	public int getBF() {
+		return calculateBF();
+	}
+
+	/**
+	 * By means of the height returns the BF of the node. Three cases, the node
+	 * has no subtrees, has one subtree or has two subtrees.
+	 * 
+	 * @return
+	 */
+	private int calculateBF() {
+		int hright = (this.getRight()==null ? -1 : this.getRight().getHeight());
+		int hleft = (this.getLeft()==null ? -1 : this.getLeft().getHeight());
+		return hright - hleft;
 	}
 }

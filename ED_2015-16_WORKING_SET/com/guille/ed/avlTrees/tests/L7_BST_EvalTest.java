@@ -71,7 +71,7 @@ public class L7_BST_EvalTest {
 	}
 	
 	@Test
-	public void test_C_Joins() {
+	public void test_C_Joins() throws CloneNotSupportedException {
 	
 		// Example
 		AVLTree<Integer> a = new AVLTree<Integer>();

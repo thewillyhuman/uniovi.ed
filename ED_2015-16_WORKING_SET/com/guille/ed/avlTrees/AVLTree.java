@@ -27,6 +27,11 @@ public class AVLTree<T extends Comparable<T>> {
 		setRoot(null);
 	}
 
+	public AVLTree(T root) {
+		setRoot(null);
+		add(root);
+	}
+
 	/**
 	 * Returns the root of the tree, if there is. Otherwise null.
 	 * 
@@ -72,20 +77,22 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return the root of the tree.
 	 * @throws Exception if the element already exists or if it's null.
 	 */
-	private AVLNode<T> add(AVLNode<T> root, T element) throws IllegalArgumentException {
+	private AVLNode<T> add(AVLNode<T> root, T element)
+			throws IllegalArgumentException {
 		if (element == null) {
-			throw new IllegalArgumentException("The element you want to add was null.");
+			throw new IllegalArgumentException(
+					"The element you want to add was null.");
 		} else if (root == null) {
 			return new AVLNode<T>(element);
 		} else if (root.getElement().equals(element)) {
-			throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
+			throw new IllegalArgumentException(
+					"No repeated elements are allowed inside a tree.");
 		} else if (element.compareTo(root.getElement()) < 0) {
 			root.setLeft(add(root.getLeft(), element));
 		} else {
 			root.setRight(add(root.getRight(), element));
 		}
-		root.updateHeight();
-		return root;
+		return (updateBF(root));
 	}
 
 	/**
@@ -101,7 +108,8 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public void addIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException("The element you want to add was null.");
+			throw new IllegalArgumentException(
+					"The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		boolean added = false;
 		while (!added) {
@@ -115,7 +123,8 @@ public class AVLTree<T extends Comparable<T>> {
 				}
 				root = root.getLeft();
 			} else if (element.compareTo(root.getElement()) == 0) {
-				throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
+				throw new IllegalArgumentException(
+						"No repeated elements are allowed inside a tree.");
 			} else {
 				if (root.getRight() == null) {
 					root.setRight(new AVLNode<T>(element));
@@ -156,7 +165,8 @@ public class AVLTree<T extends Comparable<T>> {
 			str.append("-");
 		} else {
 			str.append(root.toString());
-			str.append(toString(root.getLeft())).append(toString(root.getRight()));
+			str.append(toString(root.getLeft())).append(
+					toString(root.getRight()));
 		}
 		return str.toString();
 	}
@@ -204,7 +214,8 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public boolean searchIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException("The element you want to add was null.");
+			throw new IllegalArgumentException(
+					"The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		while (root != null) {
 			if (element.equals(root.getElement())) {
@@ -368,7 +379,8 @@ public class AVLTree<T extends Comparable<T>> {
 	 */
 	public AVLNode<T> remove(AVLNode<T> root, T element) {
 		if (!search(element)) {
-			throw new IllegalArgumentException("The provided element is not in the tree.");
+			throw new IllegalArgumentException(
+					"The provided element is not in the tree.");
 		} else if (root == null) {
 			throw new IllegalArgumentException("The provided root is null.");
 		} else if (root.getElement().equals(element)) {
@@ -385,8 +397,7 @@ public class AVLTree<T extends Comparable<T>> {
 		} else {
 			root.setRight(remove(root.getRight(), element));
 		}
-		root.updateHeight();
-		return root;
+		return (updateBF(root));
 	}
 
 	/**
@@ -395,11 +406,12 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 
 	 * @param tree. Second tree of the composition.
 	 * @return a tree containing all the nodes in the first and the second tree.
+	 * @throws CloneNotSupportedException
 	 */
 	public AVLTree<T> joins(AVLTree<T> tree) {
-		AVLTree<T> joinTree = this;
-		joins(joinTree, tree);
-		return joinTree;
+		AVLTree<T> joinTree = this.makeCopy();
+		return joins(joinTree, tree);
+
 	}
 
 	/**
@@ -424,11 +436,11 @@ public class AVLTree<T extends Comparable<T>> {
 		if (joinRoot != null) {
 			if (!tree1.search(joinRoot.getElement()))
 				tree1.add(joinRoot.getElement());
-			
+
 			AVLTree<T> treeL = new AVLTree<T>();
 			treeL.setRoot(joinRoot.getLeft());
 			tree1.joins(tree1, treeL);
-			
+
 			AVLTree<T> treeR = new AVLTree<T>();
 			treeR.setRoot(joinRoot.getRight());
 			tree1.joins(tree1, treeR);
@@ -436,4 +448,137 @@ public class AVLTree<T extends Comparable<T>> {
 		return tree1;
 	}
 
+	/**
+	 * Updates the Balance Factor of the Node.
+	 * 
+	 * @param root
+	 * @return processRotations(node)
+	 */
+	public AVLNode<T> updateBF(AVLNode<T> root) {
+		root.updateHeight();
+		return processRotations(root);
+	}
+
+	/**
+	 * This method decides if we have to perform a single or double and left or
+	 * right rotation.
+	 * 
+	 * @param root
+	 * @return single[Left / Right]Rotation(root)
+	 */
+	private AVLNode<T> processRotations(AVLNode<T> root) {
+		if (root.getBF() == -2) {
+			if (root.getLeft().getBF() == -1)
+				return singleLeftRotation(root);
+			else
+				return doubleLeftRotation(root);
+
+		} else if (root.getBF() == 2) {
+			if (root.getRight().getBF() == 1)
+				return singleRightRotation(root);
+			else
+				return doubleRightRotation(root);
+		}
+		return root;
+	}
+
+	/**
+	 * Performs a single left rotation to a given subtree.
+	 * 
+	 * @param b root of the subtree.
+	 * @return Balanced subtree.
+	 */
+	private AVLNode<T> singleLeftRotation(AVLNode<T> root) {
+		AVLNode<T> aux = root.getLeft();
+		root.setLeft(aux.getRight());
+		aux.setRight(root);
+		root = aux;
+		
+		root.updateHeight();
+		return root;
+	}
+
+	/**
+	 * Performs a single right rotation to a given subtree.
+	 * 
+	 * @param b root of the subtree.
+	 * @return Balanced subtree.
+	 */
+	private AVLNode<T> singleRightRotation(AVLNode<T> root) {
+		AVLNode<T> aux = root.getRight();
+		root.setRight(aux.getLeft());
+		aux.setLeft(root);
+		root = aux;
+
+		root.updateHeight();
+		return root;
+	}
+
+	/**
+	 * Performs a double left rotation.
+	 * 
+	 * @param root
+	 * @return balanced subtree
+	 */
+	private AVLNode<T> doubleLeftRotation(AVLNode<T> root) {
+		AVLNode<T> aux = root.getLeft().getRight();
+
+		root.getLeft().setRight(aux.getLeft());
+		aux.setLeft(root.getLeft());
+
+		root.setLeft(aux.getRight());
+		aux.setRight(root);
+
+		root = aux;
+		
+		root.updateHeight();
+		return root;
+	}
+
+	/**
+	 * Performs a double right rotation.
+	 * 
+	 * @param root
+	 * @return balanced subtree
+	 */
+	private AVLNode<T> doubleRightRotation(AVLNode<T> root) {
+		AVLNode<T> aux = root.getRight().getLeft();
+
+		root.getRight().setLeft(aux.getRight());
+		aux.setRight(root.getRight());
+
+		root.setRight(aux.getLeft());
+		aux.setLeft(root);
+
+		root = aux;
+		
+		root.updateHeight();
+		return root;
+	}
+
+	/**
+	 * This method is being created to help solve the problem of the original
+	 * tree being destroyed with the method join is called
+	 */
+	public AVLTree<T> makeCopy() {
+		AVLTree<T> copy = new AVLTree<T>();
+		return makeCopy(copy, copy.getRoot());
+	}
+
+	/**
+	 * This method is being created to help solve the problem of the original
+	 * tree being destroyed with the method join is called.
+	 * 
+	 * @param tree
+	 * @param root
+	 * @return
+	 */
+	private AVLTree<T> makeCopy(AVLTree<T> tree, AVLNode<T> root) {
+		if (root != null) {
+			tree.add(root.getElement());
+			makeCopy(tree, root.getLeft());
+			makeCopy(tree, root.getRight());
+		}
+		return tree;
+	}
 }
