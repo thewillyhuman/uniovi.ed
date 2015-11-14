@@ -3,7 +3,6 @@ package com.guille.ed.avlTrees.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.guille.ed.avlTrees.AVLTree;
@@ -66,13 +65,13 @@ public class AVLTreeTest {
 		charTree.addIterative('b');
 		assertEquals("b(0)--", charTree.toString());
 		charTree.addIterative('a');
-		assertEquals("b(0)a(0)---", charTree.toString());
+		assertEquals("b(-1)a(0)---", charTree.toString());
 		charTree.addIterative('d');
 		assertEquals("b(0)a(0)--d(0)--", charTree.toString());
 		charTree.addIterative('c');
-		assertEquals("b(0)a(0)--d(0)c(0)---", charTree.toString());
+		assertEquals("b(1)a(0)--d(-1)c(0)---", charTree.toString());
 		charTree.addIterative('g');
-		assertEquals("b(0)a(0)--d(0)c(0)--g(0)--", charTree.toString());
+		assertEquals("b(1)a(0)--d(0)c(0)--g(0)--", charTree.toString());
 		charTree.addIterative('i');
 		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)--", charTree.toString());
 		charTree.addIterative('h');
@@ -426,7 +425,7 @@ public class AVLTreeTest {
 
 	}
 	
-	@Test @Ignore
+	@Test
 	public void joinTest() {
 		//Easy Martin tests...
 		AVLTree<Character> a = new AVLTree<Character>();
@@ -438,7 +437,7 @@ public class AVLTreeTest {
 		b.add('g');
 		b.add('i');
 		b.add('d');
-		assertEquals ("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", a.joins(b).toString());
+		assertEquals ("d(0)b(0)a(0)--c(0)--g(1)-i(0)--", a.joins(b).toString());
 		System.out.println(a.joins(b).toString());
 		
 		//Testing with an empty tree.
@@ -450,8 +449,8 @@ public class AVLTreeTest {
 		charTree.add('a');
 		charTree.add('b');
 		charTree.add('c');
-		assertEquals("a(2)-b(1)-c(0)--", charTree.joins(c).toString());
-		assertEquals("a(2)-b(1)-c(0)--", c.joins(charTree).toString());
+		assertEquals("b(0)a(0)--c(0)--", charTree.joins(c).toString());
+		assertEquals("b(0)a(0)--c(0)--", c.joins(charTree).toString());
 		System.out.println(c.joins(charTree).toString());
 		
 		AVLTree<Integer> firstTree = new AVLTree<Integer>();
@@ -465,7 +464,7 @@ public class AVLTreeTest {
 		AVLTree<Integer> newTree = firstTree.joins(secondTree);
 		assertEquals("10(1)-15(0)--", newTree.toString());
 		newTree.add(5);
-		assertEquals("10(1)5(0)--15(0)--", newTree.toString());
+		assertEquals("10(0)5(0)--15(0)--", newTree.toString());
 		assertEquals("10(1)-15(0)--", firstTree.toString());
 	}
 	
@@ -516,19 +515,53 @@ public class AVLTreeTest {
 		a.add('a');
 		a.add('b');
 		a.add('c');
+		System.out.println(a.toString());
+		assertEquals("b(0)a(0)--c(0)--", a.toString());
 		a.add('d');
 		a.add('e');
-		//assertEquals ("b(1)a(0)--d(0)c(0)--e(0)--", a.toString());
+		System.out.println(a.getRoot().getRight());
+		assertEquals ("b(1)a(0)--d(0)c(0)--e(0)--", a.toString());
 
 		a.add('f');
-		//assertEquals ("d(0)b(0)a(0)--c(0)--e(1)-f(0)--", a.toString());
+		assertEquals ("d(0)b(0)a(0)--c(0)--e(1)-f(0)--", a.toString());
 		
 		//Own test
 		integerTree.add(10);
 		integerTree.add(11);
 		integerTree.add(12);
 		assertEquals("11(0)10(0)--12(0)--", integerTree.toString());
-		
+	}
+	
+	@Test
+	public void getHeightTest() {
+		AVLTree<Character> a = new AVLTree<Character>();
+		a.add('a');
+		a.add('b');
+		a.add('c');
+		assertEquals(1, a.getRoot().getHeight());
+		a.add('d');
+		assertEquals(2, a.getRoot().getHeight());
+	}
+	
+	@Test
+	public void makeCopyTest() {
+		integerTree.add(5);
+		integerTree.add(4);
+		integerTree.add(6);
+		assertEquals("5(0)4(0)--6(0)--", integerTree.toString());
+		AVLTree<Integer> copy = integerTree.clone();
+		assertEquals("5(0)4(0)--6(0)--", copy.toString());
+		copy.add(3);
+		assertEquals("5(-1)4(-1)3(0)---6(0)--", copy.toString());
+		assertEquals("5(0)4(0)--6(0)--", integerTree.toString());
+	}
+	
+	@Test
+	public void toListTest() {
+		charTree.add('b');
+		charTree.add('c');
+		charTree.add('a');
+		System.out.println(charTree.toList().toString());
 	}
 
 }

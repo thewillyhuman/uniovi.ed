@@ -1,5 +1,9 @@
 package com.guille.ed.avlTrees;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * In computer science, an AVL tree (Georgy Adelson-Velsky and Evgenii Landis'
  * tree, named after the inventors) is a self-balancing binary search tree. It
@@ -77,16 +81,13 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @return the root of the tree.
 	 * @throws Exception if the element already exists or if it's null.
 	 */
-	private AVLNode<T> add(AVLNode<T> root, T element)
-			throws IllegalArgumentException {
+	private AVLNode<T> add(AVLNode<T> root, T element) throws IllegalArgumentException {
 		if (element == null) {
-			throw new IllegalArgumentException(
-					"The element you want to add was null.");
+			throw new IllegalArgumentException("The element you want to add was null.");
 		} else if (root == null) {
 			return new AVLNode<T>(element);
 		} else if (root.getElement().equals(element)) {
-			throw new IllegalArgumentException(
-					"No repeated elements are allowed inside a tree.");
+			throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
 		} else if (element.compareTo(root.getElement()) < 0) {
 			root.setLeft(add(root.getLeft(), element));
 		} else {
@@ -108,8 +109,7 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public void addIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException(
-					"The element you want to add was null.");
+			throw new IllegalArgumentException("The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		boolean added = false;
 		while (!added) {
@@ -123,8 +123,7 @@ public class AVLTree<T extends Comparable<T>> {
 				}
 				root = root.getLeft();
 			} else if (element.compareTo(root.getElement()) == 0) {
-				throw new IllegalArgumentException(
-						"No repeated elements are allowed inside a tree.");
+				throw new IllegalArgumentException("No repeated elements are allowed inside a tree.");
 			} else {
 				if (root.getRight() == null) {
 					root.setRight(new AVLNode<T>(element));
@@ -165,8 +164,7 @@ public class AVLTree<T extends Comparable<T>> {
 			str.append("-");
 		} else {
 			str.append(root.toString());
-			str.append(toString(root.getLeft())).append(
-					toString(root.getRight()));
+			str.append(toString(root.getLeft())).append(toString(root.getRight()));
 		}
 		return str.toString();
 	}
@@ -214,8 +212,7 @@ public class AVLTree<T extends Comparable<T>> {
 	@Deprecated
 	public boolean searchIterative(T element) {
 		if (element == null)
-			throw new IllegalArgumentException(
-					"The element you want to add was null.");
+			throw new IllegalArgumentException("The element you want to add was null.");
 		AVLNode<T> root = getRoot();
 		while (root != null) {
 			if (element.equals(root.getElement())) {
@@ -369,7 +366,7 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Private and reflexive remove method. Given an element as a paramenter and
+	 * Private and reflexive remove method. Given an element as a parameter and
 	 * a root it removes the element from the tree.
 	 * 
 	 * @param element, the element to be deleted
@@ -379,8 +376,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 */
 	public AVLNode<T> remove(AVLNode<T> root, T element) {
 		if (!search(element)) {
-			throw new IllegalArgumentException(
-					"The provided element is not in the tree.");
+			throw new IllegalArgumentException("The provided element is not in the tree.");
 		} else if (root == null) {
 			throw new IllegalArgumentException("The provided root is null.");
 		} else if (root.getElement().equals(element)) {
@@ -409,7 +405,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @throws CloneNotSupportedException
 	 */
 	public AVLTree<T> joins(AVLTree<T> tree) {
-		AVLTree<T> joinTree = this.makeCopy();
+		AVLTree<T> joinTree = this.clone();
 		return joins(joinTree, tree);
 
 	}
@@ -493,7 +489,7 @@ public class AVLTree<T extends Comparable<T>> {
 		root.setLeft(aux.getRight());
 		aux.setRight(root);
 		root = aux;
-		
+
 		root.updateHeight();
 		return root;
 	}
@@ -530,7 +526,7 @@ public class AVLTree<T extends Comparable<T>> {
 		aux.setRight(root);
 
 		root = aux;
-		
+
 		root.updateHeight();
 		return root;
 	}
@@ -551,34 +547,102 @@ public class AVLTree<T extends Comparable<T>> {
 		aux.setLeft(root);
 
 		root = aux;
-		
+
 		root.updateHeight();
 		return root;
 	}
 
 	/**
-	 * This method is being created to help solve the problem of the original
-	 * tree being destroyed with the method join is called
+	 * Returns a pointer to an auxiliary tree containing all the elements as
+	 * this tree.
+	 * 
+	 * @return an auxiliary tree containing all the elements on the working
+	 *         tree.
 	 */
-	public AVLTree<T> makeCopy() {
+	public AVLTree<T> clone() {
 		AVLTree<T> copy = new AVLTree<T>();
-		return makeCopy(copy, copy.getRoot());
+		return clone(copy, this.getRoot());
 	}
 
 	/**
-	 * This method is being created to help solve the problem of the original
-	 * tree being destroyed with the method join is called.
+	 * Private and recursive version for make a copy of the actual tree.
 	 * 
-	 * @param tree
-	 * @param root
-	 * @return
+	 * @param tree that will be the auxiliary one.
+	 * @param root to start working to make the copy.
+	 * @return the aux tree.
 	 */
-	private AVLTree<T> makeCopy(AVLTree<T> tree, AVLNode<T> root) {
+	private AVLTree<T> clone(AVLTree<T> tree, AVLNode<T> root) {
 		if (root != null) {
 			tree.add(root.getElement());
-			makeCopy(tree, root.getLeft());
-			makeCopy(tree, root.getRight());
+			clone(tree, root.getLeft());
+			clone(tree, root.getRight());
 		}
 		return tree;
+	}
+
+	/**
+	 * If the root of a tree is null means that the tree is empty.
+	 * 
+	 * @return whether a tree is empty or not.
+	 */
+	public boolean isEmpty() {
+		return (root == null);
+	}
+
+	/**
+	 * The current tree as a List shorted.
+	 * 
+	 * @return the current tree as a list shorted.
+	 */
+	public List<T> toList() {
+		List<T> toReturn = new ArrayList<T>();
+		toReturn = toList(toReturn, this.getRoot());
+		Collections.sort(toReturn);
+		return toReturn;
+	}
+
+	/**
+	 * Private and recursive method to get the tree as a List.
+	 * 
+	 * @param list where the elements will be stored.
+	 * @param root of the working tree.
+	 * @return the list containing all the elements not shorted.
+	 */
+	private List<T> toList(List<T> list, AVLNode<T> root) {
+		if (root != null) {
+			list.add(root.getElement());
+			toList(list, root.getLeft());
+			toList(list, root.getRight());
+		}
+		return list;
+	}
+
+	/**
+	 * Get Height method. It returns the height of the tree without accessing to
+	 * the node parameters. To perform that it calls to the private and
+	 * reflexive getHeight() method with the root of the tree as a paramenter.
+	 * 
+	 * @return the height of the tree as an integer.
+	 */
+	public int getHeight() {
+		return getHeight(getRoot());
+	}
+
+	/**
+	 * getHeight [ PRIVATE AND REFLEXIVE ]. It returns the height of the tree
+	 * without accessing to the node parameters.
+	 * 
+	 * @param root where you start to perform the algorithm
+	 * @return the height as an integer.
+	 */
+	private int getHeight(AVLNode<T> root) {
+		if (root == null)
+			return 0;
+
+		if (root.getBF() <= 0)
+			return 1 + getHeight(root.getLeft());
+		else
+			return 1 + getHeight(root.getRight());
+		
 	}
 }

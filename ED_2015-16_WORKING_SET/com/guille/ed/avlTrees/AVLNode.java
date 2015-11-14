@@ -69,6 +69,7 @@ public class AVLNode<T extends Comparable<T>> {
 	 * @return the height as an Integer.
 	 */
 	public int getHeight() {
+		updateHeight();
 		return this.height;
 	}
 
@@ -180,8 +181,17 @@ public class AVLNode<T extends Comparable<T>> {
 	 * @return
 	 */
 	private int calculateBF() {
-		int hright = (this.getRight()==null ? -1 : this.getRight().getHeight());
-		int hleft = (this.getLeft()==null ? -1 : this.getLeft().getHeight());
-		return hright - hleft;
+
+		// If the node doesn't have children, its BF is just 0
+		if (getLeft() == null && getRight() == null)
+			return 0;
+		// If it has a child on one side
+		else if (getRight() == null)
+			return -1 - getLeft().getHeight();
+		else if (getLeft() == null && getRight() != null)
+			return 1 + getRight().getHeight();
+		// If it has one child on each side
+		else
+			return (getRight().getHeight() - getLeft().getHeight());
 	}
 }
