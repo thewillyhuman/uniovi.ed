@@ -565,5 +565,18 @@ public class AVLTreeTest {
 		charTree.add('a');
 		System.out.println(charTree.toList().toString());
 	}
+	
+	@Test
+	public void countTest() {
+		integerTree.add(1);
+		integerTree.add(2);
+		integerTree.add(3);
+		integerTree.add(4);
+		integerTree.add(5);
+		assertEquals(5, integerTree.getNumberOfNodes());
+		assertEquals(0, charTree.getNumberOfNodes());
+		stringTree.add("aa");
+		assertEquals(1, stringTree.getNumberOfNodes());
+	}
 
 }
