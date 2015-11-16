@@ -534,13 +534,15 @@ public class AVLTreeTest {
 	
 	@Test
 	public void getHeightTest() {
-		AVLTree<Character> a = new AVLTree<Character>();
-		a.add('a');
-		a.add('b');
-		a.add('c');
-		assertEquals(1, a.getRoot().getHeight());
-		a.add('d');
-		assertEquals(2, a.getRoot().getHeight());
+		assertEquals(0, charTree.getHeight());	// Empty tree has height 0.
+		charTree.add('a');						// We add one node to the tree.
+		assertEquals(0, charTree.getHeight());	// A tree with only one node has also height 0.
+		charTree.add('b');						// We add the second element.
+		assertEquals(1, charTree.getHeight());	// Now the height should be 1.
+		charTree.add('c');
+		assertEquals(1, charTree.getHeight());	// After the third element height should be still one due to rotations. 
+		charTree.add('d');
+		assertEquals(2, charTree.getHeight()); 	// Checking that when more elements are added the height still increases.
 	}
 	
 	@Test

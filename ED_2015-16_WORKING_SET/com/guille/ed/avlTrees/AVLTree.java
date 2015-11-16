@@ -618,31 +618,36 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Get Height method. It returns the height of the tree without accessing to
+	 * Get Height method. Returns the height of the tree without accessing to
 	 * the node parameters. To perform that it calls to the private and
-	 * reflexive getHeight() method with the root of the tree as a paramenter.
+	 * reflexive getHeight() method with the root of the tree as a parameter.
 	 * 
 	 * @return the height of the tree as an integer.
 	 */
 	public int getHeight() {
-		return getHeight(getRoot());
+		return getHeight(this.getRoot());
 	}
 
 	/**
-	 * getHeight [ PRIVATE AND REFLEXIVE ]. It returns the height of the tree
+	 * Get Height [ PRIVATE AND REFLEXIVE ]. It returns the height of the tree
 	 * without accessing to the node parameters.
 	 * 
 	 * @param root where you start to perform the algorithm
 	 * @return the height as an integer.
 	 */
 	private int getHeight(AVLNode<T> root) {
-		if (root == null)
+		if(root == null)
+			return 0;
+		else if (root.getLeft() == null && root.getRight() == null)
 			return 0;
 
+		// Depending on the balance factor we can know which subtree has more
+		// height, if the balance factor equals or less 0 we will take the left
+		// subtree as the one with more height, the right one otherwise.
 		if (root.getBF() <= 0)
 			return 1 + getHeight(root.getLeft());
 		else
 			return 1 + getHeight(root.getRight());
-		
+
 	}
 }
