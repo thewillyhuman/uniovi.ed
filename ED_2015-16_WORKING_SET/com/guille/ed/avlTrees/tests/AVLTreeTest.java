@@ -505,7 +505,7 @@ public class AVLTreeTest {
 		a.add('g');
 		a.add('i');
 		a.add('h');
-		assertEquals ("b(3)a(0)--d(2)c(0)--g(2)-i(-1)h(0)---", a.toString());
+		assertEquals ("b(0)a(0)--d(0)c(0)--g(0)-i(-1)h(0)---", a.toString());
 	}
 	
 	@Test
