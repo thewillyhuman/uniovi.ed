@@ -33,17 +33,17 @@ public class AVLTreeTest {
 		charTree.add('b');
 		assertEquals("b(0)--", charTree.toString());
 		charTree.add('a');
-		assertEquals("b(1)a(0)---", charTree.toString());
+		assertEquals("b(-1)a(0)---", charTree.toString());
 		charTree.add('d');
-		assertEquals("b(1)a(0)--d(0)--", charTree.toString());
+		assertEquals("b(0)a(0)--d(0)--", charTree.toString());
 		charTree.add('c');
-		assertEquals("b(2)a(0)--d(1)c(0)---", charTree.toString());
+		assertEquals("b(1)a(0)--d(-1)c(0)---", charTree.toString());
 		charTree.add('g');
-		assertEquals("b(2)a(0)--d(1)c(0)--g(0)--", charTree.toString());
+		assertEquals("b(1)a(0)--d(0)c(0)--g(0)--", charTree.toString());
 		charTree.add('i');
-		assertEquals("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", charTree.toString());
+		assertEquals("d(0)b(0)a(0)--c(0)--g(1)-i(0)--", charTree.toString());
 		charTree.add('h');
-		assertEquals("b(4)a(0)--d(3)c(0)--g(2)-i(1)h(0)---", charTree.toString());
+		assertEquals("d(0)b(0)a(0)--c(0)--h(0)g(0)--i(0)--", charTree.toString());
 
 		// Testing Exceptions...
 		try {
@@ -73,9 +73,9 @@ public class AVLTreeTest {
 		charTree.addIterative('g');
 		assertEquals("b(1)a(0)--d(0)c(0)--g(0)--", charTree.toString());
 		charTree.addIterative('i');
-		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)--", charTree.toString());
+		assertEquals("b(2)a(0)--d(1)c(0)--g(1)-i(0)--", charTree.toString());
 		charTree.addIterative('h');
-		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)h(0)---", charTree.toString());
+		assertEquals("b(3)a(0)--d(2)c(0)--g(2)-i(-1)h(0)---", charTree.toString());
 
 		// Testing Exceptions...
 		try {
@@ -248,7 +248,7 @@ public class AVLTreeTest {
 		b.add('c');
 		b.add('f');
 		System.out.println("Current working tree: "+b.toString()+"\n");
-		assertEquals ("b(2)a(0)--c(1)-f(0)--", b.toString());
+		assertEquals ("b(1)a(0)--c(1)-f(0)--", b.toString());
 		
 		//Possitive testing
 		System.out.println("Positive testing starting... ");
@@ -304,7 +304,7 @@ public class AVLTreeTest {
 		c.add('c');
 		c.add('f');
 		System.out.println("Current working tree: "+c.toString()+"\n");
-		assertEquals ("b(2)a(0)--c(1)-f(0)--", c.toString());
+		assertEquals ("b(1)a(0)--c(1)-f(0)--", c.toString());
 		
 		//Positive testing
 		System.out.print("Positive testing starting... ");
@@ -365,20 +365,20 @@ public class AVLTreeTest {
 		charTree.add('g');
 		charTree.add('i');
 		charTree.add('h');
-		assertEquals ("b(4)a(0)--d(3)c(0)--g(2)-i(1)h(0)---", charTree.toString());
+		assertEquals ("d(0)b(0)a(0)--c(0)--h(0)g(0)--i(0)--", charTree.toString());
 		try {
 			charTree.remove('b');
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		assertEquals ("a(4)-d(3)c(0)--g(2)-i(1)h(0)---", charTree.toString());
+		assertEquals ("d(0)a(1)-c(0)--h(0)g(0)--i(0)--", charTree.toString());
 		System.out.println(charTree.toString());
 		try {
 			charTree.remove('g');
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		assertEquals ("a(3)-d(2)c(0)--i(1)h(0)---", charTree.toString());
+		assertEquals ("d(0)a(1)-c(0)--h(1)-i(0)--", charTree.toString());
 		
 		//Testing exceptions and Special cases...
 		try {
@@ -420,7 +420,7 @@ public class AVLTreeTest {
 		a.add('g');
 		a.add('i');
 		a.add('h');
-		assertEquals ("b(4)a(0)--d(3)c(0)--g(2)-i(1)h(0)---", a.toString());
+		assertEquals ("d(0)b(0)a(0)--c(0)--h(0)g(0)--i(0)--", a.toString());
 		System.out.println(a.toString());
 
 	}
@@ -479,7 +479,7 @@ public class AVLTreeTest {
 		a.add('g');
 		a.add('i');
 		a.add('h');
-		assertEquals ("b(3)a(0)--d(2)c(0)--g(2)-i(-1)h(0)---", a.toString());
+		assertEquals ("d(0)b(0)a(0)--c(0)--h(0)g(0)--i(0)--", a.toString());
 		
 		//Own test
 		integerTree.add(5);
@@ -491,7 +491,7 @@ public class AVLTreeTest {
 		assertEquals("5(0)4(0)--6(0)--", integerTree.toString());
 		integerTree.add(2);
 		integerTree.add(3);
-		assertEquals("5(-2)4(-2)2(1)-3(0)---6(0)--", integerTree.toString());
+		assertEquals("5(-1)3(0)2(0)--4(0)--6(0)--", integerTree.toString());
 	}
 	
 	@Test
@@ -505,7 +505,7 @@ public class AVLTreeTest {
 		a.add('g');
 		a.add('i');
 		a.add('h');
-		assertEquals ("b(0)a(0)--d(0)c(0)--g(0)-i(-1)h(0)---", a.toString());
+		assertEquals ("d(0)b(0)a(0)--c(0)--h(0)g(0)--i(0)--", a.toString());
 	}
 	
 	@Test
@@ -553,9 +553,11 @@ public class AVLTreeTest {
 		assertEquals("5(0)4(0)--6(0)--", integerTree.toString());
 		AVLTree<Integer> copy = integerTree.clone();
 		assertEquals("5(0)4(0)--6(0)--", copy.toString());
+		assertEquals(integerTree.toString(), copy.toString());
 		copy.add(3);
 		assertEquals("5(-1)4(-1)3(0)---6(0)--", copy.toString());
 		assertEquals("5(0)4(0)--6(0)--", integerTree.toString());
+		assertNotEquals(integerTree.toString(), copy.toString());
 	}
 	
 	@Test

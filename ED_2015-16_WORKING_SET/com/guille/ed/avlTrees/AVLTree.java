@@ -53,8 +53,7 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param root AVLNode to be the root of the tree.
 	 */
 	public void setRoot(AVLNode<T> root) {
-		if (root == null)
-			System.err.println("Warning: Setting the root as null.");
+		if (root == null) { /*System.err.println("Warning: Setting the root as null.");*/ } // In case you want to print the warning...
 		this.root = root;
 	}
 
@@ -659,6 +658,9 @@ public class AVLTree<T extends Comparable<T>> {
 	private int getHeight(AVLNode<T> root) {
 		if(root == null)
 			return 0;
+		
+		// That check is to know whether a node is a leaf or not.
+		// If one single leaf is counted as 1 remove two following lines.
 		else if (root.getLeft() == null && root.getRight() == null)
 			return 0;
 

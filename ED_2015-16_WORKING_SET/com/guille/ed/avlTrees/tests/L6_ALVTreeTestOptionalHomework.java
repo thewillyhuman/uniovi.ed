@@ -17,22 +17,22 @@ public class L6_ALVTreeTestOptionalHomework {
 		assertEquals("b(0)--", t.toString());
 	
 		t.addIterative("a");
-		assertEquals("b(0)a(0)---", t.toString());
+		assertEquals("b(-1)a(0)---", t.toString());
 		
 		t.addIterative("d");
 		assertEquals("b(0)a(0)--d(0)--", t.toString());
 		
 		t.addIterative("c");
-		assertEquals("b(0)a(0)--d(0)c(0)---", t.toString());
+		assertEquals("b(1)a(0)--d(-1)c(0)---", t.toString());
 		
 		t.addIterative("g");
-		assertEquals("b(0)a(0)--d(0)c(0)--g(0)--", t.toString());
+		assertEquals("b(1)a(0)--d(0)c(0)--g(0)--", t.toString());
 		
 		t.addIterative("i");
-		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)--", t.toString());
+		assertEquals("b(2)a(0)--d(1)c(0)--g(1)-i(0)--", t.toString());
 		
 		t.addIterative("h");
-		assertEquals("b(0)a(0)--d(0)c(0)--g(0)-i(0)h(0)---", t.toString());
+		assertEquals("b(3)a(0)--d(2)c(0)--g(2)-i(-1)h(0)---", t.toString());
 
 		
 		try{
@@ -187,25 +187,25 @@ public class L6_ALVTreeTestOptionalHomework {
 		assertEquals("b(0)--", t.toString());
 	
 		t.add("a");
-		assertEquals("b(1)a(0)---", t.toString());
+		assertEquals("b(-1)a(0)---", t.toString());
 		
 		t.add("d");
-		assertEquals("b(1)a(0)--d(0)--", t.toString());
+		assertEquals("b(0)a(0)--d(0)--", t.toString());
 		
 		t.add("c");
-		assertEquals("b(2)a(0)--d(1)c(0)---", t.toString());
+		assertEquals("b(1)a(0)--d(-1)c(0)---", t.toString());
 		
 		t.add("g");
-		assertEquals("b(2)a(0)--d(1)c(0)--g(0)--", t.toString());
+		assertEquals("b(1)a(0)--d(0)c(0)--g(0)--", t.toString());
 		
 		t.add("i");
-		assertEquals("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", t.toString());
+		assertEquals("d(0)b(0)a(0)--c(0)--g(1)-i(0)--", t.toString());
 		
 		t.add("h");
-		assertEquals("b(4)a(0)--d(3)c(0)--g(2)-i(1)h(0)---", t.toString());
+		assertEquals("d(0)b(0)a(0)--c(0)--h(0)g(0)--i(0)--", t.toString());
 
 		assertEquals("-a-b-c-d-g-h-i-", t.inOrderTraversal());
-		assertEquals("--a--c---h-igdb", t.postOrderTraversal());
+		assertEquals("--a--cb--g--ihd", t.postOrderTraversal());
 
 	}
 	
