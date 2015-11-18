@@ -51,5 +51,4 @@ public class AVLTreeMartinTest {
 		assertEquals(false, a.search('f'));
 
 	}
-
 }

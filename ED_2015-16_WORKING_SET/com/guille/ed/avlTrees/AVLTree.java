@@ -637,12 +637,18 @@ public class AVLTree<T extends Comparable<T>> {
 		return (1 + getNumberOfNodes(root.getLeft()) + getNumberOfNodes(root.getRight()));
 	}
 	
+	/*
+	 * ************** HOMEWORK 20.11.2016 **************
+	 */
+	
 	/**
 	 * Get Height method. Returns the height of the tree without accessing to
 	 * the node parameters. To perform that it calls to the private and
 	 * reflexive getHeight() method with the root of the tree as a parameter.
 	 * 
+	 * 
 	 * @return the height of the tree as an integer.
+	 * @important The method considers the height of a single leaf as 0.
 	 */
 	public int getHeight() {
 		return getHeight(this.getRoot());
@@ -654,8 +660,10 @@ public class AVLTree<T extends Comparable<T>> {
 	 * 
 	 * @param root where you start to perform the algorithm
 	 * @return the height as an integer.
+	 * @important The method considers the height of a single leaf as 0.
 	 */
 	private int getHeight(AVLNode<T> root) {
+		// If the tree is empty...
 		if(root == null)
 			return 0;
 		
