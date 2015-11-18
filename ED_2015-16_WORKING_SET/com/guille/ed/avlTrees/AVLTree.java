@@ -2,6 +2,7 @@ package com.guille.ed.avlTrees;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -591,12 +592,25 @@ public class AVLTree<T extends Comparable<T>> {
 	/**
 	 * The current tree as a List shorted.
 	 * 
-	 * @return the current tree as a list shorted.
+	 * @return the current tree as a list shorted with the default type comparator.
 	 */
 	public List<T> toList() {
 		List<T> toReturn = new ArrayList<T>();
 		toReturn = toList(toReturn, this.getRoot());
 		Collections.sort(toReturn);
+		return toReturn;
+	}
+	
+	/**
+	 * The current tree as a List shorted.
+	 * 
+	 * @param comparator used to sort the list.
+	 * @return the current tree as a list sorted by the custom comparator.
+	 */
+	public List<T> toList(Comparator<T> comparator) {
+		List<T> toReturn = new ArrayList<T>();
+		toReturn = toList(toReturn, this.getRoot());
+		Collections.sort(toReturn, comparator);
 		return toReturn;
 	}
 
