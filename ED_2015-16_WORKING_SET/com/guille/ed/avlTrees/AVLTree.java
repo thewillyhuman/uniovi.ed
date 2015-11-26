@@ -464,13 +464,13 @@ public class AVLTree<T extends Comparable<T>> {
 	 */
 	private AVLNode<T> processRotations(AVLNode<T> root) {
 		if (root.getBF() == -2) {
-			if (root.getLeft().getBF() == -1)
+			if (root.getLeft().getBF() <= 0)
 				return singleLeftRotation(root);
 			else
 				return doubleLeftRotation(root);
 
 		} else if (root.getBF() == 2) {
-			if (root.getRight().getBF() == 1)
+			if (root.getRight().getBF() >= 0)
 				return singleRightRotation(root);
 			else
 				return doubleRightRotation(root);
