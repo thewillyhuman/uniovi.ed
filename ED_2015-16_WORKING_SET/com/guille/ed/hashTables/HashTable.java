@@ -222,25 +222,21 @@ public class HashTable<T extends Comparable<T>> {
 	 */
 	public void remove(T element) {
 		boolean success = false;
-		int i = -1;
-
+		
+		int i = 0;
 		do {
-			i++;
 			HashNode<T> hashNode = associativeArray.get(f(element, i));
-
-			if (hashNode.getStatus() == HashNode.VALID
-					&& hashNode.getElement().equals(element)) {
+			if (hashNode.getStatus() == HashNode.VALID && hashNode.getElement().equals(element)) {
 				hashNode.setStatus(HashNode.DELETED);
-			}
+			} i++;
 
 		} while (!success && i < ATTEMPS);
-
 		n--;
 	}
 
 	/**
 	 * Given an integer number as a parameter it returns true only in the case
-	 * that this number is a pime number. False otherwise
+	 * that this number is a prime number. False otherwise
 	 * 
 	 * @param number to check if it's prime or not
 	 * @return true if the parameter is a prime number and false otherwise.
