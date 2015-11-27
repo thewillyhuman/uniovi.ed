@@ -1,9 +1,7 @@
 package com.guille.ed.priorityQueues.Tests;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
 import com.guille.ed.priorityQueues.BinaryHeap;
 
 public class BinaryHeapCarlosTest {
