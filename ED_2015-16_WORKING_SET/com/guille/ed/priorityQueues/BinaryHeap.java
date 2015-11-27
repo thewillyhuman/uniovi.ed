@@ -44,7 +44,7 @@ public class BinaryHeap<T extends Comparable<T>> {
 	 * @return true if the heap is empty. False otherwise.
 	 */
 	public boolean isEmpty() {
-		return this.heap.isEmpty();
+		return heap.isEmpty();
 	}
 
 	/**
@@ -85,8 +85,9 @@ public class BinaryHeap<T extends Comparable<T>> {
 	 * @param element
 	 */
 	public void add(T element) {
-		if(heap.contains(element))
-			throw new IllegalArgumentException("You cannot add repeated elements to the heap.");
+		if (heap.contains(element))
+			throw new IllegalArgumentException(
+					"You cannot add repeated elements to the heap.");
 		heap.add(element);
 		filterUp((heap.size() - 1));
 	}
@@ -129,14 +130,14 @@ public class BinaryHeap<T extends Comparable<T>> {
 	 * @return the highest priority element.
 	 */
 	public T getMin() {
-		//If is empty we cannot return anything so.. exception. Tatatachaaaaan!!!
-		if(isEmpty()) 
-			throw new IllegalStateException("The heap is empty.");
-		
+		// Behavior changed, now only if the heap is not empty we execute the
+		// algorithm, nothing about exceptions.
 		T aux = heap.get(0);
 		T lastNode = heap.remove((heap.size() - 1));
-		heap.set(0, lastNode);
-		filterDown(0);
+		if (!isEmpty()) {
+			heap.set(0, lastNode);
+			filterDown(0);
+		}
 		return aux;
 	}
 }
