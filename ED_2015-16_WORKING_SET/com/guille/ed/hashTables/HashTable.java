@@ -130,7 +130,7 @@ public class HashTable<T extends Comparable<T>> {
 		switch (redispersionType) {
 		case LINEAR_PROBING:
 			return ((Math.abs(element.hashCode()) + i) % B);
-		case QUADRATIC_PROBING:
+		case DOUBLE_HASHING:
 			return ((Math.abs(element.hashCode()) + i * (R - Math.abs(element.hashCode() % R))) % B);
 		}
 		return ((Math.abs(element.hashCode()) + (i * i)) % B);

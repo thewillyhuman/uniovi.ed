@@ -24,8 +24,7 @@ public class HashTablesMartinTest {
 	@Test
 	public void addAndSearchTest() {
 		// Example
-		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.
-		LINEAR_PROBING, 1.0);
+		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 1.0);
 		a.add(4);
 		a.add(13);
 		a.add(24);
