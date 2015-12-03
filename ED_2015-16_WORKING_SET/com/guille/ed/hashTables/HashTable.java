@@ -1,6 +1,9 @@
 package com.guille.ed.hashTables;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+
+import com.guille.ed.util.math.aks.AKS;
 
 public class HashTable<T extends Comparable<T>> {
 
@@ -22,7 +25,7 @@ public class HashTable<T extends Comparable<T>> {
 	 * Main constructor.
 	 * 
 	 * @param B the size of the HashTable
-	 * @param redispersionType type of redispersion that is going to be used.
+	 * @param redispersionType type of re dispersion that is going to be used.
 	 * @param minLF the minimum load factor accepted.
 	 */
 	public HashTable(int B, int redispersionType, double minLF) {
@@ -49,7 +52,7 @@ public class HashTable<T extends Comparable<T>> {
 	 * 
 	 * @param b, the size of the hash table.
 	 */
-	public void setB(int b) {
+	private void setB(int b) {
 		if (b < 0) {
 			throw new IllegalArgumentException("B can not be negative.");
 		} else {
@@ -60,7 +63,8 @@ public class HashTable<T extends Comparable<T>> {
 	/**
 	 * Return the re-dispersion type.
 	 * 
-	 * @return redispersionType that represents which one of the re-dispersion is used.
+	 * @return redispersionType that represents which one of the re-dispersion
+	 *         is used.
 	 */
 	public int getRedispersionType() {
 		return redispersionType;
@@ -71,7 +75,7 @@ public class HashTable<T extends Comparable<T>> {
 	 * 
 	 * @param redispersionType the redispersionType to set
 	 */
-	public void setRedispersionType(int redispersionType) {
+	private void setRedispersionType(int redispersionType) {
 		this.redispersionType = redispersionType;
 	}
 
@@ -98,7 +102,7 @@ public class HashTable<T extends Comparable<T>> {
 	 * 
 	 * @param minLF, the minimum accepted load factor for the hash table.
 	 */
-	public void setMinLF(double minLF) {
+	private void setMinLF(double minLF) {
 		if (minLF < 0) {
 			throw new IllegalArgumentException("B can not be negative.");
 		} else {
@@ -126,8 +130,8 @@ public class HashTable<T extends Comparable<T>> {
 		switch (redispersionType) {
 		case LINEAR_PROBING:
 			return ((Math.abs(element.hashCode()) + i) % B);
-			// case QUADRATIC_PROBING: return (( Math.abs(element.hashCode()) +
-			// i*(R-Math.abs(element.hashCode() % R ))) % B );
+		case QUADRATIC_PROBING:
+			return ((Math.abs(element.hashCode()) + i * (R - Math.abs(element.hashCode() % R))) % B);
 		}
 		return ((Math.abs(element.hashCode()) + (i * i)) % B);
 	}
@@ -166,13 +170,14 @@ public class HashTable<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Search. Given an element it checks if it is in the possition it should
-	 * be.
+	 * Search. Given an element it checks if it is in the position it should be.
 	 * 
 	 * @param element
 	 * @return true if the element is in the hashTable; false otherwise.
 	 */
 	public boolean search(T element) {
+		if (this.getAssociativeArray().isEmpty())
+			throw new IllegalStateException("The hashTable is empty.");
 
 		int i = 0;
 		do {
@@ -181,9 +186,9 @@ public class HashTable<T extends Comparable<T>> {
 				return false;
 			} else if ((hashNode.getStatus() == HashNode.VALID) && (hashNode.getElement().equals(element))) {
 				return true;
-			} i++;
+			}
+			i++;
 		} while (i < ATTEMPS);
-
 		return false;
 	}
 
@@ -192,26 +197,24 @@ public class HashTable<T extends Comparable<T>> {
 	 * parameter.
 	 */
 	public void dynamicResize() {
-		dynamicResize(nextPrime(2 * B));
+		dynamicResize(getNextPrime(2 * B));
 	}
 
 	/**
-	 * Resizes the table dynamicly.
+	 * Resizes the table dynamically.
 	 * 
 	 * @param size (2*B)
 	 */
 	public void dynamicResize(int size) {
-		HashTable<T> auxTable = new HashTable<T>(size,
-				HashTable.DOUBLE_HASHING, minLF);
+		HashTable<T> auxTable = new HashTable<T>(size, HashTable.DOUBLE_HASHING, minLF);
 		for (HashNode<T> element : associativeArray) {
 			if (element.getStatus() == HashNode.VALID) {
 				auxTable.add(element.getElement());
 			}
 		}
 		this.associativeArray = auxTable.getAssociativeArray();
-		this.B = size;
-		this.R = prevPrime(B);
-
+		setB(size);
+		this.R = getPrevPrime(B);
 	}
 
 	/**
@@ -221,46 +224,65 @@ public class HashTable<T extends Comparable<T>> {
 	 * @param element to be removed.
 	 */
 	public void remove(T element) {
+		if (this.getAssociativeArray().isEmpty())
+			throw new IllegalStateException("The hashTable is empty.");
+
 		boolean success = false;
-		
 		int i = 0;
 		do {
 			HashNode<T> hashNode = associativeArray.get(f(element, i));
 			if (hashNode.getStatus() == HashNode.VALID && hashNode.getElement().equals(element)) {
 				hashNode.setStatus(HashNode.DELETED);
-			} i++;
-
+			}
+			i++;
 		} while (!success && i < ATTEMPS);
 		n--;
 	}
 
 	/**
 	 * Given an integer number as a parameter it returns true only in the case
-	 * that this number is a prime number. False otherwise
+	 * that this number is a prime number. False otherwise.
+	 * A prime number (or a prime) is a natural number greater than 1 that has
+	 * no positive divisors other than 1 and itself.
 	 * 
 	 * @param number to check if it's prime or not
 	 * @return true if the parameter is a prime number and false otherwise.
 	 */
-	protected static boolean isPrime(int prime) {
-		if (prime < 0) {
-			prime = Math.abs(prime);
-		}
-		for (int i = 2; i < prime; i++) {
-			if (prime % i == 0) {
+	public static boolean isPrime(int prime) {
+		if (prime < 2)
+			return false;
+		int sqrt = (int) Math.sqrt(prime) + 1;
+		for (int i = 2; i < sqrt; i++) {
+			if (prime % i == 0)
 				return false;
-			}
 		}
 		return true;
 	}
+	
+	/**
+	 * This second option algorithm uses the AKS Algorithm in order to
+	 * decide whether a number is prime or not.
+	 * 
+	 * @param prime the number to check.
+	 * @return true if the number is prime. False otherwise.
+	 */
+	public static boolean isPrimeAKS(int prime) {
+		if(prime < 8)
+			return isPrime(prime);
+		AKS aks = new AKS(BigInteger.valueOf(prime));
+		return aks.isPrime();
+	}
 
 	/**
-	 * Returns the next prime number given an integer number as a parameter
+	 * Returns the next prime number given an integer number as a parameter.
 	 * 
 	 * @param number where you start to check for the next prime number
 	 * @return an integer number that will be the next prime with respect to the
 	 *         parameter.
 	 */
-	protected static int nextPrime(int prime) {
+	public static int getNextPrime(int prime) {
+		if (prime < 2)
+			return 2;
 		int prim = prime + 1;
 		while (!isPrime(prim)) {
 			prim++;
@@ -269,13 +291,15 @@ public class HashTable<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Returns the previous prime number given an integer number as a parameter
+	 * Returns the previous prime number given an integer number as a parameter.
 	 * 
 	 * @param number where you start to check for the previous prime number
 	 * @return an integer number that will be the previous prime with respect to
 	 *         the parameter.
 	 */
-	protected static int prevPrime(int prime) {
+	public static int getPrevPrime(int prime) throws IllegalArgumentException {
+		if (prime <= 2)
+			throw new IllegalArgumentException("There are not any previus prime number.");
 		int prim = (prime - 1);
 		while (!isPrime(prim)) {
 			prim--;
@@ -293,8 +317,7 @@ public class HashTable<T extends Comparable<T>> {
 		int i = 0;
 		if (associativeArray != null) {
 			for (HashNode<T> element : associativeArray) {
-				aux.append("[").append(i).append("]")
-						.append(" (" + element.getStatus() + ")").append(" = ")
+				aux.append("[").append(i).append("]").append(" (" + element.getStatus() + ")").append(" = ")
 						.append(element.getElement()).append(" - ");
 				i++;
 			}
