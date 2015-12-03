@@ -239,14 +239,17 @@ public class HashTable<T extends Comparable<T>> {
 		n--;
 	}
 
+	// --- HOMEWORK FOR 4.12.2015 ---
+	
 	/**
 	 * Given an integer number as a parameter it returns true only in the case
-	 * that this number is a prime number. False otherwise.
-	 * A prime number (or a prime) is a natural number greater than 1 that has
-	 * no positive divisors other than 1 and itself.
+	 * that this number is a prime number. False otherwise. A prime number (or a
+	 * prime) is a natural number greater than 1 that has no positive divisors
+	 * other than 1 and itself.
 	 * 
 	 * @param number to check if it's prime or not
 	 * @return true if the parameter is a prime number and false otherwise.
+	 * @complexity log(n);
 	 */
 	public static boolean isPrime(int prime) {
 		if (prime < 2)
@@ -258,16 +261,18 @@ public class HashTable<T extends Comparable<T>> {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * This second option algorithm uses the AKS Algorithm in order to
-	 * decide whether a number is prime or not.
+	 * This second option algorithm uses the AKS Algorithm in order to decide
+	 * whether a number is prime or not. Notice that this algorithm has been
+	 * designed for really heavy workloads.
 	 * 
 	 * @param prime the number to check.
 	 * @return true if the number is prime. False otherwise.
 	 */
+	@Deprecated
 	public static boolean isPrimeAKS(int prime) {
-		if(prime < 8)
+		if (prime < 8)
 			return isPrime(prime);
 		AKS aks = new AKS(BigInteger.valueOf(prime));
 		return aks.isPrime();
@@ -288,6 +293,29 @@ public class HashTable<T extends Comparable<T>> {
 			prim++;
 		}
 		return prim;
+	}
+
+	/**
+	 * This is a second option and probable algorithm that by means of the
+	 * BigInteger class and the AKS algorithm will evaluate and find the next
+	 * immediate probable algorithm. Notice that this method nor is perfect nor
+	 * has been designed for low workloads.
+	 * 
+	 * @param i number to start looking for prime numbers.
+	 * @return the next immediate prime number.
+	 */
+	@Deprecated
+	public static int getNextPrimeAKS(int i) {
+		if (i < 0) {
+			return getNextPrime(i);
+		}
+		// create 2 BigInteger objects
+		BigInteger bi1, bi2;
+		// assign the first to the actual number.
+		bi1 = new BigInteger(Integer.toString(i));
+		// assign nextProbablePrime value of bi1 to bi2
+		bi2 = bi1.nextProbablePrime();
+		return bi2.intValue();
 	}
 
 	/**
