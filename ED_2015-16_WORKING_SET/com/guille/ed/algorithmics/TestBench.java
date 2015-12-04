@@ -31,9 +31,10 @@ public class TestBench {
 				TestBench.test(ALGORITHMS[i]+"_means.csv", ALGORITHMS[i], START_N, FINAL_N, SAMPLES);
 			}
 		}*/
-	    	TestBench.test("01_Graph_Floyd.csv", "runFloyd", START_N, FINAL_N, SAMPLES);
-	    	TestBench.test("02_Graph_Dijkstra.csv", "runDijkstra", START_N, FINAL_N, SAMPLES);
-	    	TestBench.test("03_Graph_Build.csv", "initGraph", START_N, FINAL_N, SAMPLES);
+	    	TestBench.test("com.guille.ed.algorithmics.", "GraphPerformanceTest", "01_Graph_Floyd.csv", "runFloyd", START_N, FINAL_N, SAMPLES);
+	    	TestBench.test("com.guille.ed.algorithmics.", "GraphPerformanceTest", "02_Graph_Dijkstra.csv", "runDijkstra", START_N, FINAL_N, SAMPLES);
+	    	TestBench.test("com.guille.ed.algorithmics.", "GraphPerformanceTest", "03_Graph_Build.csv", "initGraph", START_N, FINAL_N, SAMPLES);
+	    	
 	}
 	
 	/**
@@ -59,14 +60,14 @@ public class TestBench {
 	 * @param repetitions Integer(int), the number of times the experiment must be repeated.
 	 * @throws IOException if there's any problem while writing and or creating the file.
 	 */
-	private static void test(String fileName,String algorithmName, int startN, int endN, int repetitions) throws IOException {
+	private static void test(String path, String classTo, String fileName,String algorithmName, int startN, int endN, int repetitions) throws IOException {
 		int i=startN;
 		int j=repetitions;
 		FileWriter file = new FileWriter("files/"+fileName);
 		while(i <= endN) {
 			while(j > 0 ) {
 				long before = System.currentTimeMillis();
-				testAlgorithm ("GraphPerformanceTest", algorithmName, i);
+				testAlgorithm (path, classTo, algorithmName, i);
 				long after = System.currentTimeMillis();
 				result = (after-before);
 				mean = (mean + result)/2;
@@ -89,11 +90,11 @@ public class TestBench {
 	 * @param String methodName, the name of the method you want to test.
 	 * @param int n.
 	 */
-	private static void testAlgorithm (String className, String methodName, int n) {    
+	private static void testAlgorithm (String path, String className, String methodName, int n) {    
 		Class<?> myClass = null;
 		Object myObject = null;
 		try {
-			myClass = Class.forName("com.guille.ed.algorithmics." + className);
+			myClass = Class.forName(path + className);
 			myObject = myClass.newInstance();
 		} catch (Exception e) {
 			System.err.println("Error loading the class 1");

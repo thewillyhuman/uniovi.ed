@@ -2,7 +2,6 @@ package com.guille.ed.hashTables;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-
 import com.guille.ed.util.math.aks.AKS;
 
 public class HashTable<T extends Comparable<T>> {
@@ -36,6 +35,7 @@ public class HashTable<T extends Comparable<T>> {
 		for (int i = 0; i < B; i++) {
 			associativeArray.add(new HashNode<T>());
 		}
+		this.R = getPrevPrime(B);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class HashTable<T extends Comparable<T>> {
 	 * @param i Attempt number.
 	 * @return slot in the array where the element should be placed
 	 */
-	protected int f(T element, int i) {
+	public int f(T element, int i) {
 		switch (redispersionType) {
 		case LINEAR_PROBING:
 			return ((Math.abs(element.hashCode()) + i) % B);
@@ -142,7 +142,6 @@ public class HashTable<T extends Comparable<T>> {
 	 * @return the LF
 	 */
 	public double getLF() {
-		System.out.println("Hello there " + (double) n);
 		return (double) n / (double) B;
 	}
 
@@ -184,29 +183,33 @@ public class HashTable<T extends Comparable<T>> {
 			HashNode<T> hashNode = associativeArray.get(f(element, i));
 			if (hashNode.getStatus() == HashNode.EMPTY) {
 				return false;
-			} else if ((hashNode.getStatus() == HashNode.VALID) && (hashNode.getElement().equals(element))) {
-				return true;
-			}
+			} else if ((hashNode.getStatus() == HashNode.VALID) && (hashNode.getElement().equals(element))) { return true; }
 			i++;
 		} while (i < ATTEMPS);
 		return false;
 	}
 
 	/**
-	 * Public dynamic resizing method. It calls to another with 2*B as a
-	 * parameter.
+	 * Calls the private dynamic resizing method with the actual hash table
+	 * size.
 	 */
 	public void dynamicResize() {
-		dynamicResize(getNextPrime(2 * B));
+		dynamicResize(getNextPrime(2 * this.B));
 	}
 
 	/**
 	 * Resizes the table dynamically.
 	 * 
+	 * @explanation First creates a new HashTable with double hashing and this
+	 *              size provided. Then, for every valid element in the actual
+	 *              hash table will copy it to the new one that the same type of re-dispersion.
+	 *              And then will change the pointer of the associative array to
+	 *              this auxiliary hashTable, update the parameters and done.
+	 * 
 	 * @param size (2*B)
 	 */
 	public void dynamicResize(int size) {
-		HashTable<T> auxTable = new HashTable<T>(size, HashTable.DOUBLE_HASHING, minLF);
+		HashTable<T> auxTable = new HashTable<T>(size, this.getRedispersionType(), this.getMinLF());
 		for (HashNode<T> element : associativeArray) {
 			if (element.getStatus() == HashNode.VALID) {
 				auxTable.add(element.getElement());
@@ -216,12 +219,43 @@ public class HashTable<T extends Comparable<T>> {
 		setB(size);
 		this.R = getPrevPrime(B);
 	}
-
+	
 	/**
-	 * Remove method. Given an element as a parameter this method removes it
-	 * from the hash table.
+	 * Second option to resize the hash table.
+	 * 
+	 * @param size, new size.
+	 */
+	public void dynamicResize2(int size) {
+		ArrayList<HashNode<T>> prev = associativeArray;
+		associativeArray = new ArrayList<HashNode<T>>();
+		for(int i = 0; i < size; i++) {
+			associativeArray.set(i, new HashNode<T>());
+		}
+		this.n = 0;
+		setB(size);
+		this.R = HashTable.getPrevPrime(B);
+		
+		for(int i = 0; i < prev.size(); i++) {
+			if(prev.get(i).getStatus() == HashNode.VALID) {
+				this.add(prev.get(i).getElement());
+			}
+		}
+	}
+
+	public ArrayList<HashNode<T>> clone() {
+		ArrayList<HashNode<T>> copy = new ArrayList<HashNode<T>>();
+		for(HashNode<T> hn : associativeArray) {
+			if(hn.getStatus() == HashNode.VALID)
+				copy.add(hn);
+		} return copy;
+
+	}
+	/**
+	 * Given a element will remove it from the hash table. If it doesn't exists
+	 * will throw an exception.
 	 * 
 	 * @param element to be removed.
+	 * @throws IllegalStateException if the hash table is empty.
 	 */
 	public void remove(T element) {
 		if (this.getAssociativeArray().isEmpty())
@@ -240,7 +274,7 @@ public class HashTable<T extends Comparable<T>> {
 	}
 
 	// --- HOMEWORK FOR 4.12.2015 ---
-	
+
 	/**
 	 * Given an integer number as a parameter it returns true only in the case
 	 * that this number is a prime number. False otherwise. A prime number (or a
@@ -306,9 +340,7 @@ public class HashTable<T extends Comparable<T>> {
 	 */
 	@Deprecated
 	public static int getNextPrimeAKS(int i) {
-		if (i < 0) {
-			return getNextPrime(i);
-		}
+		if (i < 0) { return getNextPrime(i); }
 		// create 2 BigInteger objects
 		BigInteger bi1, bi2;
 		// assign the first to the actual number.
@@ -335,6 +367,8 @@ public class HashTable<T extends Comparable<T>> {
 		return prim;
 	}
 
+	// --- HOMEWORK FOR 4.12.2015 ---
+
 	/**
 	 * To String default method.
 	 * 
@@ -345,8 +379,7 @@ public class HashTable<T extends Comparable<T>> {
 		int i = 0;
 		if (associativeArray != null) {
 			for (HashNode<T> element : associativeArray) {
-				aux.append("[").append(i).append("]").append(" (" + element.getStatus() + ")").append(" = ")
-						.append(element.getElement()).append(" - ");
+				aux.append("[").append(i).append("]").append(" (" + element.getStatus() + ")").append(" = ").append(element.getElement()).append(" - ");
 				i++;
 			}
 		}
