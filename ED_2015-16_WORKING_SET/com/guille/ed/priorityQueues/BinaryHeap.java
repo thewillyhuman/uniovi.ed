@@ -130,6 +130,9 @@ public class BinaryHeap<T extends Comparable<T>> {
 	 * @return the highest priority element.
 	 */
 	public T getMin() {
+		if(isEmpty()) {
+			throw new IllegalStateException("The heap is empty.");
+		}
 		// Behavior changed, now only if the heap is not empty we execute the
 		// algorithm, nothing about exceptions.
 		T aux = heap.get(0);
