@@ -146,26 +146,28 @@ public class HashTable<T extends Comparable<T>> {
 	}
 
 	/**
-	 * Add method. Adds an element to the Hash Table
+	 * Adds an element to the hash table. For that will calculate the hash
+	 * function until there's a free slot.
 	 * 
-	 * @param element
+	 * @param element to add to the hash table.
+	 * @return the number of collisions that produce the hashing function.
 	 */
-	public void add(T element) {
+	public int add(T element) {
 		boolean success = false;
-		int i = -1;
+		int i = 0;
 		do {
-			i++;
-
 			if (associativeArray.get(f(element, i)).getStatus() != HashNode.VALID) {
 				associativeArray.get(f(element, i)).setElement(element);
 				associativeArray.get(f(element, i)).setStatus(HashNode.VALID);
 				success = true;
 			}
+			i++;
 		} while (!success && i < ATTEMPS);
 		n++;
 		if (getLF() > minLF) {
 			dynamicResize();
 		}
+		return i - 1;
 	}
 
 	/**
@@ -183,7 +185,9 @@ public class HashTable<T extends Comparable<T>> {
 			HashNode<T> hashNode = associativeArray.get(f(element, i));
 			if (hashNode.getStatus() == HashNode.EMPTY) {
 				return false;
-			} else if ((hashNode.getStatus() == HashNode.VALID) && (hashNode.getElement().equals(element))) { return true; }
+			} else if ((hashNode.getStatus() == HashNode.VALID) && (hashNode.getElement().equals(element))) {
+				return true;
+			}
 			i++;
 		} while (i < ATTEMPS);
 		return false;
@@ -202,9 +206,10 @@ public class HashTable<T extends Comparable<T>> {
 	 * 
 	 * @explanation First creates a new HashTable with double hashing and this
 	 *              size provided. Then, for every valid element in the actual
-	 *              hash table will copy it to the new one that the same type of re-dispersion.
-	 *              And then will change the pointer of the associative array to
-	 *              this auxiliary hashTable, update the parameters and done.
+	 *              hash table will copy it to the new one that the same type of
+	 *              re-dispersion. And then will change the pointer of the
+	 *              associative array to this auxiliary hashTable, update the
+	 *              parameters and done.
 	 * 
 	 * @param size (2*B)
 	 */
@@ -219,7 +224,7 @@ public class HashTable<T extends Comparable<T>> {
 		setB(size);
 		this.R = getPrevPrime(B);
 	}
-	
+
 	/**
 	 * Second option to resize the hash table.
 	 * 
@@ -228,15 +233,15 @@ public class HashTable<T extends Comparable<T>> {
 	public void dynamicResize2(int size) {
 		ArrayList<HashNode<T>> prev = associativeArray;
 		associativeArray = new ArrayList<HashNode<T>>();
-		for(int i = 0; i < size; i++) {
+		for (int i = 0; i < size; i++) {
 			associativeArray.set(i, new HashNode<T>());
 		}
 		this.n = 0;
 		setB(size);
 		this.R = HashTable.getPrevPrime(B);
-		
-		for(int i = 0; i < prev.size(); i++) {
-			if(prev.get(i).getStatus() == HashNode.VALID) {
+
+		for (int i = 0; i < prev.size(); i++) {
+			if (prev.get(i).getStatus() == HashNode.VALID) {
 				this.add(prev.get(i).getElement());
 			}
 		}
@@ -244,12 +249,14 @@ public class HashTable<T extends Comparable<T>> {
 
 	public ArrayList<HashNode<T>> clone() {
 		ArrayList<HashNode<T>> copy = new ArrayList<HashNode<T>>();
-		for(HashNode<T> hn : associativeArray) {
-			if(hn.getStatus() == HashNode.VALID)
+		for (HashNode<T> hn : associativeArray) {
+			if (hn.getStatus() == HashNode.VALID)
 				copy.add(hn);
-		} return copy;
+		}
+		return copy;
 
 	}
+
 	/**
 	 * Given a element will remove it from the hash table. If it doesn't exists
 	 * will throw an exception.
@@ -273,7 +280,7 @@ public class HashTable<T extends Comparable<T>> {
 		n--;
 	}
 
-	// --- HOMEWORK FOR 4.12.2015 ---
+	// --- BEGIN OF HOMEWORK FOR 4.12.2015 ---
 
 	/**
 	 * Given an integer number as a parameter it returns true only in the case
@@ -340,7 +347,9 @@ public class HashTable<T extends Comparable<T>> {
 	 */
 	@Deprecated
 	public static int getNextPrimeAKS(int i) {
-		if (i < 0) { return getNextPrime(i); }
+		if (i < 0) {
+			return getNextPrime(i);
+		}
 		// create 2 BigInteger objects
 		BigInteger bi1, bi2;
 		// assign the first to the actual number.
@@ -367,7 +376,7 @@ public class HashTable<T extends Comparable<T>> {
 		return prim;
 	}
 
-	// --- HOMEWORK FOR 4.12.2015 ---
+	// --- END OF HOMEWORK FOR 4.12.2015 ---
 
 	/**
 	 * To String default method.
@@ -379,7 +388,8 @@ public class HashTable<T extends Comparable<T>> {
 		int i = 0;
 		if (associativeArray != null) {
 			for (HashNode<T> element : associativeArray) {
-				aux.append("[").append(i).append("]").append(" (" + element.getStatus() + ")").append(" = ").append(element.getElement()).append(" - ");
+				aux.append("[").append(i).append("]").append(" (" + element.getStatus() + ")").append(" = ")
+						.append(element.getElement()).append(" - ");
 				i++;
 			}
 		}

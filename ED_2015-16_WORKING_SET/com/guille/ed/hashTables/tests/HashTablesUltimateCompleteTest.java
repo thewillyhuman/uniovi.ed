@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.guille.ed.hashTables.HashTable;
 
 public class HashTablesUltimateCompleteTest {
-	
+
 	HashTable<Integer> ht;
 
 	@Before
@@ -27,14 +27,25 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(true, HashTable.isPrime(2));
 
 		// Some random prime testing.
-		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
+		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,
+				97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
+				199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+				331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449,
+				457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593,
+				599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727,
+				733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+				877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
 
 		for (int i = 0; i < prime.length; i++) {
 			assertEquals(true, HashTable.isPrime(prime[i]));
 		}
 
 		// Some random non prime testing.
-		Integer[] nonPrime = { 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150 };
+		Integer[] nonPrime = { 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35,
+				36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69,
+				70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100,
+				102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126,
+				128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150 };
 
 		for (int i = 0; i < nonPrime.length; i++) {
 			assertEquals(false, HashTable.isPrime(nonPrime[i]));
@@ -42,7 +53,8 @@ public class HashTablesUltimateCompleteTest {
 	}
 
 	@SuppressWarnings("deprecation")
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void isPrimeAKSTest() {
 		// Some base cases.
 		assertEquals(false, HashTable.isPrimeAKS(-2));
@@ -52,14 +64,25 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(true, HashTable.isPrimeAKS(2));
 
 		// Some random prime testing.
-		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
+		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,
+				97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
+				199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+				331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449,
+				457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593,
+				599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727,
+				733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+				877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
 
 		for (int i = 0; i < prime.length; i++) {
 			assertEquals(true, HashTable.isPrimeAKS(prime[i]));
 		}
 
 		// Some random non prime testing.
-		Integer[] nonPrime = { 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35, 36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69, 70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100, 102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150 };
+		Integer[] nonPrime = { 4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 32, 33, 34, 35,
+				36, 38, 39, 40, 42, 44, 45, 46, 48, 49, 50, 51, 52, 54, 55, 56, 57, 58, 60, 62, 63, 64, 65, 66, 68, 69,
+				70, 72, 74, 75, 76, 77, 78, 80, 81, 82, 84, 85, 86, 87, 88, 90, 91, 92, 93, 94, 95, 96, 98, 99, 100,
+				102, 104, 105, 106, 108, 110, 111, 112, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126,
+				128, 129, 130, 132, 133, 134, 135, 136, 138, 140, 141, 142, 143, 144, 145, 146, 147, 148, 150 };
 
 		for (int i = 0; i < nonPrime.length; i++) {
 			assertEquals(false, HashTable.isPrimeAKS(nonPrime[i]));
@@ -77,7 +100,14 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(3, HashTable.getNextPrime(2));
 
 		// Some random prime testing.
-		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
+		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,
+				97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
+				199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+				331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449,
+				457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593,
+				599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727,
+				733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+				877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
 
 		// For every number in the array the next one is the next prime so we
 		// check that.
@@ -88,7 +118,8 @@ public class HashTablesUltimateCompleteTest {
 	}
 
 	@SuppressWarnings("deprecation")
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void getNextPrimeAKSTest() {
 		// Some base cases.
 		assertEquals(2, HashTable.getNextPrimeAKS(-2));
@@ -99,7 +130,14 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(3, HashTable.getNextPrimeAKS(2));
 
 		// Some random prime testing.
-		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
+		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,
+				97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
+				199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+				331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449,
+				457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593,
+				599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727,
+				733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+				877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
 
 		// For every number in the array the next one is the next prime so we
 		// check that.
@@ -144,7 +182,14 @@ public class HashTablesUltimateCompleteTest {
 		}
 
 		// Some random prime testing.
-		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
+		Integer[] prime = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89,
+				97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197,
+				199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
+				331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449,
+				457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577, 587, 593,
+				599, 601, 607, 613, 617, 619, 631, 641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727,
+				733, 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
+				877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997 };
 
 		// For every number in the array the next one is the next prime so we
 		// check that.
@@ -154,7 +199,8 @@ public class HashTablesUltimateCompleteTest {
 		}
 	}
 
-	@Test @Ignore
+	@Test
+	@Ignore
 	public void differentsLoadFactorsTest() {
 		HashTable<Integer> linearHash = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 0.5);
 		HashTable<Integer> quadraticHash = new HashTable<Integer>(5, HashTable.QUADRATIC_PROBING, 0.5);
@@ -188,7 +234,8 @@ public class HashTablesUltimateCompleteTest {
 				results.add(1);
 			else if ((doubleTest > linearTest) && (doubleTest > quadraticTest))
 				results.add(2);
-			else results.add(3);
+			else
+				results.add(3);
 		}
 		System.out.print("Better algorithm ->" + populated(results));
 	}
@@ -211,7 +258,8 @@ public class HashTablesUltimateCompleteTest {
 			return 1;
 		else if ((count2 < count1) && (count2 < count3))
 			return 2;
-		else return 3;
+		else
+			return 3;
 	}
 
 	@Test
@@ -222,9 +270,9 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(3, a.f(7, 1));
 		assertEquals(4, a.f(7, 2));
 		assertEquals(0, a.f(7, 3));
-		
-		//System.out.println(a.f(4, 0));
-				
+
+		// System.out.println(a.f(4, 0));
+
 		// Example
 		HashTable<Integer> b = new HashTable<Integer>(5, HashTable.QUADRATIC_PROBING, 0.5);
 		assertEquals(2, b.f(7, 0));
@@ -232,8 +280,7 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(1, b.f(7, 2));
 		assertEquals(1, b.f(7, 3));
 	}
-	
-	
+
 	@Test
 	public void testHashingFunctionCharacters() {
 		// Example
@@ -242,7 +289,7 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(1, a.f('A', 1));
 		assertEquals(2, a.f('A', 2));
 		assertEquals(3, a.f('A', 3));
-				
+
 		// Example
 		HashTable<Character> b = new HashTable<Character>(5, HashTable.QUADRATIC_PROBING, 0.5);
 		assertEquals(0, b.f('A', 0));
@@ -251,41 +298,38 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(4, b.f('A', 3));
 
 	}
-	
-	
+
 	@Test
-	public void testHashTableAddSearchLP(){
+	public void testHashTableAddSearchLP() {
 		// Example
 		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 1.0);
 		a.add(4);
 		a.add(13);
 		a.add(24);
 		a.add(3);
-			
+
 		assertEquals("[0] (1) = 24 - [1] (1) = 3 - [2] (0) = null - [3] (1) = 13 - [4] (1) = 4 - ", a.toString());
 		assertEquals(true, a.search(3));
 		assertEquals(false, a.search(12));
 	}
-	
-	
+
 	@Test
-	public void testHashTableAddSearchQP(){
+	public void testHashTableAddSearchQP() {
 		// Example
 		HashTable<Integer> b = new HashTable<Integer>(5, HashTable.QUADRATIC_PROBING, 1.0);
 		b.add(4);
 		b.add(13);
 		b.add(24);
 		b.add(3);
-				
+
 		assertEquals("[0] (1) = 24 - [1] (0) = null - [2] (1) = 3 - [3] (1) = 13 - [4] (1) = 4 - ", b.toString());
 		assertEquals(true, b.search(3));
 		assertEquals(false, b.search(12));
 
 	}
 
-	
 	@Test
-	public void testHashTableRemoveLP(){
+	public void testHashTableRemoveLP() {
 		// Example
 		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 1.0);
 		a.add(4);
@@ -296,45 +340,45 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(true, a.search(3));
 		assertEquals(false, a.search(24));
 		assertEquals("[0] (2) = 24 - [1] (1) = 3 - [2] (0) = null - [3] (1) = 13 - [4] (1) = 4 - ", a.toString());
-				
+
 		a.add(15);
 		assertEquals(true, a.search(3));
 		assertEquals("[0] (1) = 15 - [1] (1) = 3 - [2] (0) = null - [3] (1) = 13 - [4] (1) = 4 - ", a.toString());
 
 	}
-	
-	
+
 	@Test
-	public void testHashTableRemoveQP(){
+	public void testHashTableRemoveQP() {
 		// Example
 		HashTable<Integer> b = new HashTable<Integer>(5, HashTable.QUADRATIC_PROBING, 1.0);
 		b.add(4);
 		b.add(13);
 		b.add(24);
 		b.add(3);
-					
+
 		b.remove(24);
 		assertEquals(true, b.search(3));
 		assertEquals("[0] (2) = 24 - [1] (0) = null - [2] (1) = 3 - [3] (1) = 13 - [4] (1) = 4 - ", b.toString());
-					
+
 		b.add(15);
 		assertEquals(true, b.search(3));
 		assertEquals("[0] (1) = 15 - [1] (0) = null - [2] (1) = 3 - [3] (1) = 13 - [4] (1) = 4 - ", b.toString());
 	}
-	
-	
+
 	@SuppressWarnings("static-access")
 	@Test
-	public void testPrime(){
+	public void testPrime() {
 		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 1.0);
-		assertEquals(false, a.isPrime(1)); // One is not a prime number so prime numbers are those grater than one that...
+		assertEquals(false, a.isPrime(1)); // One is not a prime number so prime
+											// numbers are those grater than one
+											// that...
 		assertEquals(true, a.isPrime(5));
 		assertEquals(true, a.isPrime(17));
 		assertEquals(true, a.isPrime(11));
 		assertEquals(true, a.isPrime(113));
 		assertEquals(false, a.isPrime(90));
 		assertEquals(false, a.isPrime(12345));
-		
+
 		assertEquals(2, a.getPrevPrime(3));
 		assertEquals(3, a.getPrevPrime(4));
 		assertEquals(3, a.getPrevPrime(5));
@@ -344,8 +388,8 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(11, a.getPrevPrime(13));
 		assertEquals(53, a.getPrevPrime(59));
 		assertEquals(3499, a.getPrevPrime(3500));
-		
-	    assertEquals(7, a.getNextPrime(5));
+
+		assertEquals(7, a.getNextPrime(5));
 		assertEquals(11, a.getNextPrime(7));
 		assertEquals(11, a.getNextPrime(7));
 		assertEquals(11, a.getNextPrime(7));
@@ -353,9 +397,9 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals(13, a.getNextPrime(11));
 		assertEquals(17, a.getNextPrime(14));
 		assertEquals(3001, a.getNextPrime(3000));
-		
+
 	}
-	
+
 	@Test
 	public void martinTest() {
 		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 1.0);
@@ -435,7 +479,8 @@ public class HashTablesUltimateCompleteTest {
 		assertEquals("[0] (0) = null - [1] (0) = null - [2] (0) = null - [3] (1) = 13 - [4] (1) = 4 - ", a.toString());
 		a.add(24); // DYNAMIC RESIZING!
 		assertEquals(0.27, a.getLF(), 0.1);
-		assertEquals("[0] (0) = null - [1] (0) = null - [2] (1) = 24 - [3] (1) = 13 - [4] (1) = 4 - [5] (0) = null - [6] (0) = null - [7] (0) = null - [8] (0) = null - [9] (0) = null - [10] (0) = null - ", a.toString());
+		assertEquals("[0] (0) = null - [1] (0) = null - [2] (1) = 24 - [3] (1) = 13 - [4] (1) = 4 - [5] (0) = null - [6] (0) = null - [7] (0) = null - [8] (0) = null - [9] (0) = null - [10] (0) = null - ", a
+				.toString());
 	}
 
 }

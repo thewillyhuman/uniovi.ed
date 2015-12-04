@@ -121,7 +121,7 @@ public class L10_TestHashTable_Basic {
 	@Test
 	public void testPrime(){
 		HashTable<Integer> a = new HashTable<Integer>(5, HashTable.LINEAR_PROBING, 1.0);
-		assertEquals(false, a.isPrime(1)); // One is not a prime number so prime numbers are those grater than one that...
+		assertEquals(false, a.isPrime(1)); // One is not a prime number as far as prime numbers are those grater than one that...
 		assertEquals(true, a.isPrime(5));
 		assertEquals(true, a.isPrime(17));
 		assertEquals(true, a.isPrime(11));

@@ -54,7 +54,15 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param root AVLNode to be the root of the tree.
 	 */
 	public void setRoot(AVLNode<T> root) {
-		if (root == null) { /*System.err.println("Warning: Setting the root as null.");*/ } // In case you want to print the warning...
+		if (root == null) {
+			/* System.err.println("Warning: Setting the root as null."); */ } // In
+																				// case
+																				// you
+																				// want
+																				// to
+																				// print
+																				// the
+																				// warning...
 		this.root = root;
 	}
 
@@ -592,7 +600,8 @@ public class AVLTree<T extends Comparable<T>> {
 	/**
 	 * The current tree as a List shorted.
 	 * 
-	 * @return the current tree as a list shorted with the default type comparator.
+	 * @return the current tree as a list shorted with the default type
+	 *         comparator.
 	 */
 	public List<T> toList() {
 		List<T> toReturn = new ArrayList<T>();
@@ -600,7 +609,7 @@ public class AVLTree<T extends Comparable<T>> {
 		Collections.sort(toReturn);
 		return toReturn;
 	}
-	
+
 	/**
 	 * The current tree as a List shorted.
 	 * 
@@ -629,6 +638,29 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 		return list;
 	}
+	
+	/**
+	 * Returns an AVLTree containing the different elements from one tree and
+	 * another.
+	 * 
+	 * @param secondTree is the second AVLTree to get the different elements.
+	 * @return An AVLTree that contains all the elements that are not contained
+	 *         in the other tree. And works in both ways, elements that are in
+	 *         the first but not in the second and elements that are in the
+	 *         second but not in the first.
+	 */
+	public AVLTree<T> getDifference(AVLTree<T> secondTree) {
+		AVLTree<T> toReturn = new AVLTree<T>();
+		for (T element : this.toList()) {
+			if (!secondTree.search(element))
+				toReturn.add(element);
+		}
+		for (T element : secondTree.toList()) {
+			if (!this.search(element))
+				toReturn.add(element);
+		}
+		return toReturn;
+	}
 
 	/**
 	 * Given a tree this method will give the number of nodes that contains.
@@ -638,9 +670,10 @@ public class AVLTree<T extends Comparable<T>> {
 	public int getNumberOfNodes() {
 		return getNumberOfNodes(this.getRoot());
 	}
-	
+
 	/**
-	 * Given a tree and the root of it this method will return the number of nodes that contains.
+	 * Given a tree and the root of it this method will return the number of
+	 * nodes that contains.
 	 * 
 	 * @param root of the tree.
 	 * @return the number of nodes contained by the tree.
@@ -650,11 +683,11 @@ public class AVLTree<T extends Comparable<T>> {
 			return 0;
 		return (1 + getNumberOfNodes(root.getLeft()) + getNumberOfNodes(root.getRight()));
 	}
-	
+
 	/*
 	 * ************** HOMEWORK 20.11.2016 **************
 	 */
-	
+
 	/**
 	 * Get Height method. Returns the height of the tree without accessing to
 	 * the node parameters. To perform that it calls to the private and
@@ -678,9 +711,9 @@ public class AVLTree<T extends Comparable<T>> {
 	 */
 	private int getHeight(AVLNode<T> root) {
 		// If the tree is empty...
-		if(root == null)
+		if (root == null)
 			return 0;
-		
+
 		// That check is to know whether a node is a leaf or not.
 		// If one single leaf is counted as 1 remove two following lines.
 		else if (root.getLeft() == null && root.getRight() == null)
@@ -693,6 +726,5 @@ public class AVLTree<T extends Comparable<T>> {
 			return 1 + getHeight(root.getLeft());
 		else
 			return 1 + getHeight(root.getRight());
-
 	}
 }
