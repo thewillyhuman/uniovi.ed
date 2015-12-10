@@ -376,7 +376,7 @@ public class HashTable<T extends Comparable<T>> {
 		return prim;
 	}
 
-	// --- END OF HOMEWORK FOR 4.12.2015 ---
+	// --- END OF HOMEWORK FOR 4.12.2015 --- bla bla bla 
 
 	/**
 	 * To String default method.
