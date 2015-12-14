@@ -683,4 +683,40 @@ public class AVLTreeTest {
 		assertEquals(0, stringTree.getNumberOfEementsGreaterThan("b"));
 		
 	}
+	
+	@Test
+	public void getGreaterElementsTest() {
+		// Integers
+		// Testing with no elements so an exception should be thrower.
+		try {
+			integerTree.getNumberOfEementsGreaterThan(1);
+			fail("An exception should be throwed because the tree is empty.");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		// Testing with one element
+		integerTree.add(20);
+
+		// One element and condition bigger than the actual value.
+		// Expected no elements.
+		assertEquals(0, integerTree.getGreaterElements(20));
+
+		// Testing with one elements and condition lower than the current value.
+		// Expected one element.
+		assertEquals(1, integerTree.getGreaterElements(19));
+
+		// Adding a second element lower than the first one and condition equals
+		// to the first element.
+		// Expected no elements
+		integerTree.add(17);
+		assertEquals(0, integerTree.getGreaterElements(20));
+		
+		integerTree.add(25);
+		integerTree.add(16);
+		integerTree.add(26);
+		integerTree.add(24);
+		integerTree.add(18);
+		assertEquals(5, integerTree.getGreaterElements(17));
+	}
 }

@@ -197,7 +197,9 @@ public class AVLTree<T extends Comparable<T>> {
 			return true;
 		} else if (element.compareTo(root.getElement()) < 0) {
 			return search(element, root.getLeft());
-		} else if (element.compareTo(root.getElement()) > 0) { return search(element, root.getRight()); }
+		} else if (element.compareTo(root.getElement()) > 0) {
+			return search(element, root.getRight());
+		}
 		return false;
 	}
 
@@ -236,7 +238,8 @@ public class AVLTree<T extends Comparable<T>> {
 	public T searchReturn(T element) {
 		if (search(element))
 			return searchReturn(element, getRoot());
-		else return null;
+		else
+			return null;
 	}
 
 	/**
@@ -278,7 +281,9 @@ public class AVLTree<T extends Comparable<T>> {
 	public T getMax(AVLNode<T> root) {
 		if (root == null) {
 			return null;
-		} else if (root.getRight() != null) { return getMax(root.getRight()); }
+		} else if (root.getRight() != null) {
+			return getMax(root.getRight());
+		}
 		return root.getElement();
 	}
 
@@ -463,12 +468,14 @@ public class AVLTree<T extends Comparable<T>> {
 		if (root.getBF() == -2) {
 			if (root.getLeft().getBF() <= 0)
 				return singleLeftRotation(root);
-			else return doubleLeftRotation(root);
+			else
+				return doubleLeftRotation(root);
 
 		} else if (root.getBF() == 2) {
 			if (root.getRight().getBF() >= 0)
 				return singleRightRotation(root);
-			else return doubleRightRotation(root);
+			else
+				return doubleRightRotation(root);
 		}
 		return root;
 	}
@@ -587,6 +594,34 @@ public class AVLTree<T extends Comparable<T>> {
 	/**
 	 * The current tree as a List shorted.
 	 * 
+	 * @return the current tree as a list shorted with the default type
+	 *         comparator.
+	 */
+	public List<T> toList() {
+		List<T> toReturn = new ArrayList<T>();
+		toReturn = toList(toReturn, this.getRoot());
+		return toReturn;
+	}
+
+	/**
+	 * Private and recursive method to get the tree as a List.
+	 * 
+	 * @param list where the elements will be stored.
+	 * @param root of the working tree.
+	 * @return the list containing all the elements not shorted.
+	 */
+	private List<T> toList(List<T> list, AVLNode<T> root) {
+		if (root != null) {
+			list.add(root.getElement());
+			toList(list, root.getLeft());
+			toList(list, root.getRight());
+		}
+		return list;
+	}
+
+	/**
+	 * The current tree as a List shorted.
+	 * 
 	 * @param comparator used to sort the list.
 	 * @return the current tree as a list sorted by the custom comparator.
 	 */
@@ -682,55 +717,69 @@ public class AVLTree<T extends Comparable<T>> {
 		// subtree as the one with more height, the right one otherwise.
 		if (root.getBF() <= 0)
 			return 1 + getHeight(root.getLeft());
-		else return 1 + getHeight(root.getRight());
+		else
+			return 1 + getHeight(root.getRight());
 	}
 
+	// ---- Method presented in the exam
 	/**
 	 * For the actual tree and a given element this method will return the
 	 * number of nodes that is greater than the element given.
 	 * 
-	 * @param element is the element we are going to use to compare with the elements contained in the actual tree.
-	 * @return the number of elements that are grater that the element given as a parameter.
+	 * @param element is the element we are going to use to compare with the
+	 *            elements contained in the actual tree.
+	 * @return the number of elements that are grater that the element given as
+	 *         a parameter.
 	 * @throws IllegalStateException if the current tree is empty.
 	 */
 	public int getNumberOfEementsGreaterThan(T element) throws IllegalStateException {
-		// If the current tree is empty it will throw an Exception to warn about the illegal state.
+		// If the current tree is empty it will throw an Exception to warn about
+		// the illegal state.
 		if (this.isEmpty())
 			throw new IllegalStateException("The current tree is empty.");
-
+		if (element.compareTo(this.getMax()) >= 0)
+			return 0;
 		int res = 0; // The variable that will store the final result.
-		for (T current : this.toList()) { // We get all the nodes as a list of elements.
+		List<T> aux = this.toList();
+		for (T current : aux) { // We get all the nodes as a list of elements.
 			if (current.compareTo(element) == 1) // If the element is greater..
-				res++;							 // we increment the result in one unit.
+				res++; // we increment the result in one unit.
 		}
 		return res; // Finally we return the variable that stores the result.
 	}
 
+	// ---- Correct method that works with the least complexity.
 	/**
-	 * The current tree as a List shorted.
+	 * For the actual tree and a given element this method will return the
+	 * number of nodes that is greater than the element given.
 	 * 
-	 * @return the current tree as a list shorted with the default type
-	 *         comparator.
+	 * @param element is the element we are going to use to compare with the
+	 *            elements contained in the actual tree.
+	 * @return the number of elements that are grater that the element given as
+	 *         a parameter.
 	 */
-	public List<T> toList() {
-		List<T> toReturn = new ArrayList<T>();
-		toReturn = toList(toReturn, this.getRoot());
-		return toReturn;
+	public int getGreaterElements(T element) {
+		return this.getGreaterElements(this.getRoot(), element);
 	}
 
 	/**
-	 * Private and recursive method to get the tree as a List.
+	 * Private and recursive method to get all the elements that are greater
+	 * then a given element.
 	 * 
-	 * @param list where the elements will be stored.
-	 * @param root of the working tree.
-	 * @return the list containing all the elements not shorted.
+	 * @param root is the current element where we iterate.
+	 * @param key is the given element to make the condition.
+	 * @return the number of elements that are grater that the element given as
+	 *         a parameter.
 	 */
-	private List<T> toList(List<T> list, AVLNode<T> root) {
-		if (root != null) {
-			list.add(root.getElement());
-			toList(list, root.getLeft());
-			toList(list, root.getRight());
+	private int getGreaterElements(AVLNode<T> root, T key) {
+		if (root == null) {
+			return 0;
+		} else if (key.compareTo(root.getElement()) == 0) {
+			return getNumberOfNodes(root.getRight());
+		} else if (key.compareTo(root.getElement()) < 0) {
+			return getGreaterElements(root.getLeft(), key) + getNumberOfNodes(root.getRight()) + 1;
+		} else {
+			return getGreaterElements(root.getRight(), key);
 		}
-		return list;
 	}
 }

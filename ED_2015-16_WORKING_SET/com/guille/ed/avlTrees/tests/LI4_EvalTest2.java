@@ -14,19 +14,19 @@ public class LI4_EvalTest2 {
 		AVLTree<Integer> tree = new AVLTree<Integer>();
 		
 		// empty tree
-		// assertEquals(0, tree.getNumberOfEementsGreaterThan(0));
+		assertEquals(0, tree.getGreaterElements(0));
 		
 		int N = 2000; // N tests
-		
-		for(int i = 1; i <= N; i++){
+		System.out.println("Adding nodes.");
+		for(int i = 1; i <= N; i++) {
 			tree.add(i);
 		}
-		
-		for(int i= 0; i <= N; i++){
-			assertEquals(N-i, tree.getNumberOfEementsGreaterThan(i));
+		System.out.println("Checking nodes.");
+		for(int i= 0; i <= N; i++) {
+			assertEquals(N-i, tree.getGreaterElements(i));
 		}
 		
-		assertEquals(0, tree.getNumberOfEementsGreaterThan(N+3));
+		assertEquals(0, tree.getGreaterElements(N+3));
 		
 	}
 
