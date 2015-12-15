@@ -54,9 +54,6 @@ public class AVLTree<T extends Comparable<T>> {
 	 * @param root AVLNode to be the root of the tree.
 	 */
 	public void setRoot(AVLNode<T> root) {
-		if (root == null) {
-			// System.err.println("Warning: Setting the root as null.");
-		}
 		this.root = root;
 	}
 
@@ -555,6 +552,56 @@ public class AVLTree<T extends Comparable<T>> {
 	}
 
 	/**
+	 * Get Height method. Returns the height of the tree without accessing to
+	 * the node parameters. To perform that it calls to the private and
+	 * reflexive getHeight() method with the root of the tree as a parameter.
+	 * 
+	 * 
+	 * @return the height of the tree as an integer.
+	 * @important The method considers the height of a single leaf as 0.
+	 */
+	public int getHeight() {
+		return getHeight(this.getRoot());
+	}
+
+	/**
+	 * Get Height [ PRIVATE AND REFLEXIVE ]. It returns the height of the tree
+	 * without accessing to the node parameters.
+	 * 
+	 * @param root where you start to perform the algorithm
+	 * @return the height as an integer.
+	 * @important The method considers the height of a single leaf as 0.
+	 */
+	private int getHeight(AVLNode<T> root) {
+		// If the tree is empty...
+		if (root == null)
+			return 0;
+
+		// That check is to know whether a node is a leaf or not.
+		// If one single leaf is counted as 1 remove two following lines.
+		else if (root.getLeft() == null && root.getRight() == null)
+			return 0;
+
+		// Depending on the balance factor we can know which subtree has more
+		// height, if the balance factor equals or less 0 we will take the left
+		// subtree as the one with more height, the right one otherwise.
+		if (root.getBF() <= 0)
+			return 1 + getHeight(root.getLeft());
+		else
+			return 1 + getHeight(root.getRight());
+	}
+	
+	// ---- Some util methods.
+	/**
+	 * If the root of a tree is null means that the tree is empty.
+	 * 
+	 * @return whether a tree is empty or not.
+	 */
+	public boolean isEmpty() {
+		return (root == null);
+	}
+
+	/**
 	 * Returns a pointer to an auxiliary tree containing all the elements as
 	 * this tree.
 	 * 
@@ -580,15 +627,6 @@ public class AVLTree<T extends Comparable<T>> {
 			clone(tree, root.getRight());
 		}
 		return tree;
-	}
-
-	/**
-	 * If the root of a tree is null means that the tree is empty.
-	 * 
-	 * @return whether a tree is empty or not.
-	 */
-	public boolean isEmpty() {
-		return (root == null);
 	}
 
 	/**
@@ -631,7 +669,30 @@ public class AVLTree<T extends Comparable<T>> {
 		Collections.sort(toReturn, comparator);
 		return toReturn;
 	}
+	
+	/**
+	 * Given a tree this method will give the number of nodes that contains.
+	 * 
+	 * @return the number of nodes contained by the tree.
+	 */
+	public int getNumberOfNodes() {
+		return getNumberOfNodes(this.getRoot());
+	}
 
+	/**
+	 * Given a tree and the root of it this method will return the number of
+	 * nodes that contains.
+	 * 
+	 * @param root of the tree.
+	 * @return the number of nodes contained by the tree.
+	 */
+	private int getNumberOfNodes(AVLNode<T> root) {
+		if (root == null)
+			return 0;
+		return (1 + getNumberOfNodes(root.getLeft()) + getNumberOfNodes(root.getRight()));
+	}
+
+	// ---- Method from other group final exam.
 	/**
 	 * Returns an AVLTree containing the different elements from one tree and
 	 * another.
@@ -655,73 +716,7 @@ public class AVLTree<T extends Comparable<T>> {
 		return toReturn;
 	}
 
-	/**
-	 * Given a tree this method will give the number of nodes that contains.
-	 * 
-	 * @return the number of nodes contained by the tree.
-	 */
-	public int getNumberOfNodes() {
-		return getNumberOfNodes(this.getRoot());
-	}
-
-	/**
-	 * Given a tree and the root of it this method will return the number of
-	 * nodes that contains.
-	 * 
-	 * @param root of the tree.
-	 * @return the number of nodes contained by the tree.
-	 */
-	private int getNumberOfNodes(AVLNode<T> root) {
-		if (root == null)
-			return 0;
-		return (1 + getNumberOfNodes(root.getLeft()) + getNumberOfNodes(root.getRight()));
-	}
-
-	/*
-	 * ************** HOMEWORK 20.11.2016 **************
-	 */
-
-	/**
-	 * Get Height method. Returns the height of the tree without accessing to
-	 * the node parameters. To perform that it calls to the private and
-	 * reflexive getHeight() method with the root of the tree as a parameter.
-	 * 
-	 * 
-	 * @return the height of the tree as an integer.
-	 * @important The method considers the height of a single leaf as 0.
-	 */
-	public int getHeight() {
-		return getHeight(this.getRoot());
-	}
-
-	/**
-	 * Get Height [ PRIVATE AND REFLEXIVE ]. It returns the height of the tree
-	 * without accessing to the node parameters.
-	 * 
-	 * @param root where you start to perform the algorithm
-	 * @return the height as an integer.
-	 * @important The method considers the height of a single leaf as 0.
-	 */
-	private int getHeight(AVLNode<T> root) {
-		// If the tree is empty...
-		if (root == null)
-			return 0;
-
-		// That check is to know whether a node is a leaf or not.
-		// If one single leaf is counted as 1 remove two following lines.
-		else if (root.getLeft() == null && root.getRight() == null)
-			return 0;
-
-		// Depending on the balance factor we can know which subtree has more
-		// height, if the balance factor equals or less 0 we will take the left
-		// subtree as the one with more height, the right one otherwise.
-		if (root.getBF() <= 0)
-			return 1 + getHeight(root.getLeft());
-		else
-			return 1 + getHeight(root.getRight());
-	}
-
-	// ---- Method presented in the exam
+	// ---- Method presented in the final exam.
 	/**
 	 * For the actual tree and a given element this method will return the
 	 * number of nodes that is greater than the element given.
