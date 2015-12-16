@@ -97,7 +97,7 @@ public class TestBench {
 			myClass = Class.forName(path + className);
 			myObject = myClass.newInstance();
 		} catch (Exception e) {
-			System.err.println("Error loading the class 1");
+			System.err.println("Error loading the class "+className);
 			System.out.println(e.toString());
 		} try {
 			Class<?>[] params = new Class[1];
@@ -105,7 +105,7 @@ public class TestBench {
 			Method m = myClass.getMethod(methodName, params);
 			m.invoke(myObject, n);
 		} catch (Exception e) {
-			System.err.println("Error loading the class 2");
+			System.err.println("Error loading the method"+methodName);
 			System.out.println(e.toString());
 		}
 	}
