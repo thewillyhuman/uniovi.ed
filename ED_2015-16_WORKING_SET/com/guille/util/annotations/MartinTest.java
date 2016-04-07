@@ -10,11 +10,11 @@ package com.guille.util.annotations;
  */
 public @interface MartinTest {
 
-	public enum Priority {
-		LOW, MEDIUM, HIGH
-	}
+    public enum Priority {
+	LOW, MEDIUM, HIGH
+    }
 
-	Priority priority() default Priority.HIGH;
+    Priority priority() default Priority.HIGH;
 
-	String author() default "Martin Gonzalez";
+    String author() default "Martin Gonzalez";
 }

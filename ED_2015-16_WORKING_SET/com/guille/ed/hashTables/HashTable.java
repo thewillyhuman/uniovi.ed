@@ -4,6 +4,13 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import com.guille.ed.util.math.aks.AKS;
 
+/**
+ * Represents a completely functional hashTable
+ * 
+ * @author Guillermo Facundo Colunga
+ * @param <T>
+ *            is the data type the hash table will store.
+ */
 public class HashTable<T extends Comparable<T>> {
 
 	// Constants.
@@ -133,6 +140,7 @@ public class HashTable<T extends Comparable<T>> {
 		case DOUBLE_HASHING:
 			return ((Math.abs(element.hashCode()) + i * (R - Math.abs(element.hashCode() % R))) % B);
 		}
+		// That will be the case of quadratic probing.
 		return ((Math.abs(element.hashCode()) + (i * i)) % B);
 	}
 
