@@ -1,0 +1,15 @@
+com.guille.ed.algorithmics
+com.guille.ed.algorithmics.test
+com.guille.ed.allTests
+com.guille.ed.avlTrees
+com.guille.ed.avlTrees.tests
+com.guille.ed.graphs
+com.guille.ed.graphs.tests
+com.guille.ed.hashTables
+com.guille.ed.hashTables.tests
+com.guille.ed.priorityQueues
+com.guille.ed.priorityQueues.Tests
+com.guille.ed.util.math.aks
+com.guille.util.annotations
+com.guille.util.exceptions
+com.guille.util.print
