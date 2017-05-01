@@ -2,31 +2,63 @@
 
 ## Description 
 This repository contains all the necessary code to understand correctly the subject. As you know it's forbiden to copy your code in this subject and given that this is a public repository and teachers know its existance I strongly recommend you not to copy this code. Otherwise if you do it I have to be mention in the JavaDoc tag @author.
+To give some structure to the course it's given as an API called willyOS with the following internal architecture:
+```php
+ - willyOS
+   - SDK
+     - Foundation
+       - AVLTree
+       - ...
+     - MathsKit
+       - AKS
+       - ...
+```
+# Foundation
+The Foundation package includes all the types and structures that represent the core of the API. Example of that are the AVLTrees, the HashTables, Graphs and the Priority Queues.
+   
+## AVL Tree
+###  Overview
+In computer science, an AVL tree is a self-balancing binary search tree. It was the first such data structure to be invented.In an AVL tree, the heights of the two child subtrees of any node differ by at most one; if at any time they differ by more than one, rebalancing is done to restore this property. Lookup, insertion, and deletion all take O(log n) time in both the average and worst cases, where n is the number of nodes in the tree prior to the operation. Insertions and deletions may require the tree to be rebalanced by one or more tree rotations. --From Wikipedia.
+You can create new AVL Trees as following:
+```JAVA
+  // AVL Tree that stores integer objects.
+  AVLTree<Integer> intTree = new AVLTree<Integer>();
 
-## License
+  // AVL Tree that stores string objects.
+  AVLTree<String> stringTree = new AVLTree<String>();
+```
+As a result you have to know that the AVLTree constitutes a generic type, so can be instansiated with any type.
+```JAVA
+  // AVL Tree that stores integer objects.
+  AVLTree<T> genericTree = new AVLTree<T>();
+```
+    
+###  Adding and Removing values
+Imagine that you want to add some values to an AVL tree. For that you have to call to the ```JAVA add(T value)```. An example of that could be:
+```JAVA
+  // Adding some values to the tree.
+  intTree.add(5);
+  intTree.add(3);
+  intTree.add(7);
+  intTree.add(6);
+  intTree.add(9);
 
-MIT License
+  // Will create a tree like this.
+      6
+     / \
+    5   7
+   /     \
+  3       9
+```
 
-Copyright (c) 2016 Guillermo Facundo Colunga
+To remove values from the item just call the ```JAVA remove(T value)```. For example:
+```JAVA
+  // Adding some values to the tree.
+  intTree.remove(3);
+  intTree.add(5);
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-<img src="http://es.creativecommons.org/blog/wp-content/uploads/2013/04/by-nc.eu_petit.png" height="61" align="middle">
-<img src="https://github.com/computer-engineering-uniovi/standars/blob/master/ovicomputing@small.png" align="middle">
-<img src="https://s3-eu-west-1.amazonaws.com/guille.uniovi/Files/Guill_io-logo%40color.png" height="61" align="middle">
+  // Will create a tree like this.
+      7
+     / \
+    6   9
+```
