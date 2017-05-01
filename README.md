@@ -32,33 +32,15 @@ As a result you have to know that the AVLTree constitutes a generic type, so can
   // AVL Tree that stores integer objects.
   AVLTree<T> genericTree = new AVLTree<T>();
 ```
-    
-###  Adding and Removing values
-Imagine that you want to add some values to an AVL tree. For that you have to call to the ```add(T value)```. An example of that could be:
-```JAVA
-  // Adding some values to the tree.
-  intTree.add(5);
-  intTree.add(3);
-  intTree.add(7);
-  intTree.add(6);
-  intTree.add(9);
+   
+## Graph
+In computer science, a graph is defined as a set of vertices paired with a set of edges. The vertices are represented by circles, and the edges are the lines between them. Edges connect a vertex to other vertices.
 
-  // Will create a tree like this.
-      6
-     / \
-    5   7
-   /     \
-  3       9
-```
+> **Note:** Vertices are sometimes called "nodes", and edges are called "links".
+A graph can represent a social network. Each person is a vertex, and people who know each other are connected by edges.
 
-To remove values from the item just call the ```remove(T value)```. For example:
-```JAVA
-  // Adding some values to the tree.
-  intTree.remove(3);
-  intTree.add(5);
-
-  // Will create a tree like this.
-      7
-     / \
-    6   9
+To create a graph you can use:
+```java
+  // An integer graph for 5 nodes.
+  Graph<Integer> integerGraph = new Graph<Integer>(5);
 ```
