@@ -34,7 +34,7 @@ As a result you have to know that the AVLTree constitutes a generic type, so can
 ```
     
 ###  Adding and Removing values
-Imagine that you want to add some values to an AVL tree. For that you have to call to the ```JAVA add(T value)```. An example of that could be:
+Imagine that you want to add some values to an AVL tree. For that you have to call to the ```add(T value)```. An example of that could be:
 ```JAVA
   // Adding some values to the tree.
   intTree.add(5);
@@ -51,7 +51,7 @@ Imagine that you want to add some values to an AVL tree. For that you have to ca
   3       9
 ```
 
-To remove values from the item just call the ```JAVA remove(T value)```. For example:
+To remove values from the item just call the ```remove(T value)```. For example:
 ```JAVA
   // Adding some values to the tree.
   intTree.remove(3);
