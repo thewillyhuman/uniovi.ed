@@ -44,3 +44,21 @@ To create a graph you can use:
   // An integer graph for 5 nodes.
   Graph<Integer> integerGraph = new Graph<Integer>(5);
 ```
+   
+### Hash Table
+A hash table allows you to store and retrieve objects by a "key".
+A hash table is used to implement structures, such as a dictionary, a map, and an associative array. These structures can be implemented by a tree or a plain array, but it is efficient to use a hash table.
+To create a new Hash Table you can use:
+```java
+  // A new hash table with an initial size of 7, a linear redispersion type and a 0.5 as a minimun load factor.
+  HashTable<Integer> ht = new HashTable<Integer>(7, HashTable.LINEAR_PROBING, 0.5);
+```
+   
+### Priority Queue
+A  priority queue is a queue where the most important element is always at the front.
+The queue can be a max-priority queue (largest element first) or a min-priority queue (smallest element first).
+To create a new priority queue you can use:
+```java
+  // A new priority queue of integer elements.
+  BinaryHeap<Integer> integerHeap;
+```
